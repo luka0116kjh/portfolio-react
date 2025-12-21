@@ -22,9 +22,9 @@ export default function App() {
       role: "Student · Programmer · AI Engineer",
       oneLiner: "I learn fast, ship faster, and share what I learn.",
       links: {
-        mail: "mailto:you@example.com",
+        mail: "kjh08116@naver.com",
         github: "https://github.com/luka0116kjh",
-        blog: "https://typhoon-ursinia-b26.notion.site/",
+        blog: "https://typhoon-ursinia-b26.notion.site/luka-blog-2b1a01a0e28580939f1df409b010bf76",
       },
 
       introKo: "안녕하세요, 만들고, 부수고, 배우는 김진형 입니다.",
