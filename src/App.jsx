@@ -110,7 +110,7 @@ export default function App() {
           subtitle: "Notion blog study",
           desc: "노션을 활용해 블로그 형식의 개인 연구 공간을 만들고, 공부/연구 내용을 기록할 계획입니다.",
           linkText: "blog 이동",
-          link: "https://typhoon-ursinia-b26.notion.site/",
+          link: "https://typhoon-ursinia-b26.notion.site/luka-blog-2b1a01a0e28580939f1df409b010bf76",
           img: notionImg,
           tags: ["Notion", "Writing", "Study Log"],
         }
@@ -356,3 +356,4 @@ export default function App() {
     </div>
   );
 }
+
