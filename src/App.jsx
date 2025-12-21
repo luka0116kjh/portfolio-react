@@ -204,7 +204,6 @@ export default function App() {
       </header>
 
       <main id="top">
-        {/* HERO */}
         <section className="section hero">
           <div className="container heroGrid">
             <div>
@@ -235,7 +234,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* ABOUT */}
         <section id="about" className="section">
           <div className="container">
             <h2 className="h2">High School</h2>
@@ -264,7 +262,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* SKILLS */}
         <section id="skills" className="section">
           <div className="container">
             <h2 className="h2">Tech Stack</h2>
@@ -281,8 +278,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        {/* PROJECTS */}
         <section id="projects" className="section">
           <div className="container">
             <h2 className="h2">Projects</h2>
@@ -308,8 +303,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        {/* VISUALCAMP */}
         <section id="visualcamp" className="section">
           <div className="container">
             <h2 className="h2">VisualCamp Experience</h2>
