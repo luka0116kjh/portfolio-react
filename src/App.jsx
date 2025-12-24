@@ -88,7 +88,7 @@ export default function App() {
         },
         {
           title: "Security & Hacking",
-          desc: "화이트해커 교육을 계기로 웹해킹/포렌식/리버싱/네트워크를 공부를 합니다..",
+          desc: "화이트해커 교육을 계기로 웹해킹/포렌식/리버싱/네트워크를 공부를 합니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/bl.png",
         },
         {
