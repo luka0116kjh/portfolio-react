@@ -144,8 +144,7 @@ export default function App() {
         tags: ["Security", "Frontend", "Algorithms", "Documentation"],
 
         fields: [
-          "애플리케이션 보안 및 프론트엔드 개발 실습",
-          "웹 취약점 관점 훈련",
+          "애플리케이션 보안 및 프론트엔드 개발 실습"
         ],
 
         works: [
