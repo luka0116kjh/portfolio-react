@@ -45,6 +45,7 @@ export default function App() {
       highschool: {
         inside: [
           "학생기자단",
+          "학교 블로그 글 업로드",
           "서기",
           "스마트 도우미",
           "인공지능 창업체험 참여",
