@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import notionImg from "./assets/notion.png";
 import webv from "./assets/pythonv.png";
+import snake from "./assets/snake.png";
 
 function scrollToId(id) {
   const el = document.getElementById(id);
@@ -130,6 +131,13 @@ export default function App() {
           desc: "현대오토에버 화이트해커 양성교육을 듣고 화이트해커 경진대회를 나가 입상을 받았습니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/wh.jpg",
           tags: ["CTF", "Web", "Forensics"],
+        },
+                {
+          title: "snake game",
+          subtitle: "웹 기반 스네이크 게임",
+          desc: "python pygame을 사용하여 웹에서 플레이할 수 있는 스네이크 게임을 개발했습니다. 기존 스네이크게임에서 특수규칙을 추가하여 난이도를 높이면서 재미를 더했습니다.",
+          img: snake,
+          tags: ["Python", "pygame", "Game Development"],
         },
         {
           title: "Web Vulnerability Scanner",
