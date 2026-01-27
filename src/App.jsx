@@ -116,8 +116,25 @@ export default function App() {
           link: "https://typhoon-ursinia-b26.notion.site/luka-blog-2b1a01a0e28580939f1df409b010bf76",
           img: notionImg,
           tags: ["Notion", "Writing", "Study Log"],
-        }
-        ,
+        },
+        {
+          title: "snake game",
+          subtitle: "웹 기반 스네이크 게임",
+          desc: "python pygame을 사용하여 웹에서 플레이할 수 있는 스네이크 게임을 개발했습니다. 기존 스네이크게임에서 특수규칙을 추가하여 난이도를 높이면서 재미를 더했습니다.",
+          linkText: "GitHub 이동",
+          link: "https://github.com/luka0116kjh/Snake-game",
+          img: snake,
+          tags: ["Python", "pygame", "Game Development"],
+        },
+        {
+          title: "Web Vulnerability Scanner",
+          subtitle: "웹사이트 간단 보안 진단 도구",
+          desc: "Python Flask를 백엔드로 사용하여 웹사이트의 HTTPS 연결 여부와 서버 응답 속도를 진단하는 도구입니다. CORS 이슈를 해결하기 위해 프록시 서버 구조를 설계했습니다.",
+          linkText: "GitHub 이동",
+          link: "https://github.com/luka0116kjh/simple-antivirus",
+          img: webv,
+          tags: ["Python", "Flask", "Security"],
+        },
         {
           title: "총장배 로봇 프로그래밍 경진대회 참가",
           subtitle: "한국공학대 메카트로닉스 EV3",
@@ -132,20 +149,6 @@ export default function App() {
           img: "https://luka0116kjh.github.io/portfolio/img/wh.jpg",
           tags: ["CTF", "Web", "Forensics"],
         },
-                {
-          title: "snake game",
-          subtitle: "웹 기반 스네이크 게임",
-          desc: "python pygame을 사용하여 웹에서 플레이할 수 있는 스네이크 게임을 개발했습니다. 기존 스네이크게임에서 특수규칙을 추가하여 난이도를 높이면서 재미를 더했습니다.",
-          img: snake,
-          tags: ["Python", "pygame", "Game Development"],
-        },
-        {
-          title: "Web Vulnerability Scanner",
-          subtitle: "웹사이트 보안 진단 도구",
-          desc: "Python Flask를 백엔드로 사용하여 웹사이트의 HTTPS 연결 여부와 서버 응답 속도를 진단하는 도구입니다. CORS 이슈를 해결하기 위해 프록시 서버 구조를 설계했습니다.",
-          img: webv,
-          tags: ["Python", "Flask", "Security"],
-        }
       ],
 
       visualcamp: {
