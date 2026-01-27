@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import notionImg from "./assets/notion.png";
+import webv from "./assets/pythonv.png";
 
 function scrollToId(id) {
   const el = document.getElementById(id);
@@ -130,6 +131,13 @@ export default function App() {
           img: "https://luka0116kjh.github.io/portfolio/img/wh.jpg",
           tags: ["CTF", "Web", "Forensics"],
         },
+        {
+          title: "Web Vulnerability Scanner",
+          subtitle: "웹사이트 보안 진단 도구",
+          desc: "Python Flask를 백엔드로 사용하여 웹사이트의 HTTPS 연결 여부와 서버 응답 속도를 진단하는 도구입니다. CORS 이슈를 해결하기 위해 프록시 서버 구조를 설계했습니다.",
+          img: webv,
+          tags: ["Python", "Flask", "Security"],
+        }
       ],
 
       visualcamp: {
