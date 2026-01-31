@@ -4,7 +4,7 @@ import notionImg from "./assets/notion.png";
 import webv from "./assets/pythonv.png";
 import snake from "./assets/snake.png";
 import githubIcon from "./assets/github.svg";
-import pro from "./assets/pro.png";
+import bo from "./assets/pro.png";
 
 function scrollToId(id) {
   const el = document.getElementById(id);
@@ -98,7 +98,7 @@ export default function App() {
         {
           title: "Algorithms & Data Structures",
           desc: "효율적인 알고리즘 설계와 자료구조 활용에 집중하며 최적화를 연습합니다.",
-          img: pro,
+          img: bo,
         }, {
           title: "Robotics & Automation",
           desc: "LEGO EV3 기반 로봇 프로그래밍을 통해 센서/모터 제어와 미션 수행 로직을 구현했습니다. 대회 환경에서 디버깅과 최적화를 반복하며 안정적인 동작을 완성했습니다.",
