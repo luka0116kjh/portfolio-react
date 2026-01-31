@@ -3,7 +3,7 @@ import "./App.css";
 import notionImg from "./assets/notion.png";
 import webv from "./assets/pythonv.png";
 import snake from "./assets/snake.png";
-import githubIcon from "./assets/github.pug";
+import githubIcon from './assets/github.png';
 import bo from "./assets/pro.png";
 
 function scrollToId(id) {
