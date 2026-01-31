@@ -3,6 +3,8 @@ import "./App.css";
 import notionImg from "./assets/notion.png";
 import webv from "./assets/pythonv.png";
 import snake from "./assets/snake.png";
+import githubIcon from "./assets/github.svg";
+import pro from "./assets/pro.png";
 
 function scrollToId(id) {
   const el = document.getElementById(id);
@@ -80,8 +82,8 @@ export default function App() {
         },
         {
           title: "Web Development",
-          desc: "HTML, CSS, JavaScript로 반응형 웹사이트를 제작합니다. 지금은 간단하게라도 제작하며 퀄리티를 높여갑니다.",
-          img: "https://luka0116kjh.github.io/portfolio/img/se.png",
+          desc: "HTML, CSS, JavaScript, React로 반응형 웹사이트를 제작합니다. 지금은 간단하게라도 제작하며 퀄리티를 높여갑니다.",
+          img: githubIcon,
         },
         {
           title: "AI & Machine Learning",
@@ -96,7 +98,7 @@ export default function App() {
         {
           title: "Algorithms & Data Structures",
           desc: "효율적인 알고리즘 설계와 자료구조 활용에 집중하며 최적화를 연습합니다.",
-          img: "https://luka0116kjh.github.io/portfolio/img/algorithms.png",
+          img: pro,
         }, {
           title: "Robotics & Automation",
           desc: "LEGO EV3 기반 로봇 프로그래밍을 통해 센서/모터 제어와 미션 수행 로직을 구현했습니다. 대회 환경에서 디버깅과 최적화를 반복하며 안정적인 동작을 완성했습니다.",
