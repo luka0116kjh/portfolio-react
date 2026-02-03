@@ -87,17 +87,17 @@ export default function App() {
         },
         {
           title: "AI & Machine Learning",
-          desc: "머신러닝/딥러닝 등 AI 관련 학습을 지속합니다.",
+          desc: "데이터 모델링을 통해 지능형 보안 시스템의 기초를 다집니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
         },
         {
           title: "Security & Hacking",
-          desc: "화이트해커 교육을 계기로 웹해킹/포렌식/리버싱/네트워크를 공부를 합니다.",
+          desc: "현대오토에버 경진대회 입상 경험을 바탕으로 웹 해킹, 리버싱, 네트워크 보안을 연구합니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/bl.png",
         },
         {
           title: "Algorithms & Data Structures",
-          desc: "효율적인 알고리즘 설계와 자료구조 활용에 집중하며 최적화를 연습합니다.",
+          desc: "복잡한 문제를 효율적으로 해결하기 위한 자료구조 활용에 집중합니다.",
           img: bo,
         }, {
           title: "Robotics & Automation",
@@ -158,19 +158,19 @@ export default function App() {
 
         summary: "보안 관점으로 웹 기능을 구현하고, 문제 풀이를 문서화해 설명 가능한 결과물로 정리했습니다.",
 
-        desc: "비주얼캠프 도제활동을 통해 애플리케이션 보안과 프론트엔드 개발을 함께 학습하며, 실습/문제 해결/정리까지 연결하는 방식으로 역량을 키우고 있습니다.",
+        desc: "비주얼캠프 도제활동을 통해 애플리케이션, 웹 관련 프론트엔드 개발을 함께 학습하며, 실습/문제 해결/정리까지 연결하는 방식으로 역량을 키우고 있습니다.",
 
         role: "Application Security + Frontend Trainee",
 
         tags: ["Security", "Frontend", "Algorithms", "Documentation"],
 
         fields: [
-          "애플리케이션 보안 및 프론트엔드 개발 실습"
+          "애플리케이션, 웹 및 프론트엔드 개발 실습"
         ],
 
         works: [
           "알고리즘 최적화 및 자료구조 이해 학습",
-          "입력 검증/에러 처리/권한 흐름 등 보안 고려한 구현 연습",
+          "프론트엔드 개발 환경 설정 및 기본 기능 구현",
           "문제 풀이 과정 및 코드 원리 설명",
         ],
 
@@ -184,7 +184,7 @@ export default function App() {
 
         outcomes: [
           "문제 풀이 후 코드 원리 설명으로 이해도/커뮤니케이션 향상",
-          "보안 관점 체크리스트 기반으로 구현 습관 강화(검증/권한/흐름)",
+          "프론트엔드 개발 환경 설정 및 기본 기능 구현",
           "학습 내용을 재사용 가능한 형태로 정리(템플릿화/정리 방식 고도화)",
         ],
 
