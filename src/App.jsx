@@ -87,11 +87,6 @@ export default function App() {
           img: githubIcon,
         },
         {
-          title: "Data Science & Analysis",
-          desc: "Kaggle를 통해 데이터 시각화를 실습했습니다. 파이썬을 활용한 데이터 정제 및 편집 능력을 갖추고 있습니다.",
-          img: Ddata,
-        },
-        {
           title: "Security & Hacking",
           desc: "현대오토에버 경진대회 입상 경험을 바탕으로 웹 해킹, 리버싱, 네트워크 보안을 연구합니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/bl.png",
