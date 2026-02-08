@@ -87,14 +87,9 @@ export default function App() {
           img: githubIcon,
         },
         {
-          title: "AI & Machine Learning",
-          desc: "데이터 모델링을 통해 지능형 보안 시스템의 기초를 다집니다.",
-          img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
-        },
-        {
           title: "Data Science & Analysis",
           desc: "Kaggle를 통해 데이터 시각화를 실습했습니다. 파이썬을 활용한 데이터 정제 및 편집 능력을 갖추고 있습니다.",
-          img: Ddata, 
+          img: Ddata,
         },
         {
           title: "Security & Hacking",
