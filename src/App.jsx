@@ -87,6 +87,11 @@ export default function App() {
           img: githubIcon,
         },
         {
+          title: "AI & Machine Learning",
+          desc: "데이터 모델링을 통해 지능형 보안 시스템의 기초를 다집니다.",
+          img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
+        },
+        {
           title: "Security & Hacking",
           desc: "현대오토에버 경진대회 입상 경험을 바탕으로 웹 해킹, 리버싱, 네트워크 보안을 연구합니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/bl.png",
