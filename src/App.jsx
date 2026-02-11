@@ -43,6 +43,7 @@ export default function App() {
         "JavaScript",
         "React",
         "TypeScript",
+        "Vibe Coding",
         "SQL(MySQL)",
         "ASM",
       ],
