@@ -5,7 +5,8 @@ import webv from "./assets/pythonv.png";
 import snake from "./assets/snake.png";
 import githubIcon from './assets/github.png';
 import bo from "./assets/pro.png";
-import Ddata from "./assets/date.png";
+import qwer from "./assets/보고서.png";
+
 
 function scrollToId(id) {
   const el = document.getElementById(id);
@@ -83,14 +84,14 @@ export default function App() {
           img: "https://luka0116kjh.github.io/portfolio/img/python.jpg",
         },
         {
+          title: "Algorithms & Data Structures",
+          desc: "복잡한 문제를 효율적으로 해결하기 위한 자료구조 활용에 집중합니다.",
+          img: bo,
+        },
+        {
           title: "Web Development",
           desc: "HTML, CSS, JavaScript, React로 반응형 웹사이트를 제작합니다. 지금은 간단하게라도 제작하며 퀄리티를 높여갑니다.",
           img: githubIcon,
-        },
-        {
-          title: "AI & Machine Learning",
-          desc: "데이터 모델링을 통해 지능형 보안 시스템의 기초를 다집니다.",
-          img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
         },
         {
           title: "Security & Hacking",
@@ -98,19 +99,19 @@ export default function App() {
           img: "https://luka0116kjh.github.io/portfolio/img/bl.png",
         },
         {
-          title: "Algorithms & Data Structures",
-          desc: "복잡한 문제를 효율적으로 해결하기 위한 자료구조 활용에 집중합니다.",
-          img: bo,
-        }, {
+          title: "AI & Machine Learning",
+          desc: "AI의 머신러닝 딥러닝등으로 AI관련으로 여러 공부를 하면 배우고있습니다.",
+          img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
+        },
+        {
           title: "Robotics & Automation",
-          desc: "LEGO EV3 기반 로봇 프로그래밍을 통해 센서/모터 제어와 미션 수행 로직을 구현했습니다. 대회 환경에서 디버깅과 최적화를 반복하며 안정적인 동작을 완성했습니다.",
+          desc: "EV3 로봇 프로그래밍 경진대회에 참가하여 자율주행 로봇에 코딩을 입력하여 동작 제어와 실시간 알고리즘을 구현한 경험이 있습니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/ev3.jpg"
           ,
         },
 
       ],
-
-      projects: [
+      techProjects: [
         {
           title: "Concept Web Creation",
           subtitle: "Notion blog study",
@@ -138,6 +139,17 @@ export default function App() {
           img: webv,
           tags: ["Python", "Flask", "Security"],
         },
+        {
+          title: "홈페이지 취약점 분석 보고서",
+          subtitle: "경기자동차과학고등학교 보안 패치 권고",
+          desc: "학교 홈페이지 개편 이후 API 통합 과정에서 발견된 보안 취약점을 분석하고, 실제 패치까지 이뤄진 과정을 담은 보고서입니다.",
+          linkText: "보고서 보기",
+          link: "https://docs.google.com/document/d/1Yui7xDmhvp7FbTuMO3sLaGFI1_H-jHLo0Uzidonn1fk/edit?usp=sharing",
+          img: qwer,
+          tags: ["Security", "Vulnerability Analysis", "Report"],
+        },
+      ],
+      awards: [
         {
           title: "총장배 로봇 프로그래밍 경진대회 참가",
           subtitle: "한국공학대 메카트로닉스 EV3",
@@ -215,7 +227,8 @@ export default function App() {
           <nav className="nav">
             <button onClick={() => scrollToId("about")}>About</button>
             <button onClick={() => scrollToId("skills")}>Skills</button>
-            <button onClick={() => scrollToId("projects")}>Projects</button>
+            <button onClick={() => scrollToId("Tech projects")}>Tech Projects</button>
+            <button onClick={() => scrollToId("awards")}>Awards</button>
             <button onClick={() => scrollToId("visualcamp")}>VisualCamp</button>
           </nav>
 
@@ -300,13 +313,39 @@ export default function App() {
             </div>
           </div>
         </section>
-        <section id="projects" className="section">
+        {/* 기술 프로젝트 섹션 */}
+        <section id="Tech projects" className="section">
           <div className="container">
-            <h2 className="h2">Projects</h2>
-            <p className="muted">고등학교에서 참여한 대회 및 성과</p>
-
+            <h2 className="h2">Tech Projects</h2>
+            <p className="muted">직접 설계하고 구현한 소프트웨어 프로젝트입니다.</p>
             <div className="grid3">
-              {data.projects.map((p) => (
+              {data.techProjects.map((p) => (
+                <article className="card projectCard" key={p.title}>
+                  <img className="img" src={p.img} alt={p.title} loading="lazy" />
+                  <h3 className="h3">{p.title}</h3>
+                  <p className="muted">{p.subtitle}</p>
+                  <div className="chips">
+                    {p.tags?.map((t) => <span className="chip" key={t}>{t}</span>)}
+                  </div>
+                  <p className="p">{p.desc}</p>
+                  {p.link && (
+                    <a className="link" href={p.link} target="_blank" rel="noreferrer">
+                      {p.linkText ?? "Link"}
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 수상 및 성과 섹션 */}
+        <section id="awards" className="section">
+          <div className="container">
+            <h2 className="h2">Awards & Experience</h2>
+            <p className="muted">대회 수상 및 대외 활동 기록입니다.</p>
+            <div className="grid3">
+              {data.awards.map((p) => (
                 <article className="card projectCard" key={p.title}>
                   <img className="img" src={p.img} alt={p.title} loading="lazy" />
                   <h3 className="h3">{p.title}</h3>
