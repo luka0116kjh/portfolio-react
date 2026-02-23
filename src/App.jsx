@@ -142,7 +142,7 @@ export default function App() {
         {
           title: "홈페이지 취약점 분석 보고서",
           subtitle: "경기자동차과학고등학교 보안 패치 권고",
-          desc: "학교 홈페이지 개편 이후 API 통합 과정에서 발견된 보안 취약점을 분석하고, 실제 패치까지 이뤄진 과정을 담은 보고서입니다.",
+          desc: "학교 홈페이지 개편 이후 API 통합 과정에서 발견된 보안 취약점을 분석한 과정을 담은 보고서입니다.",
           linkText: "보고서 보기",
           link: "https://docs.google.com/document/d/1Yui7xDmhvp7FbTuMO3sLaGFI1_H-jHLo0Uzidonn1fk/edit?usp=sharing",
           img: qwer,
