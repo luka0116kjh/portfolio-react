@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import notionImg from "./assets/notion.png";
-import webv from "./assets/pythonv.png";
+import webv from "./assets/zore.png";
 import snake from "./assets/snake.png";
 import githubIcon from './assets/github.png';
 import bo from "./assets/pro.png";
@@ -144,11 +144,11 @@ export default function App() {
           tags: ["HTML", "JavaScript", "API"],
         },
         {
-          title: "Web Vulnerability Scanner",
-          subtitle: "웹사이트 간단 보안 진단 도구",
-          desc: "Python Flask를 백엔드로 사용하여 웹사이트의 HTTPS 연결 여부와 서버 응답 속도를 진단하는 도구입니다. CORS 이슈를 해결하기 위해 프록시 서버 구조를 설계했습니다.",
+          title: "ZeroScan",
+          subtitle: "웹 보안 상태 진단 도구",
+          desc: "Python Flask 기반으로 설계된 웹 보안 진단 시스템입니다. HTTPS 적용 여부, 서버 응답 속도, 기본 보안 요소를 분석하며, CORS 제한을 해결하기 위해 프록시 서버 아키텍처를 구현했습니다.",
           linkText: "GitHub 이동",
-          link: "https://github.com/luka0116kjh/simple-antivirus",
+          link: "https://github.com/luka0116kjh/ZeroScan",
           img: webv,
           tags: ["Python", "Flask", "Security"],
         },
