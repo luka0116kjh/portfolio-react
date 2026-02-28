@@ -90,12 +90,12 @@ export default function App() {
         {
           title: "Algorithms & Data Structures",
           desc: "복잡한 문제를 효율적으로 해결하기 위한 자료구조 활용에 집중합니다.",
-          img: bo,
+          img: "https://luka0116kjh.github.io/portfolio/img/bo.png",
         },
         {
           title: "Web Development",
           desc: "HTML, CSS, JavaScript, React로 반응형 웹사이트를 제작합니다. 지금은 간단하게라도 제작하며 퀄리티를 높여갑니다.",
-          img: githubIcon,
+          img: "https://luka0116kjh.github.io/portfolio/img/web.png",
         },
         {
           title: "Security & Hacking",
