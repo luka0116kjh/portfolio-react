@@ -75,6 +75,7 @@ export default function App() {
           "현대오토에버 해킹대회 출전",
           "현대오토에버 해킹대회 입상",
           "로봇 프로그래밍 경진 대회 3등",
+          "YHHS2026 컨퍼런스 참가",
         ],
         imgInside: "https://luka0116kjh.github.io/portfolio/img/rlwkeks.jpg",
         imgOutside: "https://luka0116kjh.github.io/portfolio/img/naver.png",
