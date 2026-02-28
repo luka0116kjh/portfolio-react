@@ -141,7 +141,7 @@ export default function App() {
           linkText: "급식확인",
           link: "https://luka0116kjh.github.io/ghaslunch1/",
           img: lunch,
-          tags: ["HTML", "CSS", "JavaScript"],
+          tags: ["HTML", "JavaScript", "API"],
         },
         {
           title: "Web Vulnerability Scanner",
