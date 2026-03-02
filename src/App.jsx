@@ -46,7 +46,8 @@ export default function App() {
         "React",
         "TypeScript",
         "Vibe Coding",
-        "SQL(MySQL)",
+        "SQL(OracleSQL)",
+        "Linux",
         "ASM",
       ],
 
