@@ -7,6 +7,7 @@ import githubIcon from './assets/github.png';
 import bo from "./assets/pro.png";
 import qwer from "./assets/보고서.png";
 import lunch from "./assets/lunch.png";
+import DNA from "./assets/DNA.png";
 
 
 function scrollToId(id) {
@@ -152,6 +153,15 @@ export default function App() {
           link: "https://github.com/luka0116kjh/ZeroScan",
           img: webv,
           tags: ["Python", "Flask", "Security"],
+        },
+        {
+          title: "DevDNA",
+          subtitle: "github 사용자 사용기록 조회",
+          desc: "GitHub 활동 데이터를 분석해 개발자 성향을 Three.js 기반의 3D 시각화로 보여주는 풀스택 웹 서비스입니다. Node.js로 백엔드 API를 구축하고, React와 Three.js로 프론트엔드를 개발하여 GitHub 활동을 인터랙티브하게 탐색할 수 있도록 구현했습니다.",
+          linkText: "GitHub 이동",
+          link: "https://github.com/luka0116kjh/DevDNA",
+          img: DNA,
+          tags: ["React", "Flask", "Three.js"],
         },
         {
           title: "홈페이지 취약점 분석 보고서",
