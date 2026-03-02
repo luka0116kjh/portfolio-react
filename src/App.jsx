@@ -136,7 +136,7 @@ export default function App() {
         },
         {
           title: "경기자동차과학고 급식확인",
-          subtitle: "오늘 내일 급식확인",
+          subtitle: "오늘 이번주 급식확인",
           desc: "나이스(NEIS) 오픈 API를 연동하여 경기자동차과학고등학교의 실시간 급식 정보를 제공하는 웹 서비스입니다. 오늘과 이번주 급식 메뉴를 확인할 수 있습니다.",
           linkText: "급식확인",
           link: "https://luka0116kjh.github.io/ghaslunch1/",
