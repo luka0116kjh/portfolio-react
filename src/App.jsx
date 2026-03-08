@@ -8,6 +8,8 @@ import bo from "./assets/pro.png";
 import qwer from "./assets/보고서.png";
 import lunch from "./assets/lunch.png";
 import DNA from "./assets/DNA.png";
+import tistory from "./assets/t.png";
+import waf from "./assets/정보.png";
 
 
 function scrollToId(id) {
@@ -32,7 +34,7 @@ export default function App() {
       links: {
         mail: "mailto:kjh08116@naver.com",
         github: "https://github.com/luka0116kjh",
-        blog: "https://typhoon-ursinia-b26.notion.site/luka-blog-2b1a01a0e28580939f1df409b010bf76",
+        blog: "https://luka04.tistory.com/",
       },
 
       introKo: "안녕하세요, 만들고, 부수고, 배우는 김진형 입니다.",
@@ -120,12 +122,12 @@ export default function App() {
       techProjects: [
         {
           title: "Concept Web Creation",
-          subtitle: "Notion blog study",
-          desc: "노션을 활용해 블로그 형식의 개인 연구 공간을 만들고, 공부/연구 내용을 기록할 계획입니다.",
+          subtitle: "Tistory blog study",
+          desc: "티스토리를 활용해 블로그 형식의 개인 연구 공간을 만들고, 공부/연구 내용을 기록할 계획입니다.",
           linkText: "blog 이동",
-          link: "https://typhoon-ursinia-b26.notion.site/luka-blog-2b1a01a0e28580939f1df409b010bf76",
-          img: notionImg,
-          tags: ["Notion", "Writing", "Study Log"],
+          link: "https://luka04.tistory.com/",
+          img: tistory,
+          tags: ["Tistory", "Writing", "Study Log"],
         },
         {
           title: "snake game",
@@ -153,6 +155,15 @@ export default function App() {
           link: "https://github.com/luka0116kjh/ZeroScan",
           img: webv,
           tags: ["Python", "Flask", "Security"],
+        },
+        {
+          title: "ZeroScan WAF",
+          subtitle: "실시간 웹 위험 감지 프로젝트",
+          desc: "FastAPI 기반으로 구축한 웹 보안 탐지 시스템입니다. Chrome 확장 프로그램과 연동하여 사용자가 방문하는 URL을 실시간 분석하고, SQLi/XSS 패턴 기반 위험 요소를 탐지하여 경고 또는 차단 기능을 제공합니다.",
+          linkText: "GitHub 이동",
+          link: "https://github.com/luka0116kjh/waf",
+          img: waf,
+          tags: ["Python", "FastAPI", "Security"],
         },
         {
           title: "DevDNA",
