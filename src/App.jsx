@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import notionImg from "./assets/notion.png";
-import webv from "./assets/zore.png";
+import lifeos from "./assets/lifeos.png";
 import snake from "./assets/snake.png";
 import githubIcon from './assets/github.png';
 import bo from "./assets/pro.png";
@@ -97,8 +96,8 @@ export default function App() {
           img: bo,
         },
         {
-          title: "Web Development",
-          desc: "HTML, CSS, JavaScript, React로 반응형 웹사이트를 제작합니다. 지금은 간단하게라도 제작하며 퀄리티를 높여갑니다.",
+          title: "github works",
+          desc: "github에서 다양한 프로젝트를 진행하며, 협업과 코드 관리를 경험하고 있습니다.",
           img: githubIcon,
         },
         {
@@ -110,12 +109,6 @@ export default function App() {
           title: "AI & Machine Learning",
           desc: "AI의 머신러닝 딥러닝등으로 AI관련으로 여러 공부를 하면 배우고있습니다.",
           img: "https://luka0116kjh.github.io/portfolio/img/ai.png",
-        },
-        {
-          title: "Robotics & Automation",
-          desc: "EV3 로봇 프로그래밍 경진대회에 참가하여 자율주행 로봇에 코딩을 입력하여 동작 제어와 실시간 알고리즘을 구현한 경험이 있습니다.",
-          img: "https://luka0116kjh.github.io/portfolio/img/ev3.jpg"
-          ,
         },
 
       ],
@@ -148,13 +141,13 @@ export default function App() {
           tags: ["HTML", "JavaScript", "API"],
         },
         {
-          title: "ZeroScan",
-          subtitle: "웹 보안 상태 진단 도구",
-          desc: "Python Flask 기반으로 설계된 웹 보안 진단 시스템입니다. HTTPS 적용 여부, 서버 응답 속도, 기본 보안 요소를 분석하며, CORS 제한을 해결하기 위해 프록시 서버 아키텍처를 구현했습니다.",
+          title: "Life OS",
+          subtitle: "개인용 생산성 도구",
+          desc: "LifeOS는 목표 설정부터 실행, 진행도 관리까지 웹과 모바일에서 통합 관리하는 개인 삶을 ai가 운영 시스템이다.",
           linkText: "GitHub 이동",
-          link: "https://github.com/luka0116kjh/ZeroScan",
-          img: webv,
-          tags: ["Python", "Flask", "Security"],
+          link: "https://github.com/luka0116kjh/LifeOS-",
+          img: lifeos,
+          tags: ["Web", "typescript", "mobile"],
         },
         {
           title: "ZeroScan WAF",
