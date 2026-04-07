@@ -14,15 +14,31 @@ import zeroScan from "./assets/정보.png";
 const profile = {
   name: "Luka",
   title: "Frontend Developer | Security Engineering | AI Prototyping",
-  headline: "문제를 읽고, 구조를 설계하고, 동작하는 결과물까지 연결하는 개발자",
+  headline: "코드 너머의 가능성을 탐구하며, 안전하고 창의적인 디지털 세상을 설계합니다",
   summary:
-    "사용자가 바로 이해할 수 있는 화면과, 유지보수 가능한 구조를 함께 만드는 데 집중합니다. 포트폴리오 역시 단순 소개 페이지가 아니라 결과물을 검증할 수 있는 서비스로 설계했습니다.",
+    "보안 사고방식으로 시스템의 빈틈을 살피고, 프론트엔드 기술로 아이디어를 시각화합니다. 단순한 구현을 넘어 '왜 이 기술인가?'와 '어떤 가치를 주는가?'에 대한 답을 찾는 과정을 즐깁니다. 기술은 제게 세상을 더 나은 방향으로 바꾸는 가장 강력한 도구입니다.",
   location: "Korea",
   email: "mailto:kjh08116@naver.com",
   github: "https://github.com/luka0116kjh",
   blog: "https://luka04.tistory.com/",
   velog: "https://velog.io/@luka0116kjh/posts",
 };
+
+const philosophy = [
+  {
+    title: "The Maker Mindset",
+    text: "머릿속의 아이디어를 여러가지 실행을 하면서 만약에 이게 실행이 된다면 어떨까? 라는 생각을 가지고 실패를 두려워하지 않고 일단 만들어보며 배웁니다.",
+  },
+  {
+    title: "Security First",
+    text: "기능이 돌아가는 것만큼이나 안전하게 돌아가는 것이 중요합니다. 개발 초기 단계부터 보안적 관점을 결합해 지속 가능한 서비스를 지향합니다.",
+  },
+  {
+    title: "Continuous Explorer",
+    text: "AI, 3D 웹, 보안 등 경계를 두지 않고 새로운 기술을 학습합니다. 서로 다른 분야를 연결해 독특한 결과물을 만들어내는 것을 좋아합니다.",
+  },
+];
+
 
 const quickFacts = [
   {
@@ -77,13 +93,13 @@ const skillGroups = [
     name: "Security / Infra",
     reason:
       "취약점 분석과 서비스 운영 관점의 실험을 위해 로컬 환경, 배포, 공격 패턴 이해를 함께 다뤘습니다.",
-    items: ["OWASP Top 10", "Linux", "GitHub Actions", "Git/GitHub"],
+    items: ["OWASP Top 10", "Linux", "GitHub Actions", "Git/GitHub", "ASM"],
   },
   {
     name: "Problem Solving",
     reason:
       "기능 구현 이전에 문제를 분해하고 적절한 자료구조와 흐름을 선택해야 프로젝트 완성도가 올라간다고 판단해 꾸준히 다졌습니다.",
-    items: ["Algorithms", "Data Structures", "Python", "Java", "ASM"],
+    items: ["Algorithms", "Data Structures", "Python", "Java"],
   },
 ];
 
@@ -385,12 +401,22 @@ function App() {
         <section id="about" className="contentSection">
           <div className="container">
             <SectionHeading
-              eyebrow="About"
-              title="채용 담당자가 빠르게 판단할 수 있게 설계한 포트폴리오"
-              description="이 페이지는 자기소개를 길게 늘어놓기보다, 어떤 문제를 어떤 방식으로 풀었는지 바로 확인할 수 있도록 구성했습니다."
+              eyebrow="Identity"
+              title="어떤 고민을 하며 무엇을 지향하는지 소개합니다"
+              description="단순히 기술 스택을 나열하기보다, 제가 개발을 대하는 태도와 세상을 바라보는 관점을 담았습니다."
             />
 
-            <div className="strengthGrid">
+            <div className="philosophyGrid">
+              {philosophy.map((item) => (
+                <article className="panel philosophyCard" key={item.title}>
+                  <p className="panelEyebrow">My Philosophy</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="strengthGrid sectionSpacing">
               {strengths.map((item) => (
                 <article className="panel" key={item.title}>
                   <p className="panelEyebrow">Core Strength</p>
@@ -406,7 +432,7 @@ function App() {
                 <h3>React 기반 정적 포트폴리오 + GitHub Actions 자동 배포</h3>
               </div>
               <pre className="architectureCode">
-{`Browser -> React UI -> Structured Portfolio Data
+                {`Browser -> React UI -> Structured Portfolio Data
 main push -> GitHub Actions -> vite build -> GitHub Pages`}
               </pre>
             </div>
