@@ -51,7 +51,7 @@ export default function App() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-panel md:px-10 px-6 py-4 flex justify-between items-center transition-all bg-dark-secondary/70">
         <div className="text-xl font-semibold tracking-tight text-text-main">
-          GHAS.<span className="text-brand-blue">Security Luka</span>
+          Luka.<span className="text-brand-blue">portfolio </span>
         </div>
         <div className="hidden md:flex gap-8 text-sm font-medium text-text-secondary">
           <a href="#problem" className="hover:text-white transition-colors">Philosophy</a>
