@@ -1,55 +1,42 @@
-:root {
-  font-family:
-    "IBM Plex Sans KR",
-    "Pretendard",
-    "SUIT",
-    "Segoe UI",
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #1b1711;
-  background: #f4f1e8;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #0A84FF;
+  --color-dark-main: #000000;
+  --color-dark-secondary: #0B0B0F;
+  --color-text-main: #F5F5F7;
+  --color-text-secondary: #86868B;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+:root {
+  background-color: var(--color-dark-main);
+  color: var(--color-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "SF Pro Display", Arial, sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-body,
-button,
-a,
-input,
-textarea {
-  font: inherit;
-}
-
-button {
-  padding: 0;
-}
-
-a {
-  color: inherit;
-}
-
-img {
-  max-width: 100%;
-}
-
-#root {
-  min-height: 100vh;
+.text-gradient {
+  background: linear-gradient(135deg, #F5F5F7 0%, #86868B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

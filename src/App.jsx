@@ -1,588 +1,281 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Shield, Lock, Eye, Code, Zap, ArrowRight, ChevronDown, Mail } from 'lucide-react';
+import './App.css'; // kept empty just in case
+import './index.css';
 
-import lifeos from "./assets/lifeos.png";
-import snake from "./assets/snake.png";
-import githubIcon from "./assets/github.png";
-import algorithmCard from "./assets/pro.png";
-import securityReport from "./assets/보고서.png";
-import lunch from "./assets/lunch.png";
-import devDNA from "./assets/DNA.png";
-import tistoryCover from "./assets/t.png";
-import zeroScan from "./assets/정보.png";
+const GithubIcon = ({ size = 24, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
-const profile = {
-  name: "Luka",
-  title: "Frontend Developer | Security Engineering | AI Prototyping",
-  headline: "코드 너머의 가능성을 탐구하며, 안전하고 창의적인 디지털 세상을 설계합니다",
-  summary:
-    "보안 사고방식으로 시스템의 빈틈을 살피고, 프론트엔드 기술로 아이디어를 시각화합니다. 단순한 구현을 넘어 '왜 이 기술인가?'와 '어떤 가치를 주는가?'에 대한 답을 찾는 과정을 즐깁니다. 기술은 제게 세상을 더 나은 방향으로 바꾸는 가장 강력한 도구입니다.",
-  location: "Korea",
-  email: "mailto:kjh08116@naver.com",
-  github: "https://github.com/luka0116kjh",
-  blog: "https://luka04.tistory.com/",
-  velog: "https://velog.io/@luka0116kjh/posts",
+const FadeIn = ({ children, delay = 0, className = "" }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+const ParallaxSection = ({ children, className = "" }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  return (
+    <section ref={ref} className={`relative overflow-hidden ${className}`}>
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-dark-main/80" />
+      </motion.div>
+      <div className="relative z-10 w-full h-full">
+        {children}
+      </div>
+    </section>
+  );
 };
 
-const philosophy = [
-  {
-    title: "The Maker Mindset",
-    text: "머릿속의 아이디어를 여러가지 실행을 하면서 만약에 이게 실행이 된다면 어떨까? 라는 생각을 가지고 실패를 두려워하지 않고 일단 만들어보며 배웁니다.",
-  },
-  {
-    title: "Security First",
-    text: "기능이 돌아가는 것만큼이나 안전하게 돌아가는 것이 중요합니다. 개발 초기 단계부터 보안적 관점을 결합해 지속 가능한 서비스를 지향합니다.",
-  },
-  {
-    title: "Continuous Explorer",
-    text: "AI, 3D 웹, 보안 등 경계를 두지 않고 새로운 기술을 학습합니다. 서로 다른 분야를 연결해 독특한 결과물을 만들어내는 것을 좋아합니다.",
-  },
-];
-
-
-const quickFacts = [
-  {
-    label: "대표 프로젝트",
-    value: "7+",
-    note: "웹, 보안, 데이터 시각화, 게임",
-  },
-  {
-    label: "배포 방식",
-    value: "CI/CD",
-    note: "GitHub Actions -> GitHub Pages 자동 배포",
-  },
-  {
-    label: "핵심 역량",
-    value: "문제 해결",
-    note: "구현 이유와 구조 선택을 함께 설명하는 개발",
-  },
-];
-
-const strengths = [
-  {
-    title: "정보를 구조화하는 프론트엔드",
-    description:
-      "사용자가 원하는 정보를 빠르게 찾을 수 있도록 콘텐츠를 배열 기반 데이터로 정리하고, 섹션 단위 탐색 흐름을 설계합니다.",
-  },
-  {
-    title: "보안 관점의 문제 해석",
-    description:
-      "취약점 분석과 공격 시나리오를 기능 설계와 함께 바라봅니다. 서비스 구현뿐 아니라 위험 요소를 줄이는 방향으로 접근합니다.",
-  },
-  {
-    title: "빠른 프로토타이핑과 실전형 개선",
-    description:
-      "아이디어를 화면과 동작으로 빠르게 옮기고, 이후 구조 분리와 반복 가능한 배포 흐름까지 정리해 운영 가능한 상태로 끌어올립니다.",
-  },
-];
-
-const skillGroups = [
-  {
-    name: "Frontend",
-    reason:
-      "포트폴리오와 데이터 시각화 프로젝트에서 화면 구조를 빠르게 조합하고 반복 UI를 유지보수 가능한 형태로 관리하기 위해 사용했습니다.",
-    items: ["React", "JavaScript", "TypeScript", "HTML", "CSS", "Vite"],
-  },
-  {
-    name: "Backend / Data",
-    reason:
-      "API 연동, 데이터 가공, 보안 기능 실험이 필요한 프로젝트에서 서버 로직과 데이터 처리 흐름을 검증하기 위해 사용했습니다.",
-    items: ["Python", "FastAPI", "Flask", "SQL", "Oracle SQL"],
-  },
-  {
-    name: "Security / Infra",
-    reason:
-      "취약점 분석과 서비스 운영 관점의 실험을 위해 로컬 환경, 배포, 공격 패턴 이해를 함께 다뤘습니다.",
-    items: ["OWASP Top 10", "Linux", "GitHub Actions", "Git/GitHub", "ASM"],
-  },
-  {
-    name: "Problem Solving",
-    reason:
-      "기능 구현 이전에 문제를 분해하고 적절한 자료구조와 흐름을 선택해야 프로젝트 완성도가 올라간다고 판단해 꾸준히 다졌습니다.",
-    items: ["Algorithms", "Data Structures", "Python", "Java"],
-  },
-];
-
-const featuredProjects = [
-  {
-    title: "ZeroScan WAF",
-    subtitle: "브라우저 환경에서 웹 공격을 실시간으로 탐지하고 차단하는 확장형 보안 시스템",
-    image: zeroScan,
-    tags: ["Python", "FastAPI", "Security"],
-    problem:
-      "일반 사용자는 웹사이트 이용 중 SQL Injection, XSS와 같은 공격에 노출되더라도 이를 인지하거나 대응하기 어렵습니다.",
-    solution:
-      "브라우저 확장 프로그램 형태로 요청을 실시간 분석하고, SQL Injection 및 XSS 패턴 기반 탐지 로직을 구현했습니다. 위험 요청이 감지되면 경고 알림을 제공하고 차단 페이지로 리다이렉트되도록 설계했습니다.",
-    result:
-      "사용자가 보안 위협을 즉시 인지할 수 있도록 했고, 클라이언트 레벨에서 실시간 방어 구조를 구현했습니다.",
-    link: "https://github.com/luka0116kjh/waf",
-    linkText: "GitHub 보기",
-  },
-  {
-    title: "DevDNA",
-    subtitle: "GitHub 활동 데이터를 분석해 개발자의 패턴과 기술 성향을 시각화하는 서비스",
-    image: devDNA,
-    tags: ["React", "Three.js", "Data Visualization"],
-    problem:
-      "GitHub의 잔디 그래프는 단순한 활동량만 제공하며, 개발자의 기술 성향이나 활동 패턴을 파악하기 어렵습니다.",
-    solution:
-      "GitHub API 기반으로 활동 데이터를 수집하고, 2D/3D 시각화 방식으로 커밋 및 활동 흐름을 표현했습니다. 활동 패턴과 기술 사용 경향을 분석하는 구조도 함께 설계했습니다.",
-    result:
-      "개발자의 활동 스타일과 기술 흐름을 직관적으로 파악할 수 있게 했고, 포트폴리오 확장 요소로도 활용할 수 있도록 구성했습니다.",
-    link: "https://github.com/luka0116kjh/DevDNA",
-    linkText: "GitHub 보기",
-  },
-  {
-    title: "GHAS Lunch",
-    subtitle: "학교 급식 정보를 빠르고 직관적으로 확인할 수 있는 학생용 웹 서비스",
-    image: lunch,
-    tags: ["HTML", "JavaScript", "Public API"],
-    problem:
-      "기존 학교 홈페이지는 급식 정보를 확인하기까지의 접근 과정이 복잡하고 비효율적입니다.",
-    solution:
-      "급식 정보를 한 화면에서 확인할 수 있는 UI를 설계하고, 불필요한 클릭 단계를 제거해 접근성을 높였습니다. 빠른 로딩 구조를 적용해 학생이 바로 정보를 확인할 수 있도록 만들었습니다.",
-    result:
-      "실제 학생들이 지속적으로 사용하는 서비스로 이어졌고, 사용자 중심 UI 개선 효과를 검증할 수 있었습니다.",
-    link: "https://luka0116kjh.github.io/ghaslunch1/",
-    linkText: "서비스 보기",
-  },
-  {
-    title: "Life OS",
-    subtitle: "AI 기반으로 목표를 실행 가능한 단위로 분해하고 일일 행동까지 연결하는 개인 운영 시스템",
-    image: lifeos,
-    tags: ["Web", "TypeScript", "Mobile"],
-    problem:
-      "사람들은 장기적인 목표를 세우더라도 이를 구체적인 행동으로 연결하지 못해 실행력이 떨어집니다.",
-    solution:
-      "AI를 활용해 목표를 연, 월, 일 단위로 자동 분해하고 장기, 중기, 단기 계획을 통합 관리하는 구조를 설계했습니다. 하루 단위 실행 계획이 자동 생성되도록 구성해 실천까지 이어지게 했습니다.",
-    result:
-      "목표를 실제 행동으로 연결하는 구조를 구현했고, 계획 중심이 아닌 실행 중심의 개인 운영 시스템으로 발전시켰습니다.",
-    link: "https://github.com/luka0116kjh/LifeOS-",
-    linkText: "GitHub 보기",
-  },
-];
-
-const projectArchive = [
-  {
-    title: "Snake Game",
-    image: snake,
-    summary:
-      "Python pygame 기반으로 제작한 게임 프로젝트입니다. 기본 규칙 위에 점수 구조와 플레이 흐름을 직접 설계하며 상태 관리와 게임 루프를 익혔습니다.",
-    tags: ["Python", "pygame", "Game Development"],
-    link: "https://github.com/luka0116kjh/Snake-game",
-  },
-  {
-    title: "Security Vulnerability Report",
-    image: securityReport,
-    summary:
-      "학교 홈페이지 개편 이후 API 통합 과정에서 발견한 보안 취약점을 분석하고, 위험 요소와 개선 권고안을 문서화한 보고서입니다.",
-    tags: ["Security", "Report", "Analysis"],
-    link: "https://docs.google.com/document/d/1Yui7xDmhvp7FbTuMO3sLaGFI1_H-jHLo0Uzidonn1fk/edit?usp=sharing",
-  },
-  {
-    title: "Study Archive",
-    image: tistoryCover,
-    summary:
-      "학습한 내용을 글로 정리하며 기술 선택 이유와 구현 과정을 남기는 블로그입니다. 단순 기록이 아니라 지식 정제 도구로 운영하고 있습니다.",
-    tags: ["Tistory", "Writing", "Documentation"],
-    link: "https://luka04.tistory.com/",
-  },
-];
-
-const processCards = [
-  {
-    title: "콘텐츠를 구조화해서 관리",
-    detail:
-      "프로젝트, 기술, 경험 데이터를 객체 배열로 분리해 섹션이 늘어나도 같은 패턴으로 확장할 수 있도록 구성했습니다.",
-  },
-  {
-    title: "사용자 탐색 흐름을 우선 설계",
-    detail:
-      "상단 고정 내비게이션과 스무스 스크롤을 적용해 긴 단일 페이지에서도 원하는 영역까지 빠르게 이동할 수 있게 만들었습니다.",
-  },
-  {
-    title: "운영 가능한 정적 서비스로 배포",
-    detail:
-      "main 브랜치 반영 시 GitHub Actions가 자동으로 빌드하고 GitHub Pages에 배포되도록 연결해 배포 과정을 표준화했습니다.",
-  },
-];
-
-const experience = [
-  {
-    title: "VisualCamp Trainee",
-    period: "Ongoing",
-    description:
-      "보안 관점의 문제 해석과 프론트엔드 구현 훈련을 병행하며, 알고리즘 학습과 문서화를 함께 수행하고 있습니다.",
-    points: [
-      "문제 해결 과정을 코드와 문서로 동시에 정리",
-      "보안 사고방식을 기능 구현 관점과 연결",
-      "기초 구현보다 구조와 설명 가능성을 중시하는 습관 강화",
-    ],
-  },
-  {
-    title: "Security / Robotics / School Activities",
-    period: "Experience",
-    description:
-      "대회, 팀 활동, 발표 경험을 통해 구현 결과물만이 아니라 협업과 전달 방식의 중요성을 함께 익혔습니다.",
-    points: [
-      "CTF 및 보안 활동 참여",
-      "로보틱스, 메이커형 프로젝트 경험",
-      "기록과 발표를 통한 학습 결과 정리",
-    ],
-  },
-];
-
-const engineeringNotes = [
-  "다크모드 상태를 localStorage에 저장해 재방문 시 동일한 UI 상태를 유지합니다.",
-  "프로젝트 카드 이미지는 lazy loading으로 처리해 긴 페이지의 초기 로딩 부담을 줄였습니다.",
-  "정적 사이트 구조를 유지해 운영 복잡도를 낮추고, 콘텐츠 전달에 집중했습니다.",
-];
-
-function scrollToId(id) {
-  const element = document.getElementById(id);
-  if (!element) return;
-  element.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function SectionHeading({ eyebrow, title, description }) {
+export default function App() {
   return (
-    <div className="sectionHeading">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
-      {description ? <p className="sectionDescription">{description}</p> : null}
-    </div>
-  );
-}
+    <div className="bg-dark-main text-text-main min-h-screen selection:bg-brand-blue/30 selection:text-white font-sans break-keep">
 
-function ProjectCard({ project }) {
-  return (
-    <article className="panel projectCard">
-      <img className="projectImage" src={project.image} alt={project.title} loading="lazy" />
-      <div className="cardBody">
-        <div className="cardTop">
-          <p className="cardLabel">{project.subtitle}</p>
-          <h3>{project.title}</h3>
-          <div className="tagRow">
-            {project.tags.map((tag) => (
-              <span className="tag" key={tag}>
-                {tag}
-              </span>
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-panel md:px-10 px-6 py-4 flex justify-between items-center transition-all bg-dark-secondary/70">
+        <div className="text-xl font-semibold tracking-tight text-text-main">
+          GHAS.<span className="text-brand-blue">Security Luka</span>
+        </div>
+        <div className="hidden md:flex gap-8 text-sm font-medium text-text-secondary">
+          <a href="#problem" className="hover:text-white transition-colors">Philosophy</a>
+          <a href="#work" className="hover:text-white transition-colors">Work</a>
+          <a href="#skills" className="hover:text-white transition-colors">Capabilities</a>
+          <a href="#experience" className="hover:text-white transition-colors">Experience</a>
+        </div>
+        <a href="#contact" className="bg-text-main text-dark-main px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-transform">
+          연락하기
+        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/20 rounded-full blur-[120px] opacity-20 pointer-events-none" />
+
+        <FadeIn className="text-center max-w-4xl z-10 w-full">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 text-gradient py-2 leading-tight">
+            보안을 구축하는 것을 넘어,<br />새롭게 설계합니다.
+          </h1>
+          <p className="text-lg md:text-2xl text-text-secondary mb-12 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+            사용자 경험을 최우선으로, 강력하고 완벽한 환경을 엔지니어링하는 보안 중심의 디자이너 & 개발자입니다.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="#work" className="bg-text-main text-dark-main px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-all flex items-center gap-2">
+              작업 살펴보기 <ArrowRight size={20} />
+            </a>
+          </div>
+        </FadeIn>
+
+        <motion.div
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-text-secondary"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChevronDown size={32} opacity={0.5} />
+        </motion.div>
+      </section>
+
+      {/* Problem Section */}
+      <section id="problem" className="py-32 px-6 flex flex-col items-center justify-center min-h-[70vh] bg-dark-secondary">
+        <FadeIn className="text-center max-w-4xl">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
+            웹은 빠릅니다.<br />
+            <span className="text-brand-blue">하지만 보안은 그렇지 않죠.</span>
+          </h2>
+          <p className="text-base md:text-xl text-text-secondary leading-relaxed font-light">
+            대부분의 보안은 장벽처럼 느껴집니다. 우리는 나중에 이를 덧붙이고, 복잡한 UI로 포장한 채 모든 것이 안전하기만을 바라곤 합니다.
+            하지만 복잡한 도구는 결코 안전을 만들지 않습니다. 진정한 안전함은 명확함에서 나옵니다.
+          </p>
+        </FadeIn>
+      </section>
+
+      {/* Solution Section */}
+      <section className="py-32 px-6 flex flex-col items-center justify-center min-h-[70vh]">
+        <FadeIn className="text-center max-w-4xl">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16 text-gradient leading-tight">
+            매끄러운 디자인. 그리고 빈틈없는 엔지니어링.
+          </h2>
+          <div className="grid md:grid-cols-3 gap-12 text-left">
+            <div>
+              <Shield className="text-brand-blue mb-6" size={40} />
+              <h3 className="text-xl font-semibold mb-4 text-text-main">보이지 않는 장막</h3>
+              <p className="text-text-secondary leading-relaxed font-light">사용자 흐름에 자연스럽게 녹아든 방어 시스템. 어떠한 타협이나 플로우의 끊김도 존재하지 않습니다.</p>
+            </div>
+            <div>
+              <Eye className="text-brand-blue mb-6" size={40} />
+              <h3 className="text-xl font-semibold mb-4 text-text-main">가시적 위협 탐지</h3>
+              <p className="text-text-secondary leading-relaxed font-light">데이터를 한눈에 파악하고 즉각적으로 대처할 수 있도록 설계된 실시간 위협 탐지 시스템을 제공합니다.</p>
+            </div>
+            <div>
+              <Zap className="text-brand-blue mb-6" size={40} />
+              <h3 className="text-xl font-semibold mb-4 text-text-main">압도적인 퍼포먼스</h3>
+              <p className="text-text-secondary leading-relaxed font-light">로컬 환경에서 실행되는 최적화된 WAF 알고리즘을 통해 번개처럼 빠른 응답과 방어를 보장합니다.</p>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* Featured Project */}
+      <ParallaxSection className="bg-dark-secondary text-white border-y border-white/5 py-40">
+        <div id="work" className="max-w-6xl mx-auto px-6">
+          <FadeIn className="mb-20 text-center">
+            <h2 className="text-sm font-semibold tracking-widest text-brand-blue uppercase mb-4">주요 프로젝트</h2>
+            <h3 className="text-4xl md:text-6xl font-bold tracking-tight">ShieldGuard WAF</h3>
+            <p className="text-xl md:text-2xl text-text-secondary mt-6 font-light">실시간 브라우저 기반 위협 탐지 프레임워크.</p>
+          </FadeIn>
+
+          <div className="grid md:grid-cols-2 gap-20 items-center">
+            <FadeIn delay={0.2}>
+              <div className="aspect-[4/3] rounded-2xl glass-panel relative overflow-hidden flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent"></div>
+                {/* Abstract visualization of a product */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <Shield size={100} className="text-brand-blue drop-shadow-[0_0_15px_rgba(10,132,255,0.5)]" />
+                  <div className="mt-8 flex gap-4">
+                    <div className="h-2 w-16 bg-brand-blue rounded-full animate-pulse"></div>
+                    <div className="h-2 w-4 bg-red-500 rounded-full"></div>
+                    <div className="h-2 w-8 bg-brand-blue rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+            <div className="flex flex-col gap-12">
+              <FadeIn delay={0.3}>
+                <h4 className="text-2xl font-bold mb-3 text-text-main">문제점</h4>
+                <p className="text-text-secondary text-lg font-light leading-relaxed">기존의 방화벽(WAF)은 서버 측에서 실행되기 때문에 필연적으로 지연이 발생하며, XSS 및 제로데이 인젝션 공격에 대한 클라이언트 측의 가시성이 현저히 떨어집니다.</p>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <h4 className="text-2xl font-bold mb-3 text-text-main">해결책</h4>
+                <p className="text-text-secondary text-lg font-light leading-relaxed">실시간 DOM 변이와 네트워크 요청을 브라우저 단에서 즉시 검사하고 안전하게 필터링하는 경량화된 WAF 모델 기반의 크롬 확장 프로그램입니다.</p>
+              </FadeIn>
+            </div>
+          </div>
+        </div>
+      </ParallaxSection>
+
+      {/* Secondary Projects */}
+      <section className="py-32 px-6 max-w-6xl mx-auto">
+        <FadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight">더 많은 혁신들</h2>
+        </FadeIn>
+        <div className="grid md:grid-cols-2 gap-8">
+          <FadeIn delay={0.1} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
+            <Lock className="text-brand-blue mb-6" size={32} />
+            <h3 className="text-2xl font-bold mb-4">학교 소식 및 블로그</h3>
+            <p className="text-text-secondary mb-8 font-light leading-relaxed">학교 소식 및 블로그 글 정보를 빠르고 직관적으로 확인할 수 있는 학생용 웹 서비스</p>
+            <a href="https://ghasblog-8099b-47309.web.app/" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
+          </FadeIn>
+          <FadeIn delay={0.2} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
+            <Code className="text-brand-blue mb-6" size={32} />
+            <h3 className="text-2xl font-bold mb-4">개인 운영 시스템</h3>
+            <p className="text-text-secondary mb-8 font-light leading-relaxed">AI 기반으로 목표를 실행 가능한 단위로 분해하고 일일 행동까지 연결하는 개인 운영 시스템</p>
+            <a href="https://github.com/luka0116kjh/LifeOS-" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section id="skills" className="py-24 px-6 bg-dark-secondary">
+        <div className="max-w-6xl mx-auto text-center">
+          <FadeIn>
+            <h2 className="text-3xl font-bold mb-16 tracking-tight">핵심 역량</h2>
+          </FadeIn>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+            {['React & Next.js', 'TypeScript', 'Web Application Security', 'Framer Motion', 'Tailwind CSS', 'Red Teaming', 'Cryptographic Protocols', 'UI/UX Design'].map((skill, i) => (
+              <FadeIn key={skill} delay={i * 0.05} className="px-6 py-3 glass-panel rounded-full text-text-secondary font-medium tracking-wide">
+                {skill}
+              </FadeIn>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="storyBlock">
-          <div>
-            <span className="storyLabel">Problem</span>
-            <p>{project.problem}</p>
-          </div>
-          <div>
-            <span className="storyLabel">Solution</span>
-            <p>{project.solution}</p>
-          </div>
-          <div>
-            <span className="storyLabel">Result</span>
-            <p>{project.result}</p>
-          </div>
+      {/* Experience */}
+      <section id="experience" className="py-32 px-6 max-w-5xl mx-auto">
+        <FadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight text-center">대외 활동 및 경험</h2>
+        </FadeIn>
+        <div className="space-y-8">
+          <FadeIn delay={0.1} className="glass-panel p-8 md:p-10 rounded-3xl hover:bg-white/[0.05] transition-colors relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-2 h-full bg-brand-blue opacity-50 group-hover:opacity-100 transition-opacity"></div>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+              <h3 className="text-2xl font-bold text-text-main">비주얼캠프 (VisualCamp) Trainee</h3>
+              <span className="text-brand-blue font-medium mt-2 md:mt-0 tracking-wider">Ongoing</span>
+            </div>
+            <p className="text-text-secondary font-light leading-relaxed mb-6">
+              보안 관점의 문제 해석과 프론트엔드 구현을 병행하며, 알고리즘 학습과 문서화를 수행. 기능 구현을 넘어 구조화 및 설명 가능성을 중시하는 개발 역량을 강화하고 있습니다.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <span className="text-xs px-3 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">알고리즘 및 자료구조</span>
+              <span className="text-xs px-3 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">보안 사고방식 결합</span>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.2} className="glass-panel p-8 md:p-10 rounded-3xl hover:bg-white/[0.05] transition-colors relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-2 h-full bg-white/20 group-hover:bg-brand-blue group-hover:opacity-100 transition-all"></div>
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+              <h3 className="text-2xl font-bold text-text-main">학교 활동 및 CTF / 메이커 프로젝트</h3>
+              <span className="text-text-secondary font-medium mt-2 md:mt-0">Experience</span>
+            </div>
+            <p className="text-text-secondary font-light leading-relaxed mb-6">
+              학내외 해킹 방어 대회(CTF) 참여, 로보틱스 기반의 메이커 프로젝트를 수행했습니다. 아이디어를 실제 프로덕트로 설계하고 결함을 방어하는 과정을 깊이 체득했습니다.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <span className="text-xs px-3 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">해킹 방어 대회 (CTF)</span>
+              <span className="text-xs px-3 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">메이커 프로젝트 (로보틱스)</span>
+            </div>
+          </FadeIn>
         </div>
+      </section>
 
-        <a className="textLink" href={project.link} target="_blank" rel="noreferrer">
-          {project.linkText}
-        </a>
-      </div>
-    </article>
-  );
-}
+      {/* Philosophy */}
+      <section className="py-40 px-6 flex items-center justify-center min-h-[60vh] border-y border-white/5">
+        <FadeIn className="text-center max-w-4xl">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gradient italic mb-8 leading-tight">
+            "보안은 단순한 기능이 아닙니다.<br />하나의 경험입니다."
+          </h2>
+        </FadeIn>
+      </section>
 
-function App() {
-  const [dark, setDark] = useState(() => localStorage.getItem("theme") !== "light");
-
-  useEffect(() => {
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
-  return (
-    <div className={dark ? "app dark" : "app"}>
-      <header className="siteHeader">
-        <div className="container headerInner">
-          <button className="brandButton" onClick={() => scrollToId("top")}>
-            {profile.name}
-          </button>
-
-          <nav className="navMenu" aria-label="Primary">
-            <button onClick={() => scrollToId("about")}>About</button>
-            <button onClick={() => scrollToId("projects")}>Projects</button>
-            <button onClick={() => scrollToId("skills")}>Skills</button>
-            <button onClick={() => scrollToId("experience")}>Experience</button>
-            <button onClick={() => scrollToId("contact")}>Contact</button>
-          </nav>
-
-          <button className="themeToggle" onClick={() => setDark((current) => !current)}>
-            {dark ? "Dark" : "Light"}
-          </button>
-        </div>
-      </header>
-
-      <main id="top">
-        <section className="heroSection">
-          <div className="container heroGrid">
-            <div className="heroCopy">
-              <p className="eyebrow">Portfolio Service</p>
-              <h1>{profile.headline}</h1>
-              <p className="heroTitle">{profile.title}</p>
-              <p className="heroSummary">{profile.summary}</p>
-
-              <div className="ctaRow">
-                <a className="primaryButton" href={profile.github} target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-                <a className="secondaryButton" href={profile.blog} target="_blank" rel="noreferrer">
-                  Tistory
-                </a>
-                <a className="secondaryButton" href={profile.velog} target="_blank" rel="noreferrer">
-                  Velog
-                </a>
-                <a className="secondaryButton" href={profile.email}>
-                  Contact
-                </a>
-              </div>
-
-              <div className="factGrid">
-                {quickFacts.map((fact) => (
-                  <div className="factCard" key={fact.label}>
-                    <span>{fact.label}</span>
-                    <strong>{fact.value}</strong>
-                    <p>{fact.note}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <aside className="panel heroPanel">
-              <div className="heroPanelTop">
-                <div>
-                  <p className="panelEyebrow">Developer Snapshot</p>
-                  <h2>{profile.name}</h2>
-                </div>
-                <span className="statusChip">Open to Build</span>
-              </div>
-
-              <p className="heroPanelText">
-                화면은 보기 좋게 만드는 것으로 끝나지 않는다고 생각합니다. 어떤 정보를 앞에 두고,
-                어떤 흐름으로 읽히게 만들지까지 설계해야 실제 서비스가 됩니다.
-              </p>
-
-              <div className="miniPanel">
-                <img className="miniPanelIcon" src={githubIcon} alt="GitHub icon" loading="lazy" />
-                <div>
-                  <p className="miniLabel">Work Style</p>
-                  <strong>문제 정의 - 구조 설계 - 구현 - 배포</strong>
-                  <p>작동하는 화면과 설명 가능한 구조를 함께 남깁니다.</p>
-                </div>
-              </div>
-
-              <div className="miniPanel">
-                <img
-                  className="miniPanelIcon"
-                  src={algorithmCard}
-                  alt="Algorithm visual"
-                  loading="lazy"
-                />
-                <div>
-                  <p className="miniLabel">Focus</p>
-                  <strong>Frontend, Security, AI Prototype</strong>
-                  <p>빠르게 만들고, 이후 유지보수 가능한 형태로 다듬는 작업을 선호합니다.</p>
-                </div>
-              </div>
-            </aside>
+      {/* Contact */}
+      <section id="contact" className="py-40 px-6 flex flex-col items-center justify-center text-center">
+        <FadeIn>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">안전한 미래를 구축할 준비가 되셨나요?</h2>
+          <p className="text-text-secondary text-lg md:text-xl mb-12 max-w-xl mx-auto font-light leading-relaxed">
+            전면적인 보안 개편이 필요하든, 제로 트러스트 원칙을 바탕으로 한 새로운 제품 설계가 필요하든, 언제든 이야기해 봅시다.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <a href="mailto:hello@example.com" className="bg-text-main text-dark-main px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+              <Mail size={20} /> Luka메일
+            </a>
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="glass-panel text-text-main px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+              <GithubIcon size={20} /> GitHub 확인하기
+            </a>
           </div>
-        </section>
+        </FadeIn>
+      </section>
 
-        <section id="about" className="contentSection">
-          <div className="container">
-            <SectionHeading
-              eyebrow="Identity"
-              title="어떤 고민을 하며 무엇을 지향하는지 소개합니다"
-              description="단순히 기술 스택을 나열하기보다, 제가 개발을 대하는 태도와 세상을 바라보는 관점을 담았습니다."
-            />
-
-            <div className="philosophyGrid">
-              {philosophy.map((item) => (
-                <article className="panel philosophyCard" key={item.title}>
-                  <p className="panelEyebrow">My Philosophy</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className="strengthGrid sectionSpacing">
-              {strengths.map((item) => (
-                <article className="panel" key={item.title}>
-                  <p className="panelEyebrow">Core Strength</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className="architectureBanner">
-              <div>
-                <p className="panelEyebrow">Architecture</p>
-                <h3>React 기반 정적 포트폴리오 + GitHub Actions 자동 배포</h3>
-              </div>
-              <pre className="architectureCode">
-                {`Browser -> React UI -> Structured Portfolio Data
-main push -> GitHub Actions -> vite build -> GitHub Pages`}
-              </pre>
-            </div>
-          </div>
-        </section>
-
-        <section id="projects" className="contentSection">
-          <div className="container">
-            <SectionHeading
-              eyebrow="Projects"
-              title="기능 설명보다 문제 해결 흐름이 보이도록 정리한 대표 결과물"
-              description="모든 프로젝트는 무엇을 만들었는지보다 어떤 문제를 정의했고, 어떻게 해결했는지를 중심으로 정리했습니다."
-            />
-
-            <div className="projectGrid">
-              {featuredProjects.map((project) => (
-                <ProjectCard key={project.title} project={project} />
-              ))}
-            </div>
-
-            <div className="archiveGrid">
-              {projectArchive.map((project) => (
-                <article className="panel archiveCard" key={project.title}>
-                  <img className="archiveImage" src={project.image} alt={project.title} loading="lazy" />
-                  <div className="cardBody">
-                    <h3>{project.title}</h3>
-                    <p>{project.summary}</p>
-                    <div className="tagRow">
-                      {project.tags.map((tag) => (
-                        <span className="tag" key={tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <a className="textLink" href={project.link} target="_blank" rel="noreferrer">
-                      자세히 보기
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="skills" className="contentSection">
-          <div className="container">
-            <SectionHeading
-              eyebrow="Skills"
-              title="기술을 나열하지 않고, 왜 선택했는지까지 설명하는 스택"
-              description="도구는 목적에 따라 선택했습니다. 빠른 프로토타이핑, 구조 유지보수, 보안 실험, 데이터 처리라는 기준으로 스택을 사용했습니다."
-            />
-
-            <div className="skillsGrid">
-              {skillGroups.map((group) => (
-                <article className="panel skillCard" key={group.name}>
-                  <p className="panelEyebrow">{group.name}</p>
-                  <p className="skillReason">{group.reason}</p>
-                  <div className="tagRow">
-                    {group.items.map((item) => (
-                      <span className="tag" key={item}>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="notesGrid">
-              {processCards.map((card) => (
-                <article className="panel noteCard" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.detail}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="experience" className="contentSection">
-          <div className="container">
-            <SectionHeading
-              eyebrow="Experience"
-              title="실행 경험과 학습 방식이 함께 드러나는 이력"
-              description="단순 참여 이력이 아니라, 어떤 관점과 방식으로 성장했는지 보이도록 정리했습니다."
-            />
-
-            <div className="experienceGrid">
-              <div className="timeline">
-                {experience.map((item) => (
-                  <article className="panel timelineItem" key={item.title}>
-                    <div className="timelineHeader">
-                      <div>
-                        <p className="panelEyebrow">{item.period}</p>
-                        <h3>{item.title}</h3>
-                      </div>
-                    </div>
-                    <p>{item.description}</p>
-                    <ul>
-                      {item.points.map((point) => (
-                        <li key={point}>{point}</li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-
-              <aside className="panel engineeringPanel">
-                <p className="panelEyebrow">Engineering Notes</p>
-                <h3>이 포트폴리오 자체도 하나의 제품으로 다뤘습니다.</h3>
-                <ul>
-                  {engineeringNotes.map((note) => (
-                    <li key={note}>{note}</li>
-                  ))}
-                </ul>
-              </aside>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="contentSection contactSection">
-          <div className="container contactWrap">
-            <div>
-              <p className="eyebrow">Contact</p>
-              <h2>문제를 읽고 결과물로 연결하는 개발자를 찾고 있다면</h2>
-              <p className="sectionDescription">
-                프론트엔드 구현, 보안 관점의 기능 설계, 빠른 프로토타이핑이 필요한 환경에서 강점을
-                발휘할 수 있습니다.
-              </p>
-            </div>
-
-            <div className="contactActions">
-              <a className="primaryButton" href={profile.email}>
-                Email
-              </a>
-              <a className="secondaryButton" href={profile.github} target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a className="secondaryButton" href={profile.blog} target="_blank" rel="noreferrer">
-                Tistory
-              </a>
-              <a className="secondaryButton" href={profile.velog} target="_blank" rel="noreferrer">
-                Velog
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
+      {/* Footer */}
+      <footer className="py-10 px-6 text-center text-text-secondary border-t border-white/5 mt-20">
+        <p className="text-sm font-light">© {new Date().getFullYear()} Luka portfolio</p>
+      </footer>
     </div>
   );
 }
-
-export default App;
