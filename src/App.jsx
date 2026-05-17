@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Shield, Lock, Eye, Code, Zap, ArrowRight, ChevronDown, Mail } from 'lucide-react';
+import { Shield, Lock, Eye, Code, Zap, ArrowRight, ChevronDown, Mail, Utensils } from 'lucide-react';
 import './App.css'; // kept empty just in case
 import './index.css';
 
@@ -176,11 +176,11 @@ export default function App() {
           <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight">더 많은 혁신들</h2>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-8">
-          <FadeIn delay={0.1} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
-            <Lock className="text-brand-blue mb-6" size={32} />
-            <h3 className="text-2xl font-bold mb-4">학교 소식 및 블로그</h3>
-            <p className="text-text-secondary mb-8 font-light leading-relaxed">학교 소식 및 블로그 글 정보를 빠르고 직관적으로 확인할 수 있는 학생용 웹 서비스</p>
-            <a href="https://ghasblog-8099b-47309.web.app/" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
+          <FadeIn delay={0.3} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
+            <Utensils className="text-brand-blue mb-6" size={32} />
+            <h3 className="text-2xl font-bold mb-4">GHAS 급식 & 시간표 앱</h3>
+            <p className="text-text-secondary mb-8 font-light leading-relaxed">경기자동차과학고 학생들이 급식과 시간표를 빠르게 확인할 수 있도록 만든 학교 생활 편의 서비스입니다. NEIS Open API 기반으로 데이터를 불러오며 웹기초 + Firebase 기반으로 제작했습니다.</p>
+            <a href="https://ghaslunch1.web.app/" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
           </FadeIn>
           <FadeIn delay={0.2} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
             <Code className="text-brand-blue mb-6" size={32} />
