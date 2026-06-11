@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import {
@@ -11,13 +10,6 @@ import {
   X,
 } from 'lucide-react'
 import './App.css'
-=======
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Shield, Lock, Eye, Code, Zap, ArrowRight, ChevronDown, Mail, Utensils } from 'lucide-react';
-import './App.css'; // kept empty just in case
-import './index.css';
->>>>>>> e6cbe51db1c4c8d4d1660c8f27fe1bd5b2d11f1d
 
 const MotionDiv = motion.div
 
@@ -269,56 +261,6 @@ function Timeline({ groups, awards = false }) {
                   <p>{item.detail}</p>
                 </div>
               </div>
-<<<<<<< HEAD
-=======
-            </FadeIn>
-            <div className="flex flex-col gap-12">
-              <FadeIn delay={0.3}>
-                <h4 className="text-2xl font-bold mb-3 text-text-main">문제점</h4>
-                <p className="text-text-secondary text-lg font-light leading-relaxed">기존의 방화벽(WAF)은 서버 측에서 실행되기 때문에 필연적으로 지연이 발생하며, XSS 및 제로데이 인젝션 공격에 대한 클라이언트 측의 가시성이 현저히 떨어집니다.</p>
-              </FadeIn>
-              <FadeIn delay={0.4}>
-                <h4 className="text-2xl font-bold mb-3 text-text-main">해결책</h4>
-                <p className="text-text-secondary text-lg font-light leading-relaxed">실시간 DOM 변이와 네트워크 요청을 브라우저 단에서 즉시 검사하고 안전하게 필터링하는 경량화된 WAF 모델 기반의 크롬 확장 프로그램입니다.</p>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
-      </ParallaxSection>
-
-      {/* Secondary Projects */}
-      <section className="py-32 px-6 max-w-6xl mx-auto">
-        <FadeIn>
-          <h2 className="text-3xl md:text-4xl font-bold mb-16 tracking-tight">더 많은 혁신들</h2>
-        </FadeIn>
-        <div className="grid md:grid-cols-2 gap-8">
-          <FadeIn delay={0.3} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
-            <Utensils className="text-brand-blue mb-6" size={32} />
-            <h3 className="text-2xl font-bold mb-4">GHAS 급식 & 시간표 앱</h3>
-            <p className="text-text-secondary mb-8 font-light leading-relaxed">경기자동차과학고 학생들이 급식과 시간표를 빠르게 확인할 수 있도록 만든 학교 생활 편의 서비스입니다. NEIS Open API 기반으로 데이터를 불러오며 웹기초 + Firebase 기반으로 제작했습니다.</p>
-            <a href="https://ghaslunch1.web.app/" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
-          </FadeIn>
-          <FadeIn delay={0.2} className="glass-panel p-10 rounded-3xl hover:bg-white/[0.05] transition-colors cursor-pointer group">
-            <Code className="text-brand-blue mb-6" size={32} />
-            <h3 className="text-2xl font-bold mb-4">개인 운영 시스템</h3>
-            <p className="text-text-secondary mb-8 font-light leading-relaxed">AI 기반으로 목표를 실행 가능한 단위로 분해하고 일일 행동까지 연결하는 개인 운영 시스템</p>
-            <a href="https://github.com/luka0116kjh/LifeOS-" target="_blank" rel="noreferrer" className="text-brand-blue font-medium group-hover:underline flex items-center gap-2 transition-all">자세히 보기 <ArrowRight size={16} /></a>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section id="skills" className="py-24 px-6 bg-dark-secondary">
-        <div className="max-w-6xl mx-auto text-center">
-          <FadeIn>
-            <h2 className="text-3xl font-bold mb-16 tracking-tight">핵심 역량</h2>
-          </FadeIn>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            {['React & Next.js', 'TypeScript', 'Web Application Security', 'Framer Motion', 'Tailwind CSS', 'Red Teaming', 'Cryptographic Protocols', 'UI/UX Design'].map((skill, i) => (
-              <FadeIn key={skill} delay={i * 0.05} className="px-6 py-3 glass-panel rounded-full text-text-secondary font-medium tracking-wide">
-                {skill}
-              </FadeIn>
->>>>>>> e6cbe51db1c4c8d4d1660c8f27fe1bd5b2d11f1d
             ))}
           </div>
         </div>
