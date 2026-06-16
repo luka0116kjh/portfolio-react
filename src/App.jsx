@@ -74,11 +74,12 @@ const activities = [
   {
     year: '2026',
     items: [
-      { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play에 출시' },
-      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', detail: '프로그램 참여' },
+      { date: '2026', title: '2026 SW미래채움 고교 AI·SW 챌린지 대회', detail: '프로그램 참여중' },
+      { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
+      { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store(곧 출시)에 출시' },
+      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', detail: '컨퍼런스 참여' },
       { date: '2026', title: '.HACK 컨퍼런스', detail: '컨퍼런스 참여' },
-       { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여' },
-      { date: 'NOW', title: '비주얼캠프 도제활동', detail: '웹·애플리케이션 개발, 알고리즘 학습과 문서화' },
+      { date: '2025-2026', title: '비주얼캠프 도제활동', detail: '웹·애플리케이션 개발, 알고리즘 학습과 문서화' },
     ],
   },
   {
