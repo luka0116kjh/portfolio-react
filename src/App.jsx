@@ -3,8 +3,10 @@ import { motion, useReducedMotion } from 'framer-motion'
 import {
   ArrowDown,
   ArrowUpRight,
+  Apple,
   Braces,
   Menu,
+  Play,
   TerminalSquare,
   Trophy,
   X,
@@ -76,7 +78,7 @@ const activities = [
     items: [
       { date: '2026', title: '2026 SW미래채움 고교 AI·SW 챌린지 대회', detail: '프로그램 참여중' },
       { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
-      { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store(곧 출시)에 출시' },
+      { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store에 출시' },
       { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', detail: '컨퍼런스 참여' },
       { date: '2026', title: '.HACK 컨퍼런스', detail: '컨퍼런스 참여' },
       { date: '2025-2026', title: '비주얼캠프 도제활동', detail: '웹·애플리케이션 개발, 알고리즘 학습과 문서화' },
@@ -103,9 +105,22 @@ const activities = [
 const projects = [
   {
     name: 'GHAS 알리미',
-    description: '나이스 오픈 API를 연동해 경기자동차과학고의 급식및 시간표 정보를 제공하는 웹 앱 제작했습니다.',
-    stack: ['application', 'NEIS API', 'Web'],
-    link: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&hl=ko',
+    description: '나이스 오픈 API를 연동해 경기자동차과학고의 급식 및 시간표 정보를 제공하는 웹 앱을 제작했습니다.',
+    stack: ['Application', 'NEIS API', 'Android', 'iOS'],
+    storeLinks: [
+      {
+        label: 'Android',
+        icon: Play,
+        url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1',
+        tone: 'google',
+      },
+      {
+        label: 'App Store',
+        icon: Apple,
+        url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783',
+        tone: 'apple',
+      },
+    ],
     accent: 'blue',
   },
   {
@@ -389,9 +404,15 @@ export default function App() {
             />
           </FadeIn>
           <div className="project-grid">
-            {projects.map((project, index) => (
-              <FadeIn delay={index * 0.06} key={project.name}>
-                <a className="project-card" href={project.link} target="_blank" rel="noreferrer">
+            {projects.map((project, index) => {
+              const CardTag = project.storeLinks ? 'article' : 'a'
+              const cardProps = project.link
+                ? { href: project.link, target: '_blank', rel: 'noreferrer' }
+                : {}
+
+              return (
+                <FadeIn delay={index * 0.06} key={project.name}>
+                  <CardTag className={`project-card${project.storeLinks ? ' store-select-card' : ''}`} {...cardProps}>
                   <div className={`project-icon ${project.accent}`}>
                     <Braces size={24} />
                   </div>
@@ -402,9 +423,31 @@ export default function App() {
                   <div className="project-stack">
                     {project.stack.map((item) => <span key={item}>{item}</span>)}
                   </div>
-                </a>
-              </FadeIn>
-            ))}
+                  {project.storeLinks && (
+                    <div className="store-choice-panel" aria-label="GHAS 알리미 다운로드 스토어 선택">
+                      {project.storeLinks.map((link) => {
+                        const StoreIcon = link.icon
+
+                        return (
+                          <a
+                            className={`store-choice ${link.tone}`}
+                            key={link.label}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <StoreIcon size={18} />
+                            {link.label}
+                            <ArrowUpRight size={15} />
+                          </a>
+                        )
+                      })}
+                    </div>
+                  )}
+                  </CardTag>
+                </FadeIn>
+              )
+            })}
           </div>
         </section>
 
