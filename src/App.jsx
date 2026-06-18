@@ -146,14 +146,15 @@ const projects = [
   },
 ]
 
-const terminalResponses = {
+const terminalPages = {
   help: [
     'Available commands:',
-    '  about     who I am',
-    '  skills    my technical toolkit',
-    '  projects  things I have built',
-    '  contact   where to find me',
-    '  clear     clear this terminal',
+    '  ls             list directories',
+    '  cd <name>      move into a directory',
+    '  cd ..          move back home',
+    '  pwd            print current directory',
+    '  cat README.md  show this introduction',
+    '  clear          clear this terminal',
   ],
   about: [
     `${profile.name} — ${profile.affiliation}`,
@@ -164,6 +165,77 @@ const terminalResponses = {
   skills: skills.map((skill, index) => `${String(index + 1).padStart(2, '0')}  ${skill}`),
   projects: projects.map((project) => `→ ${project.name}`),
   contact: [`GitHub  ${profile.github}`, 'Email   kjh08116@naver.com'],
+}
+
+const terminalDirectories = ['about', 'skills', 'projects', 'contact']
+
+const getPromptPath = (path) => (path === '/' ? '~' : `~${path}`)
+
+const resolveTerminalPath = (currentPath, target = '') => {
+  const cleanTarget = target.trim()
+
+  if (!cleanTarget || cleanTarget === '~' || cleanTarget === '/') return '/'
+  if (cleanTarget === '..') return '/'
+
+  const normalized = cleanTarget.replace(/^~?\//, '').replace(/\/$/, '').toLowerCase()
+  const directory = terminalDirectories.find((item) => item === normalized)
+
+  if (directory) return `/${directory}`
+  if (currentPath !== '/' && normalized === '.') return currentPath
+
+  return null
+}
+
+const getTerminalLines = (rawCommand, currentPath) => {
+  const [command = '', ...args] = rawCommand.trim().split(/\s+/)
+  const normalizedCommand = command.toLowerCase()
+  const target = args.join(' ')
+
+  if (normalizedCommand === 'help') {
+    return { lines: terminalPages.help, nextPath: currentPath }
+  }
+
+  if (normalizedCommand === 'pwd') {
+    return { lines: [`/home/visitor${currentPath === '/' ? '' : currentPath}`], nextPath: currentPath }
+  }
+
+  if (normalizedCommand === 'ls') {
+    if (currentPath === '/') {
+      return { lines: [...terminalDirectories, 'README.md'], nextPath: currentPath }
+    }
+
+    const directory = currentPath.slice(1)
+    return { lines: terminalPages[directory] || [], nextPath: currentPath }
+  }
+
+  if (normalizedCommand === 'cd') {
+    const nextPath = resolveTerminalPath(currentPath, target)
+
+    if (!nextPath) {
+      return { lines: [`cd: no such directory: ${target || ''}`], nextPath: currentPath }
+    }
+
+    const directory = nextPath.slice(1)
+    const lines = nextPath === '/'
+      ? ['back to /home/visitor']
+      : [`entered /home/visitor${nextPath}`, '', ...(terminalPages[directory] || [])]
+
+    return { lines, nextPath }
+  }
+
+  if (normalizedCommand === 'cat') {
+    if (target.toLowerCase() === 'readme.md') {
+      return { lines: terminalPages.about, nextPath: currentPath }
+    }
+
+    return { lines: [`cat: ${target || ''}: No such file`], nextPath: currentPath }
+  }
+
+  if (terminalDirectories.includes(normalizedCommand)) {
+    return { lines: [`Use "cd ${normalizedCommand}" to move into this directory.`], nextPath: currentPath }
+  }
+
+  return { lines: [`command not found: ${rawCommand}`], nextPath: currentPath }
 }
 
 function FadeIn({ children, className = '', delay = 0 }) {
@@ -184,6 +256,7 @@ function FadeIn({ children, className = '', delay = 0 }) {
 
 function Terminal() {
   const [input, setInput] = useState('')
+  const [currentPath, setCurrentPath] = useState('/')
   const [history, setHistory] = useState([
     { type: 'system', lines: ['Portfolio shell v1.0.0', 'Type "help" to see available commands.'] },
   ])
@@ -206,10 +279,16 @@ function Terminal() {
       return
     }
 
-    const lines = terminalResponses[command] || [`command not found: ${rawCommand}`]
-    setHistory((current) => [...current, { type: 'command', command: rawCommand, lines }])
+    const { lines, nextPath } = getTerminalLines(rawCommand, currentPath)
+    setHistory((current) => [
+      ...current,
+      { type: 'command', command: rawCommand, path: currentPath, lines },
+    ])
+    setCurrentPath(nextPath)
     setInput('')
   }
+
+  const prompt = `visitor@luka:${getPromptPath(currentPath)}$`
 
   return (
     <div className="terminal-shell" onClick={() => inputRef.current?.focus()}>
@@ -219,7 +298,7 @@ function Terminal() {
           <span className="dot yellow" />
           <span className="dot green" />
         </div>
-        <span className="terminal-title">guest@portfolio: ~</span>
+        <span className="terminal-title">guest@portfolio: {getPromptPath(currentPath)}</span>
         <TerminalSquare size={15} aria-hidden="true" />
       </div>
       <div className="terminal-body" ref={bodyRef}>
@@ -227,7 +306,7 @@ function Terminal() {
           <div className="terminal-entry" key={`${entry.type}-${index}`}>
             {entry.command && (
               <div className="terminal-command">
-                <span className="prompt">visitor@luka:~$</span> {entry.command}
+                <span className="prompt">visitor@luka:{getPromptPath(entry.path)}$</span> {entry.command}
               </div>
             )}
             {entry.lines.map((line, lineIndex) => (
@@ -241,7 +320,7 @@ function Terminal() {
           </div>
         ))}
         <form className="terminal-input-row" onSubmit={runCommand}>
-          <label className="prompt" htmlFor="terminal-input">visitor@luka:~$</label>
+          <label className="prompt" htmlFor="terminal-input">{prompt}</label>
           <input
             id="terminal-input"
             ref={inputRef}
