@@ -76,6 +76,7 @@ const activities = [
   {
     year: '2026',
     items: [
+      { date: '2026', title: '흐르르 어플리케이션 플랫폼', detail: '프론트앤드 개발자 참여' },
       { date: '2026', title: '2026 SW미래채움 고교 AI·SW 챌린지 대회', detail: '프로그램 참여중' },
       { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
       { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store에 출시' },
