@@ -58,6 +58,7 @@ const achievementHistory = [
   {
     year: 'AWARDS',
     items: [
+      { date: 'CTF', title: '2026 아주대학교 COSS 청소년 사이버 해킹방어대회', detail: '예선전 팀별 7등', award: true },
       { date: 'ROBOT', title: '총장배 로봇 프로그래밍 경진대회', detail: 'LEGO EV3 자율주행 미션 · 3등', award: true },
       { date: 'CTF', title: '현대오토에버 화이트해커 경진대회', detail: '교육 수료 · 장학금 수상 · 대회 입상', award: true },
     ],
