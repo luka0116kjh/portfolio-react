@@ -456,7 +456,201 @@ input {
 }
 
 .activity-section {
+  display: grid;
   border-top-style: dashed;
+}
+
+.activity-section .section-heading {
+  max-width: 590px;
+}
+
+.experience-carousel {
+  min-width: 0;
+}
+
+.experience-toolbar {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.experience-toolbar p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #666e7b;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+}
+
+.experience-toolbar p span {
+  color: var(--blue-soft);
+  font-size: 0.85rem;
+}
+
+.experience-controls {
+  display: flex;
+  gap: 7px;
+}
+
+.experience-controls button {
+  width: 42px;
+  height: 38px;
+  border: 1px solid var(--line-bright);
+  border-radius: 4px;
+  background: var(--surface);
+  color: #d8dce4;
+  font-family: var(--mono);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.experience-controls button:hover:not(:disabled),
+.experience-controls button:focus-visible {
+  border-color: var(--blue);
+  background: #111722;
+  color: white;
+}
+
+.experience-controls button:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.experience-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1px;
+  padding: 0 48px 18px 0;
+  cursor: grab;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+}
+
+.experience-track::-webkit-scrollbar {
+  display: none;
+}
+
+.experience-track:focus-visible {
+  outline: 1px solid var(--blue);
+  outline-offset: 5px;
+}
+
+.experience-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.experience-card {
+  flex: 0 0 calc(100% - 34px);
+  min-height: 390px;
+  padding: 0 8px 0 0;
+  scroll-snap-align: start;
+}
+
+.experience-card header {
+  padding-bottom: 17px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.experience-card header span {
+  order: 2;
+  padding-top: 4px;
+  color: #626a77;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+}
+
+.experience-card header strong {
+  order: 1;
+  color: var(--blue-soft);
+  font-family: var(--mono);
+  font-size: 0.71rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.experience-card-items {
+  padding-left: 21px;
+  border-left: 1px solid var(--line);
+}
+
+.experience-card-item {
+  min-height: 73px;
+  padding: 0 0 24px 22px;
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  gap: 16px;
+  position: relative;
+}
+
+.experience-card-item::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  left: -25px;
+  top: 7px;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.experience-card-item time {
+  padding-top: 4px;
+  color: #646c79;
+  font-family: var(--mono);
+  font-size: 0.54rem;
+}
+
+.experience-card-item h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #d8dbe1;
+  font-family: var(--display);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.experience-card-item h3.award-title {
+  color: #7cabff;
+}
+
+.experience-card-item p {
+  margin: 6px 0 0;
+  color: #69717d;
+  font-family: var(--mono);
+  font-size: 0.61rem;
+}
+
+.experience-progress {
+  height: 2px;
+  margin-top: 9px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.experience-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--blue), var(--blue-soft));
+  transition: transform 80ms linear;
 }
 
 .timeline-group + .timeline-group {
@@ -888,6 +1082,27 @@ footer > a:hover {
 
   .section-heading h2 {
     font-size: 2.55rem;
+  }
+
+  .experience-carousel {
+    margin-top: 0;
+  }
+
+  .experience-track {
+    gap: 12px;
+    margin-right: -16px;
+    padding-right: 14%;
+  }
+
+  .experience-card {
+    flex-basis: min(85vw, 430px);
+    min-height: 390px;
+    padding: 0 8px 0 0;
+  }
+
+  .experience-card-item {
+    grid-template-columns: 60px 1fr;
+    gap: 11px;
   }
 
   .project-grid {

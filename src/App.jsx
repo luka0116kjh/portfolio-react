@@ -340,29 +340,160 @@ function Terminal() {
   )
 }
 
-function Timeline({ groups, awards = false }) {
+function ExperienceCarousel({ groups, awards = false, label = '연도별 활동과 경험' }) {
+  const trackRef = useRef(null)
+  const [progress, setProgress] = useState(0)
+  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoForward, setCanGoForward] = useState(true)
+  const dragState = useRef({ active: false, startX: 0, scrollLeft: 0 })
+
+  const updateScrollState = () => {
+    const track = trackRef.current
+    if (!track) return
+
+    const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0)
+    const nextProgress = maxScroll ? track.scrollLeft / maxScroll : 0
+    setProgress(nextProgress)
+    setCanGoBack(track.scrollLeft > 2)
+    setCanGoForward(track.scrollLeft < maxScroll - 2)
+  }
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return undefined
+
+    const resizeObserver = new ResizeObserver(updateScrollState)
+    resizeObserver.observe(track)
+
+    return () => resizeObserver.disconnect()
+  }, [])
+
+  const scrollToCard = (direction) => {
+    const track = trackRef.current
+    if (!track) return
+
+    const card = track.querySelector('.experience-card')
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 16
+    const distance = (card?.getBoundingClientRect().width || track.clientWidth * 0.8) + gap
+    track.scrollBy({ left: direction * distance, behavior: 'smooth' })
+  }
+
+  const handleWheel = (event) => {
+    const track = trackRef.current
+    if (!track || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
+
+    const maxScroll = track.scrollWidth - track.clientWidth
+    const movingForward = event.deltaY > 0
+    const canMove = movingForward ? track.scrollLeft < maxScroll - 1 : track.scrollLeft > 1
+
+    if (canMove) {
+      event.preventDefault()
+      track.scrollLeft += event.deltaY
+    }
+  }
+
+  const startDrag = (event) => {
+    if (event.pointerType === 'touch') return
+    const track = trackRef.current
+    dragState.current = {
+      active: true,
+      startX: event.clientX,
+      scrollLeft: track.scrollLeft,
+    }
+    track.setPointerCapture(event.pointerId)
+    track.classList.add('is-dragging')
+  }
+
+  const drag = (event) => {
+    if (!dragState.current.active) return
+    event.preventDefault()
+    trackRef.current.scrollLeft =
+      dragState.current.scrollLeft - (event.clientX - dragState.current.startX)
+  }
+
+  const stopDrag = (event) => {
+    const track = trackRef.current
+    if (!dragState.current.active || !track) return
+    dragState.current.active = false
+    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId)
+    track.classList.remove('is-dragging')
+  }
+
   return (
-    <div className="timeline">
-      {groups.map((group) => (
-        <div className="timeline-group" key={group.year}>
-          <div className="timeline-year">{group.year}</div>
-          <div className="timeline-items">
-            {group.items.map((item) => (
-              <div className="timeline-item" key={`${item.date}-${item.title}`}>
-                <span className="timeline-dot" />
-                <time>{item.date}</time>
-                <div>
-                  <h3 className={item.award ? 'award-title' : ''}>
-                    {awards && item.award && <Trophy size={15} aria-hidden="true" />}
-                    {item.title}
-                  </h3>
-                  <p>{item.detail}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="experience-carousel">
+      <div className="experience-toolbar">
+        <p><span aria-hidden="true">↔</span> SCROLL / DRAG TO EXPLORE</p>
+        <div className="experience-controls" aria-label={`${label} 탐색`}>
+          <button
+            type="button"
+            onClick={() => scrollToCard(-1)}
+            disabled={!canGoBack}
+            aria-label="이전 연도 보기"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToCard(1)}
+            disabled={!canGoForward}
+            aria-label="다음 연도 보기"
+          >
+            →
+          </button>
         </div>
-      ))}
+      </div>
+
+      <div
+        className="experience-track"
+        ref={trackRef}
+        onScroll={updateScrollState}
+        onWheel={handleWheel}
+        onPointerDown={startDrag}
+        onPointerMove={drag}
+        onPointerUp={stopDrag}
+        onPointerCancel={stopDrag}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowLeft') scrollToCard(-1)
+          if (event.key === 'ArrowRight') scrollToCard(1)
+        }}
+        role="region"
+        aria-label={`${label}. 좌우 방향키로 탐색할 수 있습니다.`}
+        tabIndex="0"
+      >
+        {groups.map((group, groupIndex) => (
+          <article className="experience-card" key={group.year}>
+            <header>
+              <span>YEAR / {String(groupIndex + 1).padStart(2, '0')}</span>
+              <strong>{group.year}</strong>
+            </header>
+            <div className="experience-card-items">
+              {group.items.map((item) => (
+                <div className="experience-card-item" key={`${item.date}-${item.title}`}>
+                  <time>{item.date}</time>
+                  <div>
+                    <h3 className={item.award ? 'award-title' : ''}>
+                      {awards && item.award && <Trophy size={15} aria-hidden="true" />}
+                      {item.title}
+                    </h3>
+                    <p>{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div
+        className="experience-progress"
+        role="progressbar"
+        aria-label="타임라인 스크롤 진행률"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={Math.round(progress * 100)}
+      >
+        <span style={{ transform: `scaleX(${Math.max(progress, 0.035)})` }} />
+      </div>
     </div>
   )
 }
@@ -459,7 +590,11 @@ export default function App() {
             />
           </FadeIn>
           <FadeIn delay={0.08}>
-            <Timeline groups={achievementHistory} awards />
+            <ExperienceCarousel
+              groups={achievementHistory}
+              awards
+              label="수상 및 교내 도전 기록"
+            />
           </FadeIn>
         </section>
 
@@ -472,7 +607,7 @@ export default function App() {
             />
           </FadeIn>
           <FadeIn delay={0.08}>
-            <Timeline groups={activities} />
+            <ExperienceCarousel groups={activities} />
           </FadeIn>
         </section>
 
