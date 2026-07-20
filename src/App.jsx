@@ -59,6 +59,7 @@ const achievementHistory = [
     year: 'AWARDS',
     items: [
       { date: 'CTF', title: '2026 아주대학교 COSS 청소년 사이버 해킹방어대회', detail: '예선전 팀별 7등', award: true },
+      { date: 'CTF', title: '2026 SCA CTF', detail: '본선 20등', award: true },
       { date: 'ROBOT', title: '총장배 로봇 프로그래밍 경진대회', detail: 'LEGO EV3 자율주행 미션 · 3등', award: true },
       { date: 'CTF', title: '현대오토에버 화이트해커 경진대회', detail: '교육 수료 · 장학금 수상 · 대회 입상', award: true },
     ],
@@ -78,7 +79,6 @@ const activities = [
     year: '2026',
     items: [
       { date: '2026', title: '흐르르 어플리케이션 플랫폼', detail: '프론트앤드 개발자 참여' },
-      { date: '2026', title: '2026 SW미래채움 고교 AI·SW 챌린지 대회', detail: '프로그램 참여중' },
       { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
       { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store에 출시' },
       { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', detail: '컨퍼런스 참여' },
