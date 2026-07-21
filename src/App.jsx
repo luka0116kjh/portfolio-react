@@ -107,7 +107,7 @@ const activities = [
 const projects = [
   {
     name: 'GHAS 알리미',
-    description: '나이스 오픈 API를 연동해 경기자동차과학고의 급식 및 시간표 정보를 제공하는 웹 앱을 제작했습니다.',
+    description: '경기자동차과학고 학생들을 위한 학교 생활 지원 웹 애플리케이션입니다. HTML, CSS, JavaScript를 활용해 UI를 설계하고 NEIS Open API와 연동하여 급식 및 시간표 기능을 구현했습니다. 이후 AI 개발 도구를 활용해 Android와 iOS 앱으로 확장했으며, 현재 Google Play와 App Store에 출시되어 있습니다.',
     stack: ['Application', 'NEIS API', 'Android', 'iOS'],
     storeLinks: [
       {
@@ -134,14 +134,14 @@ const projects = [
   },
   {
     name: '양문고 웹앱(제작중)',
-    description: '양문고 학생들이 학교 관련 정보를 더욱 편리하게 확인할 수 있도록 기획하고 제작한 웹 애플리케이션입니다.',
+    description: '양문고 학생들이 학교 정보를 더욱 편리하게 이용할 수 있도록 기획 및 개발 중인 웹 애플리케이션입니다. AI 개발 도구를 활용해 기능을 구현하고 있으며, 사용자 경험(UX)을 고려한 인터페이스를 설계하고 있습니다. ',
     stack: ['Web App', 'JavaScript', 'UI / UX'],
     link: 'https://github.com/luka0116kjh/yanggok-community-main',
     accent: 'cyan',
   },
   {
     name: 'GCPT (추론 진화 엔진)',
-    description: 'GPT, Claude, Gemini가 토론하며 생각을 발전시키는 과정 자체를 분석하는 실험적 시스템입니다. 저는 디자인과 일부 기능 구현을 맡았고, 질문의 진화와 생각의 생존, 사고 프레임 생성을 보여주는 흐름을 다듬었습니다.',
+    description: 'GPT, Claude, Gemini 간의 토론 과정을 시각화하고 추론 흐름을 분석하는 실험적인 AI 시스템입니다. 프로젝트에서 UI/UX 디자인과 일부 기능 구현을 담당했으며, 사용자가 AI의 사고 과정을 직관적으로 이해할 수 있도록 인터페이스를 개선했습니다.',
     stack: ['AI Debate', 'Reasoning Analysis', 'GPT / Claude / Gemini'],
     link: 'https://github.com/cksdud32/gcpt',
     accent: 'green',
