@@ -78,6 +78,7 @@ const activities = [
   {
     year: '2026',
     items: [
+      { date: '2026', title: 'Null; 해킹팀 창성', detail: '사이버 보안 분야에서 활동하는 팀을 설립 팀 리더역할' },
       { date: '2026', title: '흐르르 어플리케이션 플랫폼', detail: '프론트앤드 개발자 참여' },
       { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
       { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store에 출시' },
