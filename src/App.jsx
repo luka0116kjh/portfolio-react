@@ -32,6 +32,23 @@ const GithubIcon = ({ size = 18 }) => (
   </svg>
 )
 
+const VelogIcon = ({ size = 18 }) => (
+  <svg
+    aria-hidden="true"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6.5 7.5h3.2l2.3 7 2.3-7h3.2" />
+    <path d="M9.7 7.5 12 14.5l2.3-7" />
+  </svg>
+)
+
 const profile = {
   name: 'Luka',
   shortName: 'LK',
@@ -39,6 +56,7 @@ const profile = {
   role: 'Programmer & Builder',
   bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
   github: 'https://github.com/luka0116kjh',
+  velog: 'https://velog.io/@luka0116kjh/posts',
   email: 'mailto:kjh08116@naver.com',
 }
 
@@ -557,6 +575,9 @@ export default function App() {
               </a>
               <a className="button secondary" href={profile.github} target="_blank" rel="noreferrer">
                 <GithubIcon size={18} /> GitHub
+              </a>
+              <a className="button secondary" href={profile.velog} target="_blank" rel="noopener noreferrer">
+                <VelogIcon size={18} /> Velog
               </a>
             </div>
           </FadeIn>
