@@ -48,9 +48,28 @@ const profile = {
   velog: 'https://velog.io/@luka0116kjh/posts',
   email: 'kjh08116@naver.com',
   school: '경기자동차과학고등학교 3학년',
-  major: '소프트웨어과',
-  goal: '소프트웨어 엔지니어 / AI 엔지니어',
+  major: '미래자동차과과',
+  goal: '소프트웨어 엔지니어 / AI 엔지니어 / 보안 전문가',
 }
+
+const skillCategories = [
+  {
+    name: '언어',
+    items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'Kotlin'],
+  },
+  {
+    name: '프론트엔드',
+    items: ['React', 'Jetpack Compose', 'HTML / CSS'],
+  },
+  {
+    name: '백엔드 / 인프라',
+    items: ['FastAPI', 'Node.js', 'Firebase', 'Oracle SQL', 'Docker'],
+  },
+  {
+    name: '보안 / AI',
+    items: ['Ghidra', 'AI & Machine Learning', 'Robotics', 'Git / GitHub'],
+  },
+]
 
 const skills = [
   'Python', 'JavaScript', 'React', 'TypeScript', 'Java', 'HTML / CSS',
@@ -70,24 +89,32 @@ const projects = [
     status: 'complete',
     statusLabel: '출시 완료',
     icon: '📱',
+    links: [
+      { label: '📱 Android', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1' },
+      { label: '🍎 iOS', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' },
+    ],
   },
   {
     name: 'WAF Guard',
     description: 'FastAPI 기반의 간단한 WAF 분석 서버와 Chrome 확장 프로그램을 결합한 실시간 웹 위험 감지 프로젝트입니다.',
     stack: ['Server', 'FastAPI', 'Web Extension'],
-    link: 'https://github.com/luka0116kjh/waf',
     status: 'ongoing',
     statusLabel: '진행 중',
     icon: '🛡️',
+    links: [
+      { label: '→ GitHub', url: 'https://github.com/luka0116kjh/waf' },
+    ],
   },
   {
     name: 'GCPT',
     description: 'GPT, Claude, Gemini 간의 토론 과정을 시각화하고 추론 흐름을 분석하는 AI 시스템입니다.',
     stack: ['AI Debate', 'Reasoning Analysis', 'GPT / Claude / Gemini'],
-    link: 'https://github.com/cksdud32/gcpt',
     status: 'project',
     statusLabel: '프로젝트',
     icon: '🤖',
+    links: [
+      { label: '→ GitHub', url: 'https://github.com/cksdud32/gcpt' },
+    ],
   },
 ]
 
@@ -97,17 +124,19 @@ const awardData = [
     title: '정보처리산업기사 취득',
     badge: '합격',
     badgeColor: 'blue',
-  },
-  {
-    date: '2026',
-    title: '사이버가디언즈 CMX',
-    badge: '팀별 18등',
-    badgeColor: 'red',
+    highlight: true,
   },
   {
     date: '2026',
     title: '아주대학교 COSS 청소년 사이버 해킹방어대회',
     badge: '예선 7등',
+    badgeColor: 'red',
+    highlight: true,
+  },
+  {
+    date: '2026',
+    title: '사이버가디언즈 CMX',
+    badge: '팀별 18등',
     badgeColor: 'red',
   },
   {
@@ -348,6 +377,19 @@ export default function App() {
                   <div className="project-body">
                     <h3 className="project-title">{project.name}</h3>
                     <p className="project-description">{project.description}</p>
+                    <div className="project-links">
+                      {project.links?.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-link-badge"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
                     <div className="project-status">
                       <span className={`status-badge status-${project.status}`}>{project.statusLabel}</span>
                     </div>
@@ -360,11 +402,18 @@ export default function App() {
           {/* Tech Stack Section */}
           <section className="tech-section">
             <h2 className="section-title">기술 스택</h2>
-            <div className="tech-tags">
-              {skills.map((skill) => (
-                <span key={skill} className={`tech-badge badge-${getTechColor(skill)}`}>
-                  {skill}
-                </span>
+            <div className="tech-categories">
+              {skillCategories.map((category) => (
+                <div key={category.name} className="tech-category">
+                  <h3 className="tech-category-title">{category.name}</h3>
+                  <div className="tech-tags">
+                    {category.items.map((skill) => (
+                      <span key={skill} className={`tech-badge badge-${getTechColor(skill)}`}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
@@ -374,7 +423,7 @@ export default function App() {
             <h2 className="section-title">대회 · 자격</h2>
             <div className="activities-list">
               {awardData.map((award, index) => (
-                <div key={index} className="activity-row">
+                <div key={index} className={`activity-row ${award.highlight ? 'highlight' : ''}`}>
                   <span className="activity-date">{award.date}</span>
                   <span className="activity-title">{award.title}</span>
                   <span className={`activity-badge badge-${award.badgeColor}`}>{award.badge}</span>
@@ -394,6 +443,23 @@ export default function App() {
                   <span className={`activity-badge badge-${activity.badgeColor}`}>{activity.badge}</span>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="divider" />
+
+          {/* Recent Posts Section */}
+          <section className="recent-posts-section">
+            <h2 className="section-title">최근 글</h2>
+            <div className="recent-posts">
+              <a href={profile.velog} target="_blank" rel="noreferrer" className="recent-post-link">
+                <span className="recent-post-icon">📝</span>
+                <div className="recent-post-content">
+                  <p className="recent-post-title">Velog 기술 블로그</p>
+                  <p className="recent-post-desc">개발, 보안, AI 관련 기술 글</p>
+                </div>
+              </a>
             </div>
           </section>
 

@@ -323,7 +323,32 @@ button {
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+.project-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.project-link-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: all var(--duration-fast);
+  white-space: nowrap;
+}
+
+.project-link-badge:hover {
+  border-color: var(--color-text);
+  background: var(--color-border);
 }
 
 .project-status {
@@ -349,6 +374,26 @@ button {
 /* Tech Stack Section */
 .tech-section {
   margin-bottom: 48px;
+}
+
+.tech-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.tech-category {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tech-category-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tech-tags {
@@ -399,6 +444,11 @@ button {
   padding: 16px 20px;
   border-bottom: 1px solid var(--color-border);
   font-size: 14px;
+  transition: background var(--duration-fast);
+}
+
+.activity-row.highlight {
+  background: var(--color-bg-secondary);
 }
 
 .activity-row:last-child {
@@ -433,6 +483,56 @@ button {
 .badge-red { background: rgba(255, 99, 71, 0.2); color: #ff6347; }
 .badge-indigo { background: rgba(75, 0, 130, 0.2); color: #9370db; }
 .badge-teal { background: rgba(64, 224, 208, 0.2); color: #40e0d0; }
+
+/* Recent Posts Section */
+
+.recent-posts-section {
+  margin-bottom: 48px;
+}
+
+.recent-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-post-link {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: all var(--duration-fast);
+}
+
+.recent-post-link:hover {
+  border-color: var(--color-text-secondary);
+  background: var(--color-border);
+}
+
+.recent-post-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.recent-post-content {
+  flex: 1;
+}
+
+.recent-post-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.recent-post-desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
 
 /* Footer */
 .notion-footer {
@@ -558,9 +658,19 @@ button {
     justify-self: start;
   }
 
+  .tech-categories {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .tech-badge {
     font-size: 12px;
     padding: 5px 10px;
+  }
+
+  .project-link-badge {
+    font-size: 11px;
+    padding: 3px 8px;
   }
 
   .callout {
