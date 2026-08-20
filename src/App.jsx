@@ -1,19 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Apple,
-  Braces,
-  Menu,
-  Play,
-  TerminalSquare,
-  Trophy,
-  X,
-} from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Moon, Sun } from 'lucide-react'
 import './App.css'
-
-const MotionDiv = motion.div
 
 const GithubIcon = ({ size = 18 }) => (
   <svg
@@ -52,663 +39,413 @@ const VelogIcon = ({ size = 18 }) => (
 const profile = {
   name: 'Luka',
   shortName: 'LK',
+  koreanName: '김진형',
   affiliation: 'Student',
   role: 'Programmer & Builder',
   bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
+  intro: '프로젝트 아이디어부터 개발, 배포까지 모든 과정을 직접 하는 것을 좋아합니다. 실제 사용자가 사용하는 서비스를 만들고, 보안과 AI를 계속 공부하고 있습니다.',
   github: 'https://github.com/luka0116kjh',
   velog: 'https://velog.io/@luka0116kjh/posts',
-  email: 'mailto:kjh08116@naver.com',
+  email: 'kjh08116@naver.com',
+  school: '경기자동차과학고등학교 3학년',
+  major: '소프트웨어과',
+  goal: '소프트웨어 엔지니어 / AI 엔지니어',
 }
 
 const skills = [
-  'Python',
-  'JavaScript',
-  'React',
-  'TypeScript',
-  'Java',
-  'HTML / CSS',
-  'AI & Machine Learning',
-  'Robotics',
-  'Git / GitHub',
-]
-
-const achievementHistory = [
-  {
-    year: 'AWARDS',
-    items: [
-      { date: 'CTF', title: '2026 아주대학교 COSS 청소년 사이버 해킹방어대회', detail: '예선전 팀별 7등', award: true },
-      { date: 'CTF', title: '2026 SCA CTF', detail: '본선 20등', award: true },
-      { date: 'ROBOT', title: '총장배 로봇 프로그래밍 경진대회', detail: 'LEGO EV3 자율주행 미션 · 3등', award: true },
-      { date: 'CTF', title: '현대오토에버 화이트해커 경진대회', detail: '교육 수료 · 장학금 수상 · 대회 입상', award: true },
-    ],
-  },
-  {
-    year: 'SCHOOL',
-    items: [
-      { date: 'IDEA', title: '미래를 그리는 알고리즘 경진대회', detail: '아이디어와 구현 과정을 인정받아 2등', award: true },
-      { date: 'PORT', title: '교내 포트폴리오 경진대회', detail: '1·2학년 연속 3등', award: true },
-      { date: 'SERVICE', title: '봉사 부문 표창', detail: '학교 안에서 꾸준히 참여하고 기여한 기록', award: true },
-    ],
-  },
-]
-
-const activities = [
-  {
-    year: '2026',
-    items: [
-      { date: '2026', title: 'Null; 해킹팀 창성', detail: '사이버 보안 분야에서 활동하는 팀을 설립 팀 리더역할' },
-      { date: '2026', title: '흐르르 어플리케이션 플랫폼', detail: '프론트앤드 개발자 참여' },
-      { date: '2026', title: '경기 청소년 사이버 보안 캠프', detail: '프로그램 참여중' },
-      { date: 'RELEASE', title: 'GHAS 알리미 출시', detail: '급식과 시간표 정보를 제공하는 학교생활 웹앱을 Google Play, App Store에 출시' },
-      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', detail: '컨퍼런스 참여' },
-      { date: '2026', title: '.HACK 컨퍼런스', detail: '컨퍼런스 참여' },
-      { date: '2025-2026', title: '비주얼캠프 도제활동', detail: '웹·애플리케이션 개발, 알고리즘 학습과 문서화' },
-    ],
-  },
-  {
-    year: '2025',
-    items: [
-      { date: '2024—25', title: '청소년운영위원회 정책부', detail: '청소년의 관점으로 의견을 모으고 정책을 고민' },
-      { date: '2025', title: '현대오토에버와 함께하는 고교생 IT 꿈나무 화이트해커', detail: '화이트해커 교육 과정 수료' },
-    ],
-  },
-  {
-    year: '2024',
-    items: [
-      { date: '2024', title: '인공지능 창업체험과 특강', detail: '기술을 아이디어와 서비스로 연결하는 경험' },
-      { date: '2024', title: '네이버 청소년 크리에이터 스쿨', detail: '공모전 참여와 교육 과정 수료' },
-      { date: '2024', title: '앱인벤터·메이커 활동', detail: '작은 아이디어를 실제로 움직이는 결과물로 제작' },
-      { date: '2024—26', title: '학생기자단과 학교 블로그', detail: '학교의 이야기를 취재하고 글로 기록' },
-    ],
-  },
+  'Python', 'JavaScript', 'React', 'TypeScript', 'Java', 'HTML / CSS',
+  'AI & Machine Learning', 'Robotics', 'Git / GitHub', 'FastAPI', 'Node.js',
+  'Firebase', 'Oracle SQL', 'Ghidra', 'Docker', 'Kotlin', 'Jetpack Compose',
 ]
 
 const projects = [
   {
     name: 'GHAS 알리미',
-    description: '경기자동차과학고 학생들을 위한 학교 생활 지원 웹 애플리케이션입니다. HTML, CSS, JavaScript를 활용해 UI를 설계하고 NEIS Open API와 연동하여 급식 및 시간표 기능을 구현했습니다. 이후 AI 개발 도구를 활용해 Android와 iOS 앱으로 확장했으며, 현재 Google Play와 App Store에 출시되어 있습니다.',
+    description: '경기자동차과학고 학생들을 위한 학교 생활 지원 웹 애플리케이션입니다. 급식 및 시간표 기능을 제공하며, Google Play와 App Store에 출시되어 있습니다.',
     stack: ['Application', 'NEIS API', 'Android', 'iOS'],
     storeLinks: [
-      {
-        label: 'Android',
-        icon: Play,
-        url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1',
-        tone: 'google',
-      },
-      {
-        label: 'App Store',
-        icon: Apple,
-        url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783',
-        tone: 'apple',
-      },
+      { label: 'Android', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1' },
+      { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' },
     ],
-    accent: 'blue',
+    status: 'complete',
+    statusLabel: '출시 완료',
+    icon: '📱',
   },
   {
-    name: 'waf',
+    name: 'WAF Guard',
     description: 'FastAPI 기반의 간단한 WAF 분석 서버와 Chrome 확장 프로그램을 결합한 실시간 웹 위험 감지 프로젝트입니다.',
     stack: ['Server', 'FastAPI', 'Web Extension'],
     link: 'https://github.com/luka0116kjh/waf',
-    accent: 'violet',
+    status: 'ongoing',
+    statusLabel: '진행 중',
+    icon: '🛡️',
   },
   {
-    name: '양문고 웹앱(제작중)',
-    description: '양문고 학생들이 학교 정보를 더욱 편리하게 이용할 수 있도록 기획 및 개발 중인 웹 애플리케이션입니다. AI 개발 도구를 활용해 기능을 구현하고 있으며, 사용자 경험(UX)을 고려한 인터페이스를 설계하고 있습니다. ',
-    stack: ['Web App', 'JavaScript', 'UI / UX'],
-    link: 'https://github.com/luka0116kjh/yanggok-community-main',
-    accent: 'cyan',
-  },
-  {
-    name: 'GCPT (추론 진화 엔진)',
-    description: 'GPT, Claude, Gemini 간의 토론 과정을 시각화하고 추론 흐름을 분석하는 실험적인 AI 시스템입니다. 프로젝트에서 UI/UX 디자인과 일부 기능 구현을 담당했으며, 사용자가 AI의 사고 과정을 직관적으로 이해할 수 있도록 인터페이스를 개선했습니다.',
+    name: 'GCPT',
+    description: 'GPT, Claude, Gemini 간의 토론 과정을 시각화하고 추론 흐름을 분석하는 AI 시스템입니다.',
     stack: ['AI Debate', 'Reasoning Analysis', 'GPT / Claude / Gemini'],
     link: 'https://github.com/cksdud32/gcpt',
-    accent: 'green',
+    status: 'project',
+    statusLabel: '프로젝트',
+    icon: '🤖',
   },
 ]
 
-const terminalPages = {
-  help: [
-    'Available commands:',
-    '  ls             list directories',
-    '  cd <name>      move into a directory',
-    '  cd ..          move back home',
-    '  pwd            print current directory',
-    '  cat README.md  show this introduction',
-    '  clear          clear this terminal',
-  ],
-  about: [
-    `${profile.name} — ${profile.affiliation}`,
-    profile.role,
-    '',
-    profile.bio,
-  ],
-  skills: skills.map((skill, index) => `${String(index + 1).padStart(2, '0')}  ${skill}`),
-  projects: projects.map((project) => `→ ${project.name}`),
-  contact: [`GitHub  ${profile.github}`, 'Email   kjh08116@naver.com'],
-}
+const awardData = [
+  {
+    date: '2026.07',
+    title: '정보처리산업기사 취득',
+    badge: '합격',
+    badgeColor: 'blue',
+  },
+  {
+    date: '2026',
+    title: '사이버가디언즈 CMX',
+    badge: '팀별 18등',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026',
+    title: '아주대학교 COSS 청소년 사이버 해킹방어대회',
+    badge: '예선 7등',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026',
+    title: 'SCA CTF',
+    badge: '본선 20등',
+    badgeColor: 'red',
+  },
+  {
+    date: '상시',
+    title: '총장배 로봇 프로그래밍 경진대회',
+    badge: '3등',
+    badgeColor: 'orange',
+  },
+  {
+    date: '상시',
+    title: '현대오토에버 화이트해커 경진대회',
+    badge: '입상',
+    badgeColor: 'red',
+  },
+  {
+    date: '상시',
+    title: '미래를 그리는 알고리즘 경진대회',
+    badge: '2등',
+    badgeColor: 'orange',
+  },
+  {
+    date: '상시',
+    title: '교내 포트폴리오 경진대회',
+    badge: '3등',
+    badgeColor: 'orange',
+  },
+  {
+    date: '상시',
+    title: '봉사 부문 표창',
+    badge: '수상',
+    badgeColor: 'teal',
+  },
+]
 
-const terminalDirectories = ['about', 'skills', 'projects', 'contact']
+const activityData = [
+  {
+    date: '2026',
+    title: 'Null; 해킹팀 창설',
+    badge: '팀 리더',
+    badgeColor: 'purple',
+  },
+  {
+    date: '2026',
+    title: 'Hwalbin 해킹팀',
+    badge: '팀원',
+    badgeColor: 'purple',
+  },
+  {
+    date: '2026',
+    title: '흐르르 애플리케이션 플랫폼',
+    badge: '개발',
+    badgeColor: 'green',
+  },
+  {
+    date: '2026',
+    title: '경기 청소년 사이버 보안 캠프',
+    badge: '참여 중',
+    badgeColor: 'blue',
+  },
+  {
+    date: '2026',
+    title: 'The Ignition 2026 :: YHHS X Hashed',
+    badge: '컨퍼런스',
+    badgeColor: 'indigo',
+  },
+  {
+    date: '2026',
+    title: '.HACK 컨퍼런스',
+    badge: '컨퍼런스',
+    badgeColor: 'indigo',
+  },
+  {
+    date: '2025-2026',
+    title: '비주얼캠프 도제활동',
+    badge: '교육',
+    badgeColor: 'green',
+  },
+  {
+    date: '2024-25',
+    title: '청소년운영위원회 정책부',
+    badge: '위원',
+    badgeColor: 'teal',
+  },
+  {
+    date: '2025',
+    title: '현대오토에버 고교생 IT 꿈나무 화이트해커',
+    badge: '교육',
+    badgeColor: 'orange',
+  },
+  {
+    date: '2024',
+    title: '인공지능 창업체험과 특강',
+    badge: '교육',
+    badgeColor: 'green',
+  },
+  {
+    date: '2024',
+    title: '네이버 청소년 크리에이터 스쿨',
+    badge: '교육',
+    badgeColor: 'orange',
+  },
+  {
+    date: '2024',
+    title: '앱인벤터·메이커 활동',
+    badge: '프로젝트',
+    badgeColor: 'blue',
+  },
+  {
+    date: '2024-2026',
+    title: '학생기자단과 학교 블로그',
+    badge: '기자단',
+    badgeColor: 'teal',
+  },
+]
 
-const getPromptPath = (path) => (path === '/' ? '~' : `~${path}`)
-
-const resolveTerminalPath = (currentPath, target = '') => {
-  const cleanTarget = target.trim()
-
-  if (!cleanTarget || cleanTarget === '~' || cleanTarget === '/') return '/'
-  if (cleanTarget === '..') return '/'
-
-  const normalized = cleanTarget.replace(/^~?\//, '').replace(/\/$/, '').toLowerCase()
-  const directory = terminalDirectories.find((item) => item === normalized)
-
-  if (directory) return `/${directory}`
-  if (currentPath !== '/' && normalized === '.') return currentPath
-
-  return null
-}
-
-const getTerminalLines = (rawCommand, currentPath) => {
-  const [command = '', ...args] = rawCommand.trim().split(/\s+/)
-  const normalizedCommand = command.toLowerCase()
-  const target = args.join(' ')
-
-  if (normalizedCommand === 'help') {
-    return { lines: terminalPages.help, nextPath: currentPath }
-  }
-
-  if (normalizedCommand === 'pwd') {
-    return { lines: [`/home/visitor${currentPath === '/' ? '' : currentPath}`], nextPath: currentPath }
-  }
-
-  if (normalizedCommand === 'ls') {
-    if (currentPath === '/') {
-      return { lines: [...terminalDirectories, 'README.md'], nextPath: currentPath }
-    }
-
-    const directory = currentPath.slice(1)
-    return { lines: terminalPages[directory] || [], nextPath: currentPath }
-  }
-
-  if (normalizedCommand === 'cd') {
-    const nextPath = resolveTerminalPath(currentPath, target)
-
-    if (!nextPath) {
-      return { lines: [`cd: no such directory: ${target || ''}`], nextPath: currentPath }
-    }
-
-    const directory = nextPath.slice(1)
-    const lines = nextPath === '/'
-      ? ['back to /home/visitor']
-      : [`entered /home/visitor${nextPath}`, '', ...(terminalPages[directory] || [])]
-
-    return { lines, nextPath }
-  }
-
-  if (normalizedCommand === 'cat') {
-    if (target.toLowerCase() === 'readme.md') {
-      return { lines: terminalPages.about, nextPath: currentPath }
-    }
-
-    return { lines: [`cat: ${target || ''}: No such file`], nextPath: currentPath }
-  }
-
-  if (terminalDirectories.includes(normalizedCommand)) {
-    return { lines: [`Use "cd ${normalizedCommand}" to move into this directory.`], nextPath: currentPath }
-  }
-
-  return { lines: [`command not found: ${rawCommand}`], nextPath: currentPath }
-}
-
-function FadeIn({ children, className = '', delay = 0 }) {
-  const reduceMotion = useReducedMotion()
-
-  return (
-    <MotionDiv
-      className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </MotionDiv>
-  )
-}
-
-function Terminal() {
-  const [input, setInput] = useState('')
-  const [currentPath, setCurrentPath] = useState('/')
-  const [history, setHistory] = useState([
-    { type: 'system', lines: ['Portfolio shell v1.0.0', 'Type "help" to see available commands.'] },
-  ])
-  const inputRef = useRef(null)
-  const bodyRef = useRef(null)
-
-  useEffect(() => {
-    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: 'smooth' })
-  }, [history])
-
-  const runCommand = (event) => {
-    event.preventDefault()
-    const rawCommand = input.trim()
-    const command = rawCommand.toLowerCase()
-
-    if (!rawCommand) return
-    if (command === 'clear') {
-      setHistory([])
-      setInput('')
-      return
-    }
-
-    const { lines, nextPath } = getTerminalLines(rawCommand, currentPath)
-    setHistory((current) => [
-      ...current,
-      { type: 'command', command: rawCommand, path: currentPath, lines },
-    ])
-    setCurrentPath(nextPath)
-    setInput('')
-  }
-
-  const prompt = `visitor@luka:${getPromptPath(currentPath)}$`
-
-  return (
-    <div className="terminal-shell" onClick={() => inputRef.current?.focus()}>
-      <div className="terminal-bar">
-        <div className="terminal-dots" aria-hidden="true">
-          <span className="dot red" />
-          <span className="dot yellow" />
-          <span className="dot green" />
-        </div>
-        <span className="terminal-title">guest@portfolio: {getPromptPath(currentPath)}</span>
-        <TerminalSquare size={15} aria-hidden="true" />
-      </div>
-      <div className="terminal-body" ref={bodyRef}>
-        {history.map((entry, index) => (
-          <div className="terminal-entry" key={`${entry.type}-${index}`}>
-            {entry.command && (
-              <div className="terminal-command">
-                <span className="prompt">visitor@luka:{getPromptPath(entry.path)}$</span> {entry.command}
-              </div>
-            )}
-            {entry.lines.map((line, lineIndex) => (
-              <div
-                className={entry.type === 'system' && lineIndex === 0 ? 'terminal-highlight' : 'terminal-output'}
-                key={`${line}-${lineIndex}`}
-              >
-                {line || '\u00a0'}
-              </div>
-            ))}
-          </div>
-        ))}
-        <form className="terminal-input-row" onSubmit={runCommand}>
-          <label className="prompt" htmlFor="terminal-input">{prompt}</label>
-          <input
-            id="terminal-input"
-            ref={inputRef}
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            autoComplete="off"
-            autoCapitalize="none"
-            spellCheck="false"
-            aria-label="Terminal command"
-          />
-          <span className="terminal-cursor" aria-hidden="true" />
-        </form>
-      </div>
-    </div>
-  )
-}
-
-function ExperienceCarousel({ groups, awards = false, label = '연도별 활동과 경험' }) {
-  const trackRef = useRef(null)
-  const [progress, setProgress] = useState(0)
-  const [canGoBack, setCanGoBack] = useState(false)
-  const [canGoForward, setCanGoForward] = useState(true)
-  const dragState = useRef({ active: false, startX: 0, scrollLeft: 0 })
-
-  const updateScrollState = () => {
-    const track = trackRef.current
-    if (!track) return
-
-    const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0)
-    const nextProgress = maxScroll ? track.scrollLeft / maxScroll : 0
-    setProgress(nextProgress)
-    setCanGoBack(track.scrollLeft > 2)
-    setCanGoForward(track.scrollLeft < maxScroll - 2)
-  }
+export default function App() {
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode')
+    if (saved !== null) return JSON.parse(saved)
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  })
 
   useEffect(() => {
-    const track = trackRef.current
-    if (!track) return undefined
-
-    const resizeObserver = new ResizeObserver(updateScrollState)
-    resizeObserver.observe(track)
-
-    return () => resizeObserver.disconnect()
+    document.title = 'Luka Kim — Developer Portfolio'
   }, [])
 
-  const scrollToCard = (direction) => {
-    const track = trackRef.current
-    if (!track) return
-
-    const card = track.querySelector('.experience-card')
-    const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 16
-    const distance = (card?.getBoundingClientRect().width || track.clientWidth * 0.8) + gap
-    track.scrollBy({ left: direction * distance, behavior: 'smooth' })
-  }
-
-  const handleWheel = (event) => {
-    const track = trackRef.current
-    if (!track || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
-
-    const maxScroll = track.scrollWidth - track.clientWidth
-    const movingForward = event.deltaY > 0
-    const canMove = movingForward ? track.scrollLeft < maxScroll - 1 : track.scrollLeft > 1
-
-    if (canMove) {
-      event.preventDefault()
-      track.scrollLeft += event.deltaY
+  useEffect(() => {
+    const appLayout = document.querySelector('.app-layout')
+    if (darkMode) {
+      appLayout?.classList.add('dark')
+      appLayout?.classList.remove('light')
+    } else {
+      appLayout?.classList.add('light')
+      appLayout?.classList.remove('dark')
     }
-  }
-
-  const startDrag = (event) => {
-    if (event.pointerType === 'touch') return
-    const track = trackRef.current
-    dragState.current = {
-      active: true,
-      startX: event.clientX,
-      scrollLeft: track.scrollLeft,
-    }
-    track.setPointerCapture(event.pointerId)
-    track.classList.add('is-dragging')
-  }
-
-  const drag = (event) => {
-    if (!dragState.current.active) return
-    event.preventDefault()
-    trackRef.current.scrollLeft =
-      dragState.current.scrollLeft - (event.clientX - dragState.current.startX)
-  }
-
-  const stopDrag = (event) => {
-    const track = trackRef.current
-    if (!dragState.current.active || !track) return
-    dragState.current.active = false
-    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId)
-    track.classList.remove('is-dragging')
-  }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode))
+  }, [darkMode])
 
   return (
-    <div className="experience-carousel">
-      <div className="experience-toolbar">
-        <p><span aria-hidden="true">↔</span> SCROLL / DRAG TO EXPLORE</p>
-        <div className="experience-controls" aria-label={`${label} 탐색`}>
-          <button
-            type="button"
-            onClick={() => scrollToCard(-1)}
-            disabled={!canGoBack}
-            aria-label="이전 연도 보기"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollToCard(1)}
-            disabled={!canGoForward}
-            aria-label="다음 연도 보기"
-          >
-            →
-          </button>
-        </div>
-      </div>
+    <div className={`app-layout ${darkMode ? 'dark' : 'light'}`}>
+      {/* Header with Theme Toggle */}
+      <header className="notion-header">
+        <button
+          className="theme-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+          aria-label={darkMode ? 'Light mode' : 'Dark mode'}
+        >
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </header>
 
-      <div
-        className="experience-track"
-        ref={trackRef}
-        onScroll={updateScrollState}
-        onWheel={handleWheel}
-        onPointerDown={startDrag}
-        onPointerMove={drag}
-        onPointerUp={stopDrag}
-        onPointerCancel={stopDrag}
-        onKeyDown={(event) => {
-          if (event.key === 'ArrowLeft') scrollToCard(-1)
-          if (event.key === 'ArrowRight') scrollToCard(1)
-        }}
-        role="region"
-        aria-label={`${label}. 좌우 방향키로 탐색할 수 있습니다.`}
-        tabIndex="0"
-      >
-        {groups.map((group, groupIndex) => (
-          <article className="experience-card" key={group.year}>
-            <header>
-              <span>YEAR / {String(groupIndex + 1).padStart(2, '0')}</span>
-              <strong>{group.year}</strong>
-            </header>
-            <div className="experience-card-items">
-              {group.items.map((item) => (
-                <div className="experience-card-item" key={`${item.date}-${item.title}`}>
-                  <time>{item.date}</time>
-                  <div>
-                    <h3 className={item.award ? 'award-title' : ''}>
-                      {awards && item.award && <Trophy size={15} aria-hidden="true" />}
-                      {item.title}
-                    </h3>
-                    <p>{item.detail}</p>
+      {/* Main Content */}
+      <main className="notion-main">
+        {/* Navy Cover */}
+        <div className="notion-cover" />
+
+        {/* Content Container */}
+        <div className="notion-container">
+          {/* Profile Icon */}
+          <div className="profile-icon-wrapper">
+            <div className="profile-icon">LK</div>
+          </div>
+
+          {/* Profile Header */}
+          <section className="profile-header">
+            <h1 className="profile-name">{profile.koreanName} · {profile.name}</h1>
+            <p className="profile-subtitle">소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자</p>
+          </section>
+
+          {/* Profile Information */}
+          <section className="profile-info">
+            <div className="info-row">
+              <span className="info-icon">🏫</span>
+              <span className="info-label">학교</span>
+              <span className="info-value">{profile.school}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-icon">💻</span>
+              <span className="info-label">전공</span>
+              <span className="info-value">{profile.major}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-icon">🎯</span>
+              <span className="info-label">목표</span>
+              <span className="info-value">{profile.goal}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-icon">⌘</span>
+              <span className="info-label">GitHub</span>
+              <a href={profile.github} target="_blank" rel="noreferrer" className="info-value link">
+                @luka0116kjh
+              </a>
+            </div>
+            <div className="info-row">
+              <span className="info-icon">✉️</span>
+              <span className="info-label">연락</span>
+              <a href={`mailto:${profile.email}`} className="info-value link">
+                이메일 연결
+              </a>
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="divider" />
+
+          {/* Introduction Callout */}
+          <section className="callout-section">
+            <div className="callout">
+              <div className="callout-icon">◇</div>
+              <div className="callout-content">
+                <p>{profile.intro}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Projects Section */}
+          <section className="projects-section">
+            <h2 className="section-title">프로젝트</h2>
+            <div className="projects-grid">
+              {projects.map((project) => (
+                <div
+                  key={project.name}
+                  className="project-card"
+                  onClick={() => {
+                    if (project.link) window.open(project.link, '_blank')
+                    else if (project.storeLinks?.length) window.open(project.storeLinks[0].url, '_blank')
+                  }}
+                >
+                  <div className="project-cover" style={{ background: getProjectColor(project.name) }}>
+                    <div className="project-icon">{project.icon}</div>
+                  </div>
+                  <div className="project-body">
+                    <h3 className="project-title">{project.name}</h3>
+                    <p className="project-description">{project.description}</p>
+                    <div className="project-status">
+                      <span className={`status-badge status-${project.status}`}>{project.statusLabel}</span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          </article>
-        ))}
-      </div>
+          </section>
 
-      <div
-        className="experience-progress"
-        role="progressbar"
-        aria-label="타임라인 스크롤 진행률"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow={Math.round(progress * 100)}
-      >
-        <span style={{ transform: `scaleX(${Math.max(progress, 0.035)})` }} />
-      </div>
-    </div>
-  )
-}
-
-function SectionHeading({ eyebrow, title, description }) {
-  return (
-    <div className="section-heading">
-      <div className="eyebrow"><span>/</span> {eyebrow}</div>
-      <h2>{title}</h2>
-      {description && <p>{description}</p>}
-    </div>
-  )
-}
-
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  const closeMenu = () => setMenuOpen(false)
-
-  return (
-    <div className="site-shell">
-      <div className="background-grid" aria-hidden="true" />
-      <header className="site-header">
-        <a className="brand" href="#top" onClick={closeMenu} aria-label="Back to top">
-          <span className="brand-mark">&lt;{profile.shortName}/&gt;</span>
-          <span>{profile.name}</span>
-        </a>
-        <button
-          className="menu-button"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-label="Toggle navigation"
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
-        <nav className={menuOpen ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
-          <a href="#about" onClick={closeMenu}>About</a>
-          <a href="#history" onClick={closeMenu}>History</a>
-          <a href="#projects" onClick={closeMenu}>Projects</a>
-          <a href={profile.github} target="_blank" rel="noreferrer" className="nav-github">
-            <GithubIcon size={17} /> GitHub
-          </a>
-        </nav>
-      </header>
-
-      <main>
-        <section className="hero" id="top">
-          <div className="hero-glow" aria-hidden="true" />
-          <FadeIn className="hero-copy">
-            <div className="status-pill"><span /> AVAILABLE FOR NEW PROJECTS</div>
-            <p className="hero-greeting">Hello, I am</p>
-            <h1>{profile.name}<span>.</span></h1>
-            <p className="hero-role">
-              {profile.affiliation} <span>//</span> {profile.role}
-            </p>
-            <p className="hero-bio">{profile.bio}</p>
-            <div className="hero-actions">
-              <a className="button primary" href="#projects">
-                View projects <ArrowDown size={17} />
-              </a>
-              <a className="button secondary" href={profile.github} target="_blank" rel="noreferrer">
-                <GithubIcon size={18} /> GitHub
-              </a>
-              <a className="button secondary" href={profile.velog} target="_blank" rel="noopener noreferrer">
-                <VelogIcon size={18} /> Velog
-              </a>
+          {/* Tech Stack Section */}
+          <section className="tech-section">
+            <h2 className="section-title">기술 스택</h2>
+            <div className="tech-tags">
+              {skills.map((skill) => (
+                <span key={skill} className={`tech-badge badge-${getTechColor(skill)}`}>
+                  {skill}
+                </span>
+              ))}
             </div>
-          </FadeIn>
-          <FadeIn className="hero-terminal" delay={0.15}>
-            <Terminal />
-          </FadeIn>
-          <div className="scroll-cue" aria-hidden="true">
-            <span>SCROLL TO EXPLORE</span>
-            <ArrowDown size={14} />
-          </div>
-        </section>
+          </section>
 
-        <section className="section intro-section" id="about">
-          <FadeIn>
-            <SectionHeading
-              eyebrow="PROFILE"
-              title="호기심을 결과물로."
-              description="웹, AI, 로봇, 보안을 한 가지 길로 제한하지 않습니다. 궁금한 것을 배우고 직접 만들며, 그 과정을 기록하는 학생 개발자입니다."
-            />
-          </FadeIn>
-          <FadeIn className="skills-row" delay={0.08}>
-            {skills.map((skill) => <span key={skill}>{skill}</span>)}
-          </FadeIn>
-        </section>
+          {/* Awards Section */}
+          <section className="activities-section">
+            <h2 className="section-title">대회 · 자격</h2>
+            <div className="activities-list">
+              {awardData.map((award, index) => (
+                <div key={index} className="activity-row">
+                  <span className="activity-date">{award.date}</span>
+                  <span className="activity-title">{award.title}</span>
+                  <span className={`activity-badge badge-${award.badgeColor}`}>{award.badge}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        <section className="section history-section" id="history">
-          <FadeIn>
-            <SectionHeading
-              eyebrow="01 — ACHIEVEMENTS"
-              title="도전하며 남긴 기록"
-              description="대회와 학교 활동 속에서 아이디어를 구현하고, 끝까지 다듬으며 얻은 결과들입니다."
-            />
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <ExperienceCarousel
-              groups={achievementHistory}
-              awards
-              label="수상 및 교내 도전 기록"
-            />
-          </FadeIn>
-        </section>
+          {/* Activities Section */}
+          <section className="activities-section">
+            <h2 className="section-title">활동 · 경험</h2>
+            <div className="activities-list">
+              {activityData.map((activity, index) => (
+                <div key={index} className="activity-row">
+                  <span className="activity-date">{activity.date}</span>
+                  <span className="activity-title">{activity.title}</span>
+                  <span className={`activity-badge badge-${activity.badgeColor}`}>{activity.badge}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        <section className="section activity-section">
-          <FadeIn>
-            <SectionHeading
-              eyebrow="02 — EXPERIENCE"
-              title="활동과 경험"
-              description="교육과 컨퍼런스, 기자단, 대외활동에 참여하며 기술뿐 아니라 협업하고 기록하며 생각을 나누는 방법을 배웠습니다."
-            />
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <ExperienceCarousel groups={activities} />
-          </FadeIn>
-        </section>
+          {/* Divider */}
+          <div className="divider" />
 
-        <section className="section projects-section" id="projects">
-          <FadeIn>
-            <SectionHeading
-              eyebrow="03 — SELECTED WORK"
-              title="직접 만든 프로젝트"
-              description="학교생활의 작은 불편부터 개인적인 목표까지, 필요와 호기심에서 출발해 실제로 작동하는 서비스로 만들었습니다."
-            />
-          </FadeIn>
-          <div className="project-grid">
-            {projects.map((project, index) => {
-              const CardTag = project.storeLinks ? 'article' : 'a'
-              const cardProps = project.link
-                ? { href: project.link, target: '_blank', rel: 'noreferrer' }
-                : {}
-
-              return (
-                <FadeIn delay={index * 0.06} key={project.name}>
-                  <CardTag className={`project-card${project.storeLinks ? ' store-select-card' : ''}`} {...cardProps}>
-                  <div className={`project-icon ${project.accent}`}>
-                    <Braces size={24} />
-                  </div>
-                  <ArrowUpRight className="project-arrow" size={22} />
-                  <p className="project-index">PROJECT / {String(index + 1).padStart(2, '0')}</p>
-                  <h3>{project.name}</h3>
-                  <p className="project-description">{project.description}</p>
-                  <div className="project-stack">
-                    {project.stack.map((item) => <span key={item}>{item}</span>)}
-                  </div>
-                  {project.storeLinks && (
-                    <div className="store-choice-panel" aria-label="GHAS 알리미 다운로드 스토어 선택">
-                      {project.storeLinks.map((link) => {
-                        const StoreIcon = link.icon
-
-                        return (
-                          <a
-                            className={`store-choice ${link.tone}`}
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <StoreIcon size={18} />
-                            {link.label}
-                            <ArrowUpRight size={15} />
-                          </a>
-                        )
-                      })}
-                    </div>
-                  )}
-                  </CardTag>
-                </FadeIn>
-              )
-            })}
-          </div>
-        </section>
-
-        <section className="contact-section">
-          <FadeIn>
-            <p className="contact-kicker">LET'S MAKE SOMETHING</p>
-            <h2>호기심에서 시작해,<br /><span>작동하는 결과로 만듭니다.</span></h2>
-            <p>새로운 프로젝트, 재미있는 아이디어, 함께 배우는 기회라면 언제든 환영합니다.</p>
-            <a className="button primary" href={profile.email}>
-              Start a conversation <ArrowUpRight size={18} />
-            </a>
-          </FadeIn>
-        </section>
-      </main>
-
-      <footer>
-        <div className="footer-brand">
-          <span className="brand-mark">&lt;{profile.shortName}/&gt;</span>
-          <span>Designed & built with curiosity.</span>
+          {/* Footer */}
+          <footer className="notion-footer">
+            <p>Made with curiosity. Always learning.</p>
+            <p style={{ marginTop: '8px', fontSize: '13px', opacity: 0.6 }}>
+              <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+              {' · '}
+              <a href={profile.velog} target="_blank" rel="noreferrer">Velog</a>
+              {' · '}
+              <a href={`mailto:${profile.email}`}>Email</a>
+            </p>
+          </footer>
         </div>
-        <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-        <a href="#top">Back to top <ArrowUpRight size={14} /></a>
-      </footer>
+      </main>
     </div>
   )
+}
+
+function getProjectColor(name) {
+  const colors = {
+    'GHAS 알리미': '#e8f0ff',
+    'WAF Guard': '#f0e8ff',
+    '양문고 웹앱': '#ffe8f0',
+    'GCPT': '#e8ffe8',
+  }
+  return colors[name] || '#f0f0f0'
+}
+
+function getTechColor(skill) {
+  const colorMap = {
+    'Python': 'orange',
+    'JavaScript': 'yellow',
+    'React': 'blue',
+    'TypeScript': 'blue',
+    'Java': 'red',
+    'HTML / CSS': 'green',
+    'AI & Machine Learning': 'purple',
+    'Robotics': 'pink',
+    'Git / GitHub': 'gray',
+    'FastAPI': 'green',
+    'Node.js': 'green',
+    'Firebase': 'orange',
+    'Oracle SQL': 'red',
+    'Ghidra': 'purple',
+    'Docker': 'blue',
+    'Kotlin': 'purple',
+    'Jetpack Compose': 'blue',
+  }
+  return colorMap[skill] || 'gray'
 }
