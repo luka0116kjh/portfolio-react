@@ -8,14 +8,9 @@ const GithubIcon = ({ size = 18 }) => (
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
   >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5a12.9 12.9 0 0 0-8 0C6 2 5 2 5 2a6.6 6.6 0 0 0 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5A4.8 4.8 0 0 0 9 18v4" />
-    <path d="M9 18c-4.5 2-5-2-7-2" />
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
   </svg>
 )
 
@@ -33,6 +28,32 @@ const VelogIcon = ({ size = 18 }) => (
   >
     <path d="M6.5 7.5h3.2l2.3 7 2.3-7h3.2" />
     <path d="M9.7 7.5 12 14.5l2.3-7" />
+  </svg>
+)
+
+const GooglePlayIcon = ({ size = 18 }) => (
+  <svg
+    aria-hidden="true"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M3.609 1.05L13.499 11l9.91-9.95A1.5 1.5 0 0 0 21.5 0H2.5a1.5 1.5 0 0 0-1.5 1.5v21c0 .787.604 1.44 1.375 1.5L13.5 13 3.609 1.05Z" />
+    <path d="m13.499 11 9.91 9.95a1.5 1.5 0 0 0 1.09-.55l-9.91-9.4-1.09 0Z" opacity="0.12" />
+  </svg>
+)
+
+const AppleAppStoreIcon = ({ size = 18 }) => (
+  <svg
+    aria-hidden="true"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.3-3.14-2.53C4.25 17.12 2.94 12.29 4.7 9.26c.87-1.58 2.44-2.58 4.12-2.61 1.28-.02 2.5.87 3.35.87.86 0 2.72-1.08 4.56-.91 1.63.12 3.17.71 4.32 1.88-1.34.81-2.15 2.04-2.04 3.44.13 1.65 1.23 2.77 2.75 2.91-1.08 1.53-2.71 2.37-4.37 2.47Z" />
+    <path d="M12 2c.78 0 1.52-.12 2.23-.35-.62.82-1.05 1.78-1.05 2.85 0 .42.06.83.16 1.23-.41-.02-.83-.05-1.25-.05-1.72 0-3.37.54-4.75 1.53 1.39-2.33 3.89-3.88 6.66-3.88Z" />
   </svg>
 )
 
@@ -90,8 +111,8 @@ const projects = [
     statusLabel: '출시 완료',
     icon: '📱',
     links: [
-      { label: '📱 Android', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1' },
-      { label: '🍎 iOS', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' },
+      { label: 'Android', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason&pli=1', icon: 'GooglePlay' },
+      { label: 'iOS', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783', icon: 'AppStore' },
     ],
   },
   {
@@ -102,7 +123,7 @@ const projects = [
     statusLabel: '진행 중',
     icon: '🛡️',
     links: [
-      { label: '→ GitHub', url: 'https://github.com/luka0116kjh/waf' },
+      { label: 'GitHub', url: 'https://github.com/luka0116kjh/waf', icon: 'GitHub' },
     ],
   },
   {
@@ -113,7 +134,7 @@ const projects = [
     statusLabel: '프로젝트',
     icon: '🤖',
     links: [
-      { label: '→ GitHub', url: 'https://github.com/cksdud32/gcpt' },
+      { label: 'GitHub', url: 'https://github.com/cksdud32/gcpt', icon: 'GitHub' },
     ],
   },
 ]
@@ -174,6 +195,44 @@ const awardData = [
     title: '봉사 부문 표창',
     badge: '수상',
     badgeColor: 'teal',
+  },
+]
+
+const upcomingCompetitions = [
+  {
+    date: '2026.08.22',
+    title: '국정원 예선전',
+    time: '오전 6:30 ~ 7:30',
+    badge: '준비중',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026.08.29 ~ 30',
+    title: 'BlackHat MEA CTF 예선',
+    time: '8월 29일 오후 4:00 ~ 8월 30일 오후 4:00',
+    badge: '준비중',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026.08.29 ~ 30',
+    title: 'ASIS CTF Quals 2026',
+    time: '8월 29일 오후 11:00 ~ 8월 30일 오후 11:00',
+    badge: '준비중',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026.09.04',
+    title: '제 7회 JBU-CTF',
+    time: '종일',
+    badge: '준비중',
+    badgeColor: 'red',
+  },
+  {
+    date: '2026.09.05',
+    title: '보안캠프 본선대회',
+    time: '종일',
+    badge: '준비중',
+    badgeColor: 'red',
   },
 ]
 
@@ -378,17 +437,27 @@ export default function App() {
                     <h3 className="project-title">{project.name}</h3>
                     <p className="project-description">{project.description}</p>
                     <div className="project-links">
-                      {project.links?.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="project-link-badge"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
+                      {project.links?.map((link) => {
+                        const renderIcon = () => {
+                          if (link.icon === 'GitHub') return <GithubIcon size={14} />
+                          if (link.icon === 'GooglePlay') return <GooglePlayIcon size={14} />
+                          if (link.icon === 'AppStore') return <AppleAppStoreIcon size={14} />
+                          return null
+                        }
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="project-link-badge"
+                            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+                          >
+                            {renderIcon()}
+                            {link.label}
+                          </a>
+                        )
+                      })}
                     </div>
                     <div className="project-status">
                       <span className={`status-badge status-${project.status}`}>{project.statusLabel}</span>
@@ -441,6 +510,23 @@ export default function App() {
                   <span className="activity-date">{activity.date}</span>
                   <span className="activity-title">{activity.title}</span>
                   <span className={`activity-badge badge-${activity.badgeColor}`}>{activity.badge}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Upcoming Competitions Section */}
+          <section className="activities-section">
+            <h2 className="section-title">준비중 · 참가 예정</h2>
+            <div className="activities-list">
+              {upcomingCompetitions.map((competition, index) => (
+                <div key={index} className="activity-row">
+                  <span className="activity-date">{competition.date}</span>
+                  <div style={{ flex: 1 }}>
+                    <span className="activity-title">{competition.title}</span>
+                    <p style={{ fontSize: '12px', opacity: 0.6, marginTop: '2px' }}>{competition.time}</p>
+                  </div>
+                  <span className={`activity-badge badge-${competition.badgeColor}`}>{competition.badge}</span>
                 </div>
               ))}
             </div>
