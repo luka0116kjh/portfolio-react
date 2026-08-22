@@ -141,6 +141,13 @@ const projects = [
 
 const awardData = [
   {
+    date: '2026.08.22',
+    title: 'cce 예선전',
+    badge: '예선 15등',
+    badgeColor: 'red',
+    highlight: true,
+  },
+  {
     date: '2026.07',
     title: '정보처리산업기사 취득',
     badge: '합격',
@@ -199,13 +206,6 @@ const awardData = [
 ]
 
 const upcomingCompetitions = [
-  {
-    date: '2026.08.22',
-    title: '국정원 예선전',
-    time: '오전 6:30 ~ 7:30',
-    badge: '준비중',
-    badgeColor: 'red',
-  },
   {
     date: '2026.08.29 ~ 30',
     title: 'BlackHat MEA CTF 예선',
