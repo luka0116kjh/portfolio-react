@@ -47,6 +47,7 @@ const projects = [
 ]
 
 const awards = [
+  { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
   { date: '2026.08.22', title: 'cce 예선전', badge: '예선 15등' },
   { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
   { date: '2026', title: 'COSS 청소년 사이버 해킹방어', badge: '예선 7등' },
