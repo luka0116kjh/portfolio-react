@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from '@tailwindcss/vite';
 
-export default defineConfig({
+export default defineConfig(({ command, isPreview }) => ({
   plugins: [react(), tailwindcss()],
-  base: process.env.NODE_ENV === 'production' ? "/portfolio-react/" : "/",
-});
+  base: command === 'build' || isPreview ? "/portfolio-react/" : "/",
+}));

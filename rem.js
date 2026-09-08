@@ -1,41 +1,27 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
-const imagePath = path.join(__dirname, 'rem.png');
+const imagePath = fileURLToPath(new URL('./rem.png', import.meta.url));
 
-if (!fs.existsSync(imagePath)) {
+if (!existsSync(imagePath)) {
   console.log('❌ rem.png not found');
   process.exit(1);
 }
 
-// Try to display using available tools
-try {
-  // macOS: use imgcat if available
-  if (process.platform === 'darwin') {
-    try {
-      execSync(`which imgcat`, { stdio: 'ignore' });
-      execSync(`imgcat ${imagePath}`, { stdio: 'inherit' });
-      return;
-    } catch {}
-  }
+function openImage() {
+  const viewers = process.platform === 'darwin'
+    ? ['imgcat', 'open']
+    : process.platform === 'win32'
+      ? ['explorer.exe']
+      : ['feh', 'eog', 'display', 'xdg-open'];
 
-  // Linux: try various image viewers
-  if (process.platform === 'linux') {
-    const viewers = ['feh', 'eog', 'display'];
-    for (const viewer of viewers) {
-      try {
-        execSync(`which ${viewer}`, { stdio: 'ignore' });
-        execSync(`${viewer} ${imagePath}`, { stdio: 'inherit' });
-        return;
-      } catch {}
-    }
+  for (const viewer of viewers) {
+    const result = spawnSync(viewer, [imagePath], { stdio: 'inherit' });
+    if (!result.error && result.status === 0) return;
   }
-
-  // Fallback: just open the file
-  const opener = process.platform === 'darwin' ? 'open' : 'xdg-open';
-  execSync(`${opener} ${imagePath}`, { stdio: 'inherit' });
-} catch (err) {
   console.log(`💜 rem.png: ${imagePath}`);
 }
+
+openImage();
