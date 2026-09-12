@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
-import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, ShieldCheck, Smartphone, Sun } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, ChevronUp, Ellipsis, Moon, Sun } from 'lucide-react'
+import MacTerminal from './MacTerminal.jsx'
+import ProjectShowcase from './ProjectShowcase.jsx'
+import './Portfolio.css'
 
 const profile = {
   name: 'Luka',
@@ -25,11 +28,10 @@ const skillCategories = [
 
 const projects = [
   {
+    id: 'ghas',
     name: 'GHAS 알리미',
     description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.',
     category: '학교생활 · 모바일 앱',
-    icon: Smartphone,
-    color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300',
     tags: ['Android', 'iOS', 'NEIS API'],
     links: [
       { label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' },
@@ -37,22 +39,20 @@ const projects = [
     ],
   },
   {
+    id: 'waf',
     name: 'WAF Guard',
     description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.',
     category: '웹 보안 · 확장 프로그램',
-    icon: ShieldCheck,
-    color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300',
     tags: ['FastAPI', 'Chrome Extension'],
     links: [
       { label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' },
     ],
   },
   {
+    id: 'gcpt',
     name: 'GCPT',
     description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.',
     category: 'AI · 협업 프로젝트',
-    icon: BrainCircuit,
-    color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
     tags: ['AI Debate', '시각화'],
     links: [
       { label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' },
@@ -102,12 +102,12 @@ function RecordList({ items, highlightFirst = false, tone = 'blue' }) {
     : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
 
   return (
-    <ul className="bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+    <ul className="record-list">
       {items.map((award, index) => (
         <li
           key={award.title}
           className={`record-row px-5 sm:px-6 py-5 border-b border-gray-200 dark:border-gray-800 last:border-0 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-            highlightFirst && index === 0 ? 'bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500' : ''
+            highlightFirst && index === 0 ? 'record-highlight' : ''
           }`}
         >
           <span className="text-sm font-semibold text-gray-500 dark:text-gray-400" aria-label={award.date ? undefined : '연도 미기재'}>{award.date || '—'}</span>
@@ -144,14 +144,15 @@ export default function App() {
   }, [isDark])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
+    <div className="portfolio-page min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
       <a className="skip-link" href="#main">본문으로 바로가기</a>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
+        <div className="portfolio-container py-3 flex items-center justify-between gap-4 flex-wrap">
           <a href="#top" className="font-bold text-lg tracking-tight min-h-11 inline-flex items-center">Luka<span className="text-blue-600 dark:text-blue-400">.</span></a>
           <nav aria-label="주요 메뉴" className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 dark:text-gray-300 order-3 w-full justify-between sm:order-none sm:w-auto">
             <a href="#projects" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">프로젝트</a>
+            <a href="#about" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">소개</a>
             <a href="#awards" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">대회·자격</a>
             <a href="#activities" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">활동</a>
           </nav>
@@ -169,125 +170,60 @@ export default function App() {
 
       {/* Main Content */}
       <main id="main" tabIndex={-1} className="flex-1">
-        {/* Hero Cover */}
-        <div id="top" aria-hidden="true" className="h-32 sm:h-40 bg-gradient-to-br from-blue-50 via-gray-100 to-slate-200 dark:from-slate-900 dark:via-slate-800 dark:to-dark-bg relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 dark:opacity-5" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto px-6 pb-16">
-          {/* Profile */}
-          <div className="relative -mt-14 mb-6 flex flex-col items-center">
-            <div className="w-24 h-24 rounded-2xl bg-gray-200 dark:bg-gray-800 border-4 border-white dark:border-dark-bg flex items-center justify-center text-3xl font-bold shadow-lg">
-              LK
+        <div className="portfolio-container pb-16">
+          <section id="top" className="portfolio-hero" aria-labelledby="hero-heading">
+            <div className="hero-copy">
+              <p className="hero-identity"><span className="identity-dot" aria-hidden="true" />{profile.koreanName} · {profile.name}<span className="hero-role">학생 개발자</span></p>
+              <h1 id="hero-heading">생활 속 불편을<br /><span>코드로 해결합니다.</span></h1>
+              <p className="hero-description">학교생활을 돕는 앱을 만들고,<br className="hidden sm:block" /> 웹 보안과 AI를 프로젝트로 탐구합니다.</p>
+              <div className="hero-actions">
+                <a href="#projects" className="primary-link">프로젝트 둘러보기<ArrowDown size={16} aria-hidden="true" /></a>
+                <a href={`mailto:${profile.email}`} className="text-link">연락하기<ArrowUpRight size={16} aria-hidden="true" /></a>
+              </div>
             </div>
-          </div>
+            <aside className="hero-focus" aria-label="관심 분야와 대표 프로젝트">
+              <p className="section-eyebrow">BUILD. EXPLORE. LEARN.</p>
+              {[
+                { id: 'ghas', area: '앱 개발', name: 'GHAS 알리미' },
+                { id: 'waf', area: '웹 보안', name: 'WAF Guard' },
+                { id: 'gcpt', area: 'AI 실험', name: 'GCPT' },
+              ].map((item, index) => (
+                <a key={item.id} href={`#project-${item.id}`} className="focus-link">
+                  <span className="focus-number">0{index + 1}</span>
+                  <span><strong>{item.area}</strong><span>{item.name}</span></span>
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+              ))}
+            </aside>
+          </section>
 
-          {/* Profile Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl sm:text-5xl font-black mb-4 tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-              {profile.koreanName} · {profile.name}
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
-              소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 mt-6">
-              <a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-5 py-3 text-sm font-semibold transition-colors">프로젝트 보기 <ArrowDown size={16} aria-hidden="true" /></a>
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-5 py-3 text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">연락하기 <ArrowUpRight size={16} aria-hidden="true" /></a>
+          <ProjectShowcase projects={projects} github={profile.github} />
+
+          <section id="about" aria-labelledby="about-heading" className="portfolio-section about-section">
+            <div className="section-heading">
+              <div><p className="section-eyebrow">ABOUT ME</p><h2 id="about-heading">만들면서 배우는 사람</h2></div>
+              <span className="section-note">웹 · AI · 보안, 그리고 호기심</span>
             </div>
-          </div>
-
-          {/* Info Grid */}
-          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 sm:p-8 mb-8">
-            <dl className="profile-details space-y-4 text-sm leading-relaxed">
-              <div>
-                <dt>학교</dt>
-                <dd className="font-medium">{profile.school}</dd>
-              </div>
-              <div>
-                <dt>전공</dt>
-                <dd className="font-medium">{profile.major}</dd>
-              </div>
-              <div>
-                <dt>목표</dt>
-                <dd className="font-medium">{profile.goal}</dd>
-              </div>
-              <div>
-                <dt>GitHub</dt>
-                <dd><a href={profile.github} target="_blank" rel="noreferrer" className="text-blue-700 dark:text-blue-400 underline underline-offset-4 font-medium">
-                  @luka0116kjh
-                </a></dd>
-              </div>
-              <div>
-                <dt>이메일</dt>
-                <dd><a href={`mailto:${profile.email}`} className="text-blue-700 dark:text-blue-400 underline underline-offset-4 font-medium">
-                  {profile.email}
-                </a></dd>
-              </div>
+            <MacTerminal profile={profile} skillCategories={skillCategories} />
+            <dl className="about-details">
+              <div><dt>학교</dt><dd>{profile.school}</dd></div>
+              <div><dt>전공</dt><dd>{profile.major}</dd></div>
+              <div><dt>목표</dt><dd>{profile.goal}</dd></div>
+              <div><dt>GitHub</dt><dd><a href={profile.github} target="_blank" rel="noreferrer">@luka0116kjh<ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
+              <div><dt>이메일</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
             </dl>
-          </div>
-
-          {/* Intro Callout */}
-          <div className="bg-gray-900 dark:bg-gray-800 border border-gray-700 rounded-2xl p-5 sm:p-8 mb-12">
-            <div className="flex gap-5 items-start">
-              <span className="text-2xl text-blue-400 flex-shrink-0 mt-1">◇</span>
-              <p className="text-gray-200 dark:text-gray-300 text-base leading-relaxed font-medium">
-                {profile.bio}
-              </p>
-            </div>
-          </div>
-
-          {/* Projects */}
-          <section id="projects" aria-labelledby="projects-heading" className="mb-16">
-            <h2 id="projects-heading" className="text-3xl font-bold mb-3 text-gray-900 dark:text-white">프로젝트</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8">생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.</p>
-            <div className="grid md:grid-cols-3 gap-5">
-              {projects.map((p) => {
-                const ProjectIcon = p.icon
-                return (
-                <article key={p.name} className="flex flex-col bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-blue-500 transition-colors">
-                  <div aria-hidden="true" className={`h-28 flex items-center justify-center ${p.color}`}>
-                    <ProjectIcon size={40} strokeWidth={1.5} />
-                  </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{p.category}</p>
-                    <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">{p.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{p.description}</p>
-                    <ul aria-label={`${p.name} 기술 및 분야`} className="flex flex-wrap gap-2 mt-auto mb-5">
-                      {p.tags.map((tag) => <li key={tag} className="text-xs text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1">{tag}</li>)}
-                    </ul>
-                    <div className="flex flex-wrap gap-2">
-                      {p.links.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`${p.name} ${link.label} (새 탭)`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold min-h-11 px-3 py-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900 border border-gray-300 dark:border-gray-700 hover:border-blue-500 transition-colors"
-                        >
-                          {link.label}
-                          <ArrowUpRight size={14} aria-hidden="true" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              )})}
-            </div>
           </section>
 
           {/* Tech Stack */}
-          <section id="stack" className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">기술 스택</h2>
+          <section id="stack" aria-labelledby="stack-heading" className="portfolio-section">
+            <div className="section-heading"><div><p className="section-eyebrow">TOOLBOX</p><h2 id="stack-heading">프로젝트에 사용하는 도구들</h2></div></div>
             <div className="grid md:grid-cols-2 gap-8">
               {skillCategories.map((cat) => (
                 <div key={cat.name}>
                   <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">{cat.name}</h3>
                   <div className="flex flex-wrap gap-3">
                     {cat.items.map((skill) => (
-                      <span key={skill} className="px-4 py-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-300 dark:border-blue-700 text-sm font-medium hover:-translate-y-1 transition-transform cursor-default">
+                      <span key={skill} className="stack-tag">
                         {skill}
                       </span>
                     ))}
@@ -298,9 +234,9 @@ export default function App() {
           </section>
 
           {/* Awards */}
-          <section id="awards" aria-labelledby="awards-heading" className="mb-16">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-              <h2 id="awards-heading" className="text-3xl font-bold text-gray-900 dark:text-white">대회 · 자격</h2>
+          <section id="awards" aria-labelledby="awards-heading" className="portfolio-section">
+            <div className="section-heading">
+              <div><p className="section-eyebrow">MILESTONES</p><h2 id="awards-heading">대회 · 자격</h2></div>
               <button
                 type="button"
                 aria-expanded={showMoreAwards}
@@ -322,9 +258,9 @@ export default function App() {
           </section>
 
           {/* Activities */}
-          <section id="activities" aria-labelledby="activities-heading" className="mb-16">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-              <h2 id="activities-heading" className="text-3xl font-bold text-gray-900 dark:text-white">활동</h2>
+          <section id="activities" aria-labelledby="activities-heading" className="portfolio-section">
+            <div className="section-heading">
+              <div><p className="section-eyebrow">EXPERIENCE</p><h2 id="activities-heading">활동</h2></div>
               <button
                 type="button"
                 aria-expanded={showMoreActivities}
@@ -346,19 +282,19 @@ export default function App() {
           </section>
 
           {/* Blog */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">배우고 기록하기</h2>
+          <section className="portfolio-section" aria-labelledby="journal-heading">
+            <div className="section-heading"><div><p className="section-eyebrow">NOTES</p><h2 id="journal-heading">배우고 기록하기</h2></div></div>
             <a
               href={profile.velog}
               target="_blank"
               rel="noreferrer"
-              className="flex gap-5 items-start p-6 bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 hover:translate-x-1"
+              className="journal-link"
             >
-              <span className="text-4xl flex-shrink-0">📝</span>
               <div>
                 <h3 className="font-bold text-gray-900 dark:text-white mb-1">Velog 기술 블로그</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">개발, 보안, AI 관련 기술 글</p>
               </div>
+              <ArrowUpRight size={24} aria-hidden="true" />
             </a>
           </section>
 
