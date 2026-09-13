@@ -40,7 +40,7 @@ const projects = [
   },
   {
     id: 'lhlinux',
-    name: 'lhoLinux',
+    name: 'lhLinux',
     description: '누구나 설치하고 개선할 수 있는 Ubuntu 24.04 LTS 기반 오픈소스 WSL2 CLI 배포판 프로젝트입니다.',
     category: 'linux · CLI · ubuntu',
     tags: ['WSL2', 'CLI', 'Ubuntu'],
