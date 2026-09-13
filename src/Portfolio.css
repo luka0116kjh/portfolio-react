@@ -72,12 +72,10 @@
 .dark .ghas-screenshots figcaption { color: #acc4e7; }
 .project-preview-bar { display: flex; align-items: center; gap: 8px; padding: 0 20px; height: 40px; font-size: 11px; font-weight: 500; }
 .preview-status { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: currentColor; opacity: 0.7; }
-.waf-visual { background: #1f1f1f; color: #e0e1e6; }
-.waf-visual .project-preview-bar { background: #2a2c30; }
-.waf-screenshot { height: 240px; overflow: hidden; }
-.waf-screenshot img { width: 100%; height: auto; transform: translateY(-6.5%); }
-.waf-visual > figcaption, .gcpt-visual > figcaption { padding: 12px 20px; font-size: 11px; line-height: 1.5; }
-.waf-visual > figcaption { color: #b5b9c2; border-top: 1px solid #35363a; }
+.lhlinux-visual { background: #000; color: #d4d4d8; }
+.lhlinux-visual > img { display: block; width: 100%; height: 240px; object-fit: cover; }
+.lhlinux-visual > figcaption, .gcpt-visual > figcaption { padding: 12px 20px; font-size: 11px; line-height: 1.5; }
+.lhlinux-visual > figcaption { border-top: 1px solid #252525; color: #b5b9c2; }
 .gcpt-visual { background: #e7eee9; color: #284536; }
 .dark .gcpt-visual { background: #16271f; color: #c2dacc; }
 .gcpt-visual .project-preview-bar { border-bottom: 1px solid rgb(57 92 70 / 14%); }

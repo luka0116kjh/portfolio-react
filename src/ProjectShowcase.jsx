@@ -1,7 +1,7 @@
 import { ArrowUpRight, ArrowDown } from 'lucide-react'
 import timetableImage from './assets/projects/ghas-timetable.jpg'
 import scheduleImage from './assets/projects/ghas-schedule.jpg'
-import wafImage from './assets/정보.png'
+import lhlinuxLogo from './assets/projects/lhlinux-logo.png'
 
 function ProjectDetails({ project, number }) {
   return (
@@ -42,12 +42,11 @@ function ProjectVisual({ id }) {
     )
   }
 
-  if (id === 'waf') {
+  if (id === 'lhlinux') {
     return (
-      <figure className="project-visual waf-visual">
-        <div className="project-preview-bar"><span className="preview-status" aria-hidden="true" />ZeroScan Sentinel</div>
-        <div className="waf-screenshot"><img src={wafImage} alt="웹페이지 상단에 위험 감지 경고를 표시하는 ZeroScan Sentinel 확장 프로그램" width={1077} height={1782} loading="lazy" decoding="async" /></div>
-        <figcaption>브라우저에서 확인하는 웹 위험 알림</figcaption>
+      <figure className="project-visual lhlinux-visual">
+        <img src={lhlinuxLogo} alt="lhlinux 로고" width={2172} height={724} loading="lazy" decoding="async" />
+        <figcaption>Ubuntu 기반 오픈소스 WSL2 CLI 환경</figcaption>
       </figure>
     )
   }

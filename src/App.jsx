@@ -7,14 +7,14 @@ import './Portfolio.css'
 const profile = {
   name: 'Luka',
   koreanName: '김진형',
-  role: 'Programmer & Builder',
+  role: 'Programmer & Builder & Hacker',
   bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
   github: 'https://github.com/luka0116kjh',
   velog: 'https://velog.io/@luka0116kjh/posts',
   email: 'kjh08116@naver.com',
   school: '경기자동차과학고등학교 3학년',
   major: '미래자동차과',
-  goal: '소프트웨어 엔지니어 / AI 엔지니어',
+  goal: '소프트웨어 엔지니어 / AI 엔지니어 / 해커',
 }
 
 const skillCategories = [
@@ -39,13 +39,13 @@ const projects = [
     ],
   },
   {
-    id: 'waf',
-    name: 'WAF Guard',
-    description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.',
-    category: '웹 보안 · 확장 프로그램',
-    tags: ['FastAPI', 'Chrome Extension'],
+    id: 'lhlinux',
+    name: 'lhoLinux',
+    description: '누구나 설치하고 개선할 수 있는 Ubuntu 24.04 LTS 기반 오픈소스 WSL2 CLI 배포판 프로젝트입니다.',
+    category: 'linux · CLI · ubuntu',
+    tags: ['WSL2', 'CLI', 'Ubuntu'],
     links: [
-      { label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' },
+      { label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' },
     ],
   },
   {
@@ -185,7 +185,7 @@ export default function App() {
               <p className="section-eyebrow">BUILD. EXPLORE. LEARN.</p>
               {[
                 { id: 'ghas', area: '앱 개발', name: 'GHAS 알리미' },
-                { id: 'waf', area: '웹 보안', name: 'WAF Guard' },
+                { id: 'lhlinux', area: '개발 환경', name: 'lhoLinux' },
                 { id: 'gcpt', area: 'AI 실험', name: 'GCPT' },
               ].map((item, index) => (
                 <a key={item.id} href={`#project-${item.id}`} className="focus-link">
