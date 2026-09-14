@@ -185,7 +185,7 @@ export default function App() {
               <p className="section-eyebrow">BUILD. EXPLORE. LEARN.</p>
               {[
                 { id: 'ghas', area: '앱 개발', name: 'GHAS 알리미' },
-                { id: 'lhlinux', area: '개발 환경', name: 'lhoLinux' },
+                { id: 'lhlinux', area: '개발 환경', name: 'lhLinux' },
                 { id: 'gcpt', area: 'AI 실험', name: 'GCPT' },
               ].map((item, index) => (
                 <a key={item.id} href={`#project-${item.id}`} className="focus-link">
