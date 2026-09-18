@@ -152,3 +152,10 @@
   .site-footer > div > p:nth-child(2) { order: 3; flex-basis: 100%; }
   .site-footer a { margin-left: auto; }
 }
+.language-toggle { min-width: 36px; min-height: 44px; color: var(--portfolio-muted); font-family: var(--portfolio-mono); font-size: 12px; cursor: pointer; }
+.language-toggle:hover { color: var(--portfolio-ink); }
+@media (max-width: 540px) {
+  .header-inner { flex-wrap: wrap; gap: 0 10px; padding-top: 8px; }
+  .header-inner nav { order: 4; width: 100%; justify-content: space-between; }
+  .language-toggle { margin-left: auto; }
+}
