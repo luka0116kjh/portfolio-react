@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0a0a0a" />
     <meta name="description" content="김진형(Luka)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="김진형 · Luka | 개발 포트폴리오" />
@@ -12,13 +12,13 @@
     <title>김진형 · Luka | 개발 포트폴리오</title>
     <script>
       (() => {
-        let dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        let dark = true
         try {
           const saved = localStorage.getItem('darkMode')
           if (saved === 'true' || saved === 'false') dark = saved === 'true'
         } catch { /* Use the system theme when storage is unavailable. */ }
         document.documentElement.classList.toggle('dark', dark)
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#08090b' : '#ffffff'
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#0a0a0a' : '#fafafa'
       })()
     </script>
   </head>

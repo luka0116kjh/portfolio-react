@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowDown, ArrowUpRight, ChevronUp, Ellipsis, Moon, Sun } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, ChevronUp, Plus, Moon, Sun } from 'lucide-react'
 import MacTerminal from './MacTerminal.jsx'
 import ProjectShowcase from './ProjectShowcase.jsx'
 import './Portfolio.css'
@@ -96,31 +96,31 @@ const moreActivities = [
   { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
 ]
 
-function RecordList({ items, highlightFirst = false, tone = 'blue' }) {
-  const badgeColors = tone === 'purple'
-    ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800'
-    : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
-
+function RecordList({ items }) {
   return (
     <ul className="record-list">
-      {items.map((award, index) => (
-        <li
-          key={award.title}
-          className={`record-row px-5 sm:px-6 py-5 border-b border-gray-200 dark:border-gray-800 last:border-0 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-            highlightFirst && index === 0 ? 'record-highlight' : ''
-          }`}
-        >
-          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400" aria-label={award.date ? undefined : '연도 미기재'}>{award.date || '—'}</span>
-          <div className="record-title text-sm text-gray-900 dark:text-white font-medium">
-            <p>{award.title}</p>
-            {award.detail && <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">{award.detail}</p>}
-          </div>
-          <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border whitespace-nowrap ${badgeColors}`}>
-            {award.badge}
-          </span>
+      {items.map((item) => (
+        <li key={item.title} className="record-row">
+          <span className="record-date" aria-label={item.date ? undefined : '연도 미기재'}>{item.date || '—'}</span>
+          <div className="record-title"><p>{item.title}</p>{item.detail && <p className="record-detail">{item.detail}</p>}</div>
+          <span className="record-badge">{item.badge}</span>
         </li>
       ))}
     </ul>
+  )
+}
+
+function SectionHeading({ id, children, aside }) {
+  return <div className="section-heading"><h2 id={id}>{children}</h2><span className="heading-line" aria-hidden="true" />{aside}</div>
+}
+
+function MoreButton({ expanded, onClick, target, count, label }) {
+  return (
+    <button type="button" className="more-button" aria-expanded={expanded} aria-controls={target}
+      aria-label={expanded ? `추가 ${label} 기록 접기` : `추가 ${label} 기록 ${count}개 더 보기`} onClick={onClick}>
+      {expanded ? <ChevronUp size={15} aria-hidden="true" /> : <Plus size={15} aria-hidden="true" />}
+      {expanded ? '접기' : `더 보기 (${count})`}
+    </button>
   )
 }
 
@@ -131,186 +131,91 @@ export default function App() {
     try {
       const saved = localStorage.getItem('darkMode')
       if (saved === 'true' || saved === 'false') return saved === 'true'
-    } catch { /* Fall back to the system theme if storage is unavailable. */ }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+    } catch { /* Theme switching works without storage. */ }
+    return true
   })
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark)
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#08090b' : '#ffffff')
-    try {
-      localStorage.setItem('darkMode', JSON.stringify(isDark))
-    } catch { /* Theme switching still works without persistent storage. */ }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#0a0a0a' : '#fafafa')
+    try { localStorage.setItem('darkMode', JSON.stringify(isDark)) } catch { /* Storage is optional. */ }
   }, [isDark])
 
   return (
-    <div className="portfolio-page min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
+    <div className="portfolio-page">
       <a className="skip-link" href="#main">본문으로 바로가기</a>
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-        <div className="portfolio-container py-3 flex items-center justify-between gap-4 flex-wrap">
-          <a href="#top" className="font-bold text-lg tracking-tight min-h-11 inline-flex items-center">Luka<span className="text-blue-600 dark:text-blue-400">.</span></a>
-          <nav aria-label="주요 메뉴" className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 dark:text-gray-300 order-3 w-full justify-between sm:order-none sm:w-auto">
-            <a href="#projects" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">프로젝트</a>
-            <a href="#about" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">소개</a>
-            <a href="#awards" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">대회·자격</a>
-            <a href="#activities" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">활동</a>
+      <header className="site-header">
+        <div className="portfolio-container header-inner">
+          <a href="#top" className="site-logo" aria-label="Luka 홈"><span aria-hidden="true">◆</span> luka</a>
+          <nav aria-label="주요 메뉴">
+            <a href="#about">소개</a><a href="#stack">기술</a><a href="#projects">프로젝트</a><a href="#contact">연락처</a>
           </nav>
-          <button
-            type="button"
-            onClick={() => setIsDark((current) => !current)}
-            aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-            title={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-            className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
-          >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          <button type="button" className="theme-toggle" onClick={() => setIsDark((current) => !current)}
+            aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'} title={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}>
+            {isDark ? <Sun size={17} /> : <Moon size={17} />}
           </button>
         </div>
       </header>
+      <main id="main" tabIndex={-1} className="portfolio-container">
+        <section id="top" className="portfolio-hero" aria-labelledby="hero-heading">
+          <p className="hero-kicker">안녕하세요, 저는</p>
+          <h1 id="hero-heading">Luka<span>예요.</span></h1>
+          <p className="hero-tagline">만들고, 탐구하고, 배웁니다<span className="hero-period">.</span></p>
+          <p className="hero-description">생활 속 작은 불편을 코드로 해결하는 학생 개발자 김진형입니다.{' '}<br className="desktop-break" />
+            <strong>직접 쓸 수 있는 도구</strong>를 만들고, <strong>웹 보안과 AI</strong>를 탐구하며<br className="desktop-break" /> 배운 것들을 프로젝트와 글로 남깁니다.</p>
+          <div className="hero-actions">
+            <a href="#projects" className="primary-link">프로젝트 보기<ArrowDown size={16} aria-hidden="true" /></a>
+            <a href="#contact" className="outline-link">contact <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
 
-      {/* Main Content */}
-      <main id="main" tabIndex={-1} className="flex-1">
-        <div className="portfolio-container pb-16">
-          <section id="top" className="portfolio-hero" aria-labelledby="hero-heading">
-            <div className="hero-copy">
-              <p className="hero-identity"><span className="identity-dot" aria-hidden="true" />{profile.koreanName} · {profile.name}<span className="hero-role">학생 개발자</span></p>
-              <h1 id="hero-heading">생활 속 불편을<br /><span>코드로 해결합니다.</span></h1>
-              <p className="hero-description">학교생활을 돕는 앱을 만들고,<br className="hidden sm:block" /> 웹 보안과 AI를 프로젝트로 탐구합니다.</p>
-              <div className="hero-actions">
-                <a href="#projects" className="primary-link">프로젝트 둘러보기<ArrowDown size={16} aria-hidden="true" /></a>
-                <a href={`mailto:${profile.email}`} className="text-link">연락하기<ArrowUpRight size={16} aria-hidden="true" /></a>
-              </div>
-            </div>
-            <aside className="hero-focus" aria-label="관심 분야와 대표 프로젝트">
-              <p className="section-eyebrow">BUILD. EXPLORE. LEARN.</p>
-              {[
-                { id: 'ghas', area: '앱 개발', name: 'GHAS 알리미' },
-                { id: 'lhlinux', area: '개발 환경', name: 'lhLinux' },
-                { id: 'gcpt', area: 'AI 실험', name: 'GCPT' },
-              ].map((item, index) => (
-                <a key={item.id} href={`#project-${item.id}`} className="focus-link">
-                  <span className="focus-number">0{index + 1}</span>
-                  <span><strong>{item.area}</strong><span>{item.name}</span></span>
-                  <ArrowUpRight size={18} aria-hidden="true" />
-                </a>
-              ))}
-            </aside>
-          </section>
+        <section id="about" aria-labelledby="about-heading" className="portfolio-section about-section">
+          <SectionHeading id="about-heading">소개</SectionHeading>
+          <div className="about-intro">
+            <div className="about-prose"><p>{profile.bio}</p><p>학교생활을 돕는 <strong>GHAS 알리미</strong>부터 오픈소스 Linux 환경, AI 토론 시각화까지. 궁금한 것을 직접 만들며 제 관심사의 범위를 넓혀가고 있습니다.</p><p className="about-location">South Korea <span>·</span> UTC+9</p></div>
+            <dl className="about-facts"><div><dt>학교</dt><dd>{profile.school}</dd></div><div><dt>전공</dt><dd>{profile.major}</dd></div><div><dt>목표</dt><dd>{profile.goal}</dd></div></dl>
+          </div>
+          <MacTerminal profile={profile} skillCategories={skillCategories} />
+        </section>
 
-          <ProjectShowcase projects={projects} github={profile.github} />
+        <section id="stack" aria-labelledby="stack-heading" className="portfolio-section">
+          <SectionHeading id="stack-heading">주로 쓰는 기술</SectionHeading>
+          <div className="stack-grid">{skillCategories.map((category) => (
+            <div className="stack-group" key={category.name}><h3>{category.name}</h3><ul className="stack-items">{category.items.map((skill) => <li key={skill}>{skill}</li>)}</ul></div>
+          ))}</div>
+        </section>
 
-          <section id="about" aria-labelledby="about-heading" className="portfolio-section about-section">
-            <div className="section-heading">
-              <div><p className="section-eyebrow">ABOUT ME</p><h2 id="about-heading">만들면서 배우는 사람</h2></div>
-              <span className="section-note">웹 · AI · 보안, 그리고 호기심</span>
-            </div>
-            <MacTerminal profile={profile} skillCategories={skillCategories} />
-            <dl className="about-details">
-              <div><dt>학교</dt><dd>{profile.school}</dd></div>
-              <div><dt>전공</dt><dd>{profile.major}</dd></div>
-              <div><dt>목표</dt><dd>{profile.goal}</dd></div>
-              <div><dt>GitHub</dt><dd><a href={profile.github} target="_blank" rel="noreferrer">@luka0116kjh<ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
-              <div><dt>이메일</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={14} aria-hidden="true" /></a></dd></div>
-            </dl>
-          </section>
+        <ProjectShowcase projects={projects} github={profile.github} />
 
-          {/* Tech Stack */}
-          <section id="stack" aria-labelledby="stack-heading" className="portfolio-section">
-            <div className="section-heading"><div><p className="section-eyebrow">TOOLBOX</p><h2 id="stack-heading">프로젝트에 사용하는 도구들</h2></div></div>
-            <div className="grid md:grid-cols-2 gap-8">
-              {skillCategories.map((cat) => (
-                <div key={cat.name}>
-                  <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">{cat.name}</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {cat.items.map((skill) => (
-                      <span key={skill} className="stack-tag">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
+        <section id="awards" aria-labelledby="awards-heading" className="portfolio-section">
+          <SectionHeading id="awards-heading" aside={<MoreButton expanded={showMoreAwards} onClick={() => setShowMoreAwards((v) => !v)} target="more-awards" count={moreAwards.length} label="대회·수상" />}>대회 · 자격</SectionHeading>
+          <RecordList items={awards} />
+          <div id="more-awards" role="region" aria-label="더 많은 대회·수상 기록" hidden={!showMoreAwards}><RecordList items={moreAwards} /></div>
+        </section>
 
-          {/* Awards */}
-          <section id="awards" aria-labelledby="awards-heading" className="portfolio-section">
-            <div className="section-heading">
-              <div><p className="section-eyebrow">MILESTONES</p><h2 id="awards-heading">대회 · 자격</h2></div>
-              <button
-                type="button"
-                aria-expanded={showMoreAwards}
-                aria-controls="more-awards"
-                aria-label={showMoreAwards ? '추가 대회·수상 기록 접기' : `추가 대회·수상 기록 ${moreAwards.length}개 더 보기`}
-                onClick={() => setShowMoreAwards((current) => !current)}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                {showMoreAwards ? <ChevronUp size={18} aria-hidden="true" /> : <Ellipsis size={18} aria-hidden="true" />}
-                {showMoreAwards ? '접기' : '더 보기'}
-                <span className="rounded-md bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 text-xs">{moreAwards.length}</span>
-              </button>
-            </div>
-            <RecordList items={awards} highlightFirst />
-            <div id="more-awards" role="region" aria-labelledby="more-awards-heading" hidden={!showMoreAwards} className="mt-6">
-              <h3 id="more-awards-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">더 많은 대회·수상 기록</h3>
-              <RecordList items={moreAwards} />
-            </div>
-          </section>
+        <section id="activities" aria-labelledby="activities-heading" className="portfolio-section">
+          <SectionHeading id="activities-heading" aside={<MoreButton expanded={showMoreActivities} onClick={() => setShowMoreActivities((v) => !v)} target="more-activities" count={moreActivities.length} label="활동" />}>활동</SectionHeading>
+          <RecordList items={activities} />
+          <div id="more-activities" role="region" aria-label="더 많은 활동·경험 기록" hidden={!showMoreActivities}><RecordList items={moreActivities} /></div>
+        </section>
 
-          {/* Activities */}
-          <section id="activities" aria-labelledby="activities-heading" className="portfolio-section">
-            <div className="section-heading">
-              <div><p className="section-eyebrow">EXPERIENCE</p><h2 id="activities-heading">활동</h2></div>
-              <button
-                type="button"
-                aria-expanded={showMoreActivities}
-                aria-controls="more-activities"
-                aria-label={showMoreActivities ? '추가 활동 기록 접기' : `추가 활동 기록 ${moreActivities.length}개 더 보기`}
-                onClick={() => setShowMoreActivities((current) => !current)}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                {showMoreActivities ? <ChevronUp size={18} aria-hidden="true" /> : <Ellipsis size={18} aria-hidden="true" />}
-                {showMoreActivities ? '접기' : '더 보기'}
-                <span className="rounded-md bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 text-xs">{moreActivities.length}</span>
-              </button>
-            </div>
-            <RecordList items={activities} tone="purple" />
-            <div id="more-activities" role="region" aria-labelledby="more-activities-heading" hidden={!showMoreActivities} className="mt-6">
-              <h3 id="more-activities-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">더 많은 활동·경험 기록</h3>
-              <RecordList items={moreActivities} tone="purple" />
-            </div>
-          </section>
+        <section className="portfolio-section" aria-labelledby="journal-heading">
+          <SectionHeading id="journal-heading">배우고 기록하기</SectionHeading>
+          <a href={profile.velog} target="_blank" rel="noreferrer" className="journal-link"><div><h3>Velog 기술 블로그</h3><p>개발, 보안, AI를 탐구하며 배운 것들을 기록합니다.</p></div><ArrowUpRight size={20} aria-hidden="true" /></a>
+        </section>
 
-          {/* Blog */}
-          <section className="portfolio-section" aria-labelledby="journal-heading">
-            <div className="section-heading"><div><p className="section-eyebrow">NOTES</p><h2 id="journal-heading">배우고 기록하기</h2></div></div>
-            <a
-              href={profile.velog}
-              target="_blank"
-              rel="noreferrer"
-              className="journal-link"
-            >
-              <div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-1">Velog 기술 블로그</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">개발, 보안, AI 관련 기술 글</p>
-              </div>
-              <ArrowUpRight size={24} aria-hidden="true" />
-            </a>
-          </section>
-
-          {/* Footer */}
-          <footer className="text-center py-8 border-t border-gray-200 dark:border-gray-800">
-            <p className="text-gray-600 dark:text-gray-400 font-medium mb-3">Made with curiosity. Always learning.</p>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-blue-500 border-b border-blue-500">GitHub</a>
-              {' · '}
-              <a href={profile.velog} target="_blank" rel="noreferrer" className="hover:text-blue-500 border-b border-blue-500">Velog</a>
-              {' · '}
-              <a href={`mailto:${profile.email}`} className="hover:text-blue-500 border-b border-blue-500">Email</a>
-            </div>
-          </footer>
-        </div>
+        <section id="contact" className="portfolio-section contact-section" aria-labelledby="contact-heading">
+          <SectionHeading id="contact-heading">연락하기</SectionHeading>
+          <p className="contact-copy">함께 만들고 싶은 프로젝트가 있나요?<br />개발 이야기부터 가벼운 인사까지, 편하게 연락해 주세요.</p>
+          <a className="outline-link contact-cta" href={`mailto:${profile.email}`}>인사 보내기 <span aria-hidden="true">→</span></a>
+          <ul className="social-links">
+            <li><a href={profile.github} target="_blank" rel="noreferrer"><span>GitHub</span><span>@luka0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+            <li><a href={`mailto:${profile.email}`}><span>Email</span><span>{profile.email}</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+            <li><a href={profile.velog} target="_blank" rel="noreferrer"><span>Velog</span><span>@luka0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+          </ul>
+        </section>
       </main>
+      <footer className="site-footer"><div className="portfolio-container"><p>© {new Date().getFullYear()} Luka</p><p>Made with curiosity. Always learning.</p><a href="#top">맨 위로 ↑</a></div></footer>
     </div>
   )
 }
