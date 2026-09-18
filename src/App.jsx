@@ -1,102 +1,119 @@
 import { useState, useEffect } from 'react'
 import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, ShieldCheck, Smartphone, Sun } from 'lucide-react'
 
-const profile = {
-  name: 'Luka',
-  koreanName: '김진형',
-  role: 'Programmer & Builder',
-  bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
-  github: 'https://github.com/luka0116kjh',
-  velog: 'https://velog.io/@luka0116kjh/posts',
-  email: 'kjh08116@naver.com',
-  school: '경기자동차과학고등학교 3학년',
-  major: '미래자동차과',
-  goal: '소프트웨어 엔지니어 / AI 엔지니어',
+const translations = {
+  ko: {
+    languageLabel: 'English version',
+    languageButton: 'EN',
+    skipLink: '본문으로 바로가기',
+    navLabel: '주요 메뉴',
+    nav: { projects: '프로젝트', awards: '대회·자격', activities: '활동' },
+    profile: {
+      name: 'Luka', koreanName: '김진형',
+      github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
+      bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
+      subtitle: '소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자',
+      schoolLabel: '학교', school: '경기자동차과학고등학교 3학년',
+      majorLabel: '전공', major: '미래자동차과',
+      goalLabel: '목표', goal: '소프트웨어 엔지니어 / AI 엔지니어',
+      githubLabel: 'GitHub', emailLabel: '이메일',
+    },
+    sections: {
+      projects: '프로젝트', projectsDescription: '생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.',
+      stack: '기술 스택', awards: '대회 · 자격', activities: '활동', blog: '배우고 기록하기',
+      blogTitle: 'Velog 기술 블로그', blogDescription: '개발, 보안, AI 관련 기술 글',
+    },
+    skills: [
+      { name: '언어', items: ['Python', 'JavaScript', 'TypeScript', 'Java'] },
+      { name: '웹 프론트엔드', items: ['React', 'HTML', 'CSS'] },
+      { name: '앱 개발', items: ['Jetpack Compose'] },
+      { name: '백엔드', items: ['FastAPI', 'Node.js', 'Firebase'] },
+      { name: '보안 & AI', items: ['Ghidra', 'AI & ML', 'Robotics'] },
+      { name: '개발 도구', items: ['Docker', 'GitHub'] },
+    ],
+    projects: [
+      { name: 'GHAS 알리미', description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.', category: '학교생활 · 모바일 앱', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
+      { name: 'WAF Guard', description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.', category: '웹 보안 · 확장 프로그램', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
+      { name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
+    ],
+    awards: [
+      { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
+      { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
+      { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
+      { date: '2026', title: 'COSS 청소년 사이버 해킹방어', badge: '예선 7등' },
+    ],
+    moreAwards: [
+      { date: '2026', title: '사이버가디언즈 CMX', badge: '팀별 18등' }, { date: '2026', title: 'SCA CTF', badge: '본선 20등' },
+      { title: '총장배 로봇 프로그래밍 경진대회', badge: '3등' }, { title: '현대오토에버 화이트해커 경진대회', badge: '입상' },
+      { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' }, { title: '교내 포트폴리오 경진대회', badge: '3등', detail: '1·2학년 연속 수상' }, { title: '봉사 부문 표창', badge: '수상' },
+    ],
+    activities: [
+      { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' }, { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' }, { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
+    ],
+    moreActivities: [
+      { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' }, { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
+      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: '컨퍼런스' }, { date: '2026', title: '.HACK 컨퍼런스', badge: '컨퍼런스' },
+      { date: '2025', title: '현대오토에버 고교생 IT 꿈나무 화이트해커', badge: '교육' }, { date: '2024–2026', title: '학생기자단과 학교 블로그', badge: '기자단' },
+      { date: '2024–2025', title: '청소년운영위원회 정책부', badge: '위원' }, { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
+      { date: '2024', title: '네이버 청소년 크리에이터 스쿨', badge: '교육' }, { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
+    ],
+    labels: { moreAwards: '더 많은 대회·수상 기록', moreActivities: '더 많은 활동·경험 기록', more: '더 보기', collapse: '접기', unknownDate: '연도 미기재', newTab: '새 탭' },
+  },
+  en: {
+    languageLabel: '한국어 버전',
+    languageButton: '한',
+    skipLink: 'Skip to main content',
+    navLabel: 'Primary navigation',
+    nav: { projects: 'Projects', awards: 'Awards & Certifications', activities: 'Activities' },
+    profile: {
+      name: 'Luka', koreanName: 'Jinhyeong Kim',
+      github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
+      bio: 'Hi, I’m Jinhyeong Kim. I grow by building, breaking, and learning again. I turn my curiosity about the web, AI, robotics, and security into hands-on projects.',
+      subtitle: 'Student developer exploring software, AI, and cybersecurity',
+      schoolLabel: 'School', school: 'Gyeonggi Automotive Science High School · Senior',
+      majorLabel: 'Major', major: 'Future Automotive Engineering',
+      goalLabel: 'Goal', goal: 'Software Engineer / AI Engineer',
+      githubLabel: 'GitHub', emailLabel: 'Email',
+    },
+    sections: {
+      projects: 'Projects', projectsDescription: 'A selection of things I have built or contributed to—from apps that solve everyday problems to web security and AI experiments.',
+      stack: 'Tech Stack', awards: 'Awards & Certifications', activities: 'Activities', blog: 'Learn & Share',
+      blogTitle: 'Velog Tech Blog', blogDescription: 'Technical writing on development, security, and AI',
+    },
+    skills: [
+      { name: 'Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java'] }, { name: 'Web Frontend', items: ['React', 'HTML', 'CSS'] },
+      { name: 'App Development', items: ['Jetpack Compose'] }, { name: 'Backend', items: ['FastAPI', 'Node.js', 'Firebase'] },
+      { name: 'Security & AI', items: ['Ghidra', 'AI & ML', 'Robotics'] }, { name: 'Developer Tools', items: ['Docker', 'GitHub'] },
+    ],
+    projects: [
+      { name: 'GHAS Alimi', description: 'A daily-life support app for students at Gyeonggi Automotive Science High School, bringing school meals and schedules together.', category: 'Student life · Mobile app', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
+      { name: 'WAF Guard', description: 'A project that connects a FastAPI analysis server with a Chrome extension to detect web threats in real time.', category: 'Web security · Extension', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
+      { name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
+    ],
+    awards: [
+      { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' }, { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
+      { date: '2026.07', title: 'Industrial Engineer Information Processing', badge: 'Passed' }, { date: '2026', title: 'COSS Youth Cyber Defense', badge: '7th in qualifiers' },
+    ],
+    moreAwards: [
+      { date: '2026', title: 'Cyber Guardians CMX', badge: '18th by team' }, { date: '2026', title: 'SCA CTF', badge: '20th in finals' },
+      { title: 'Presidential Robot Programming Contest', badge: '3rd place' }, { title: 'Hyundai AutoEver White Hat Hacker Contest', badge: 'Award winner' },
+      { title: 'Future Algorithm Contest', badge: '2nd place' }, { title: 'School Portfolio Contest', badge: '3rd place', detail: 'Awarded in both freshman and sophomore years' }, { title: 'Volunteer Service Award', badge: 'Awarded' },
+    ],
+    activities: [
+      { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' }, { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' }, { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
+    ],
+    moreActivities: [
+      { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' }, { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },
+      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: 'Conference' }, { date: '2026', title: '.HACK Conference', badge: 'Conference' },
+      { date: '2025', title: 'Hyundai AutoEver High School White Hat Hacker Program', badge: 'Training' }, { date: '2024–2026', title: 'Student Press & School Blog', badge: 'Student press' },
+      { date: '2024–2025', title: 'Youth Operations Committee · Policy Division', badge: 'Committee member' }, { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
+      { date: '2024', title: 'Naver Youth Creator School', badge: 'Training' }, { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
+    ],
+    labels: { moreAwards: 'More awards & certifications', moreActivities: 'More activities & experience', more: 'Show more', collapse: 'Collapse', unknownDate: 'Date not listed', newTab: 'opens in a new tab' },
+  },
 }
 
-const skillCategories = [
-  { name: '언어', items: ['Python', 'JavaScript', 'TypeScript', 'Java'] },
-  { name: '웹 프론트엔드', items: ['React', 'HTML', 'CSS'] },
-  { name: '앱 개발', items: ['Jetpack Compose'] },
-  { name: '백엔드', items: ['FastAPI', 'Node.js', 'Firebase'] },
-  { name: '보안 & AI', items: ['Ghidra', 'AI & ML', 'Robotics'] },
-  { name: '개발 도구', items: ['Docker', 'GitHub'] },
-]
-
-const projects = [
-  {
-    name: 'GHAS 알리미',
-    description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.',
-    category: '학교생활 · 모바일 앱',
-    icon: Smartphone,
-    color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300',
-    tags: ['Android', 'iOS', 'NEIS API'],
-    links: [
-      { label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' },
-      { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' },
-    ],
-  },
-  {
-    name: 'WAF Guard',
-    description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.',
-    category: '웹 보안 · 확장 프로그램',
-    icon: ShieldCheck,
-    color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300',
-    tags: ['FastAPI', 'Chrome Extension'],
-    links: [
-      { label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' },
-    ],
-  },
-  {
-    name: 'GCPT',
-    description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.',
-    category: 'AI · 협업 프로젝트',
-    icon: BrainCircuit,
-    color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
-    tags: ['AI Debate', '시각화'],
-    links: [
-      { label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' },
-    ],
-  },
-]
-
-const awards = [
-  { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
-  { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
-  { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
-  { date: '2026', title: 'COSS 청소년 사이버 해킹방어', badge: '예선 7등' },
-]
-
-const moreAwards = [
-  { date: '2026', title: '사이버가디언즈 CMX', badge: '팀별 18등' },
-  { date: '2026', title: 'SCA CTF', badge: '본선 20등' },
-  { title: '총장배 로봇 프로그래밍 경진대회', badge: '3등' },
-  { title: '현대오토에버 화이트해커 경진대회', badge: '입상' },
-  { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' },
-  { title: '교내 포트폴리오 경진대회', badge: '3등', detail: '1·2학년 연속 수상' },
-  { title: '봉사 부문 표창', badge: '수상' },
-]
-
-const activities = [
-  { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' },
-  { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' },
-  { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
-]
-
-const moreActivities = [
-  { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
-  { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
-  { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: '컨퍼런스' },
-  { date: '2026', title: '.HACK 컨퍼런스', badge: '컨퍼런스' },
-  { date: '2025', title: '현대오토에버 고교생 IT 꿈나무 화이트해커', badge: '교육' },
-  { date: '2024–2026', title: '학생기자단과 학교 블로그', badge: '기자단' },
-  { date: '2024–2025', title: '청소년운영위원회 정책부', badge: '위원' },
-  { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
-  { date: '2024', title: '네이버 청소년 크리에이터 스쿨', badge: '교육' },
-  { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
-]
-
-function RecordList({ items, highlightFirst = false, tone = 'blue' }) {
+function RecordList({ items, highlightFirst = false, tone = 'blue', unknownDateLabel }) {
   const badgeColors = tone === 'purple'
     ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800'
     : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
@@ -110,7 +127,7 @@ function RecordList({ items, highlightFirst = false, tone = 'blue' }) {
             highlightFirst && index === 0 ? 'bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500' : ''
           }`}
         >
-          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400" aria-label={award.date ? undefined : '연도 미기재'}>{award.date || '—'}</span>
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400" aria-label={award.date ? undefined : unknownDateLabel}>{award.date || '—'}</span>
           <div className="record-title text-sm text-gray-900 dark:text-white font-medium">
             <p>{award.title}</p>
             {award.detail && <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">{award.detail}</p>}
@@ -127,6 +144,13 @@ function RecordList({ items, highlightFirst = false, tone = 'blue' }) {
 export default function App() {
   const [showMoreAwards, setShowMoreAwards] = useState(false)
   const [showMoreActivities, setShowMoreActivities] = useState(false)
+  const [language, setLanguage] = useState(() => {
+    try {
+      return localStorage.getItem('language') === 'en' ? 'en' : 'ko'
+    } catch {
+      return 'ko'
+    }
+  })
   const [isDark, setIsDark] = useState(() => {
     try {
       const saved = localStorage.getItem('darkMode')
@@ -143,23 +167,65 @@ export default function App() {
     } catch { /* Theme switching still works without persistent storage. */ }
   }, [isDark])
 
+  const t = translations[language]
+  const { profile, projects, skills, awards, moreAwards, activities, moreActivities, sections, labels } = {
+    ...t,
+    profile: t.profile,
+    projects: t.projects,
+    skills: t.skills,
+    awards: t.awards,
+    moreAwards: t.moreAwards,
+    activities: t.activities,
+    moreActivities: t.moreActivities,
+    sections: t.sections,
+    labels: t.labels,
+  }
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    document.title = language === 'en' ? 'Jinhyeong Kim · Luka | Developer Portfolio' : '김진형 · Luka | 개발 포트폴리오'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', language === 'en'
+      ? 'Jinhyeong Kim (Luka)\'s developer portfolio featuring projects in software, AI, web security, and robotics.'
+      : '김진형(Luka)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다.')
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', language === 'en'
+      ? 'A student developer turning curiosity into projects across software, AI, and cybersecurity.'
+      : '호기심을 프로젝트로 만드는 학생 개발자. 웹·AI·보안 프로젝트와 성장의 기록.')
+    try {
+      localStorage.setItem('language', language)
+    } catch { /* Language switching still works without persistent storage. */ }
+  }, [language])
+
   return (
     <div className="min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
-      <a className="skip-link" href="#main">본문으로 바로가기</a>
+      <a className="skip-link" href="#main">{t.skipLink}</a>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-5 sm:px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
           <a href="#top" className="font-bold text-lg tracking-tight min-h-11 inline-flex items-center">Luka<span className="text-blue-600 dark:text-blue-400">.</span></a>
-          <nav aria-label="주요 메뉴" className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 dark:text-gray-300 order-3 w-full justify-between sm:order-none sm:w-auto">
-            <a href="#projects" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">프로젝트</a>
-            <a href="#awards" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">대회·자격</a>
-            <a href="#activities" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">활동</a>
+          <nav aria-label={t.navLabel} className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 dark:text-gray-300 order-3 w-full justify-between sm:order-none sm:w-auto">
+            <a href="#projects" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">{t.nav.projects}</a>
+            <a href="#awards" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">{t.nav.awards}</a>
+            <a href="#activities" className="py-2 hover:text-blue-600 dark:hover:text-blue-400">{t.nav.activities}</a>
           </nav>
           <button
             type="button"
+            onClick={() => setLanguage((current) => current === 'ko' ? 'en' : 'ko')}
+            aria-label={t.languageLabel}
+            title={t.languageLabel}
+            className="min-w-11 min-h-11 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-sm font-bold"
+          >
+            {t.languageButton}
+          </button>
+          <button
+            type="button"
             onClick={() => setIsDark((current) => !current)}
-            aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-            title={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+            aria-label={isDark
+              ? (language === 'en' ? 'Switch to light mode' : '라이트 모드로 전환')
+              : (language === 'en' ? 'Switch to dark mode' : '다크 모드로 전환')}
+            title={isDark
+              ? (language === 'en' ? 'Switch to light mode' : '라이트 모드로 전환')
+              : (language === 'en' ? 'Switch to dark mode' : '다크 모드로 전환')}
             className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -190,11 +256,11 @@ export default function App() {
               {profile.koreanName} · {profile.name}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
-              소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자
+              {profile.subtitle}
             </p>
             <div className="flex flex-wrap justify-center gap-3 mt-6">
-              <a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-5 py-3 text-sm font-semibold transition-colors">프로젝트 보기 <ArrowDown size={16} aria-hidden="true" /></a>
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-5 py-3 text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">연락하기 <ArrowUpRight size={16} aria-hidden="true" /></a>
+              <a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-5 py-3 text-sm font-semibold transition-colors">{language === 'en' ? 'View projects' : '프로젝트 보기'} <ArrowDown size={16} aria-hidden="true" /></a>
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-5 py-3 text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">{language === 'en' ? 'Get in touch' : '연락하기'} <ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
           </div>
 
@@ -202,15 +268,15 @@ export default function App() {
           <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 sm:p-8 mb-8">
             <dl className="profile-details space-y-4 text-sm leading-relaxed">
               <div>
-                <dt>학교</dt>
+                <dt>{profile.schoolLabel}</dt>
                 <dd className="font-medium">{profile.school}</dd>
               </div>
               <div>
-                <dt>전공</dt>
+                <dt>{profile.majorLabel}</dt>
                 <dd className="font-medium">{profile.major}</dd>
               </div>
               <div>
-                <dt>목표</dt>
+                <dt>{profile.goalLabel}</dt>
                 <dd className="font-medium">{profile.goal}</dd>
               </div>
               <div>
@@ -220,7 +286,7 @@ export default function App() {
                 </a></dd>
               </div>
               <div>
-                <dt>이메일</dt>
+                <dt>{profile.emailLabel}</dt>
                 <dd><a href={`mailto:${profile.email}`} className="text-blue-700 dark:text-blue-400 underline underline-offset-4 font-medium">
                   {profile.email}
                 </a></dd>
@@ -240,8 +306,8 @@ export default function App() {
 
           {/* Projects */}
           <section id="projects" aria-labelledby="projects-heading" className="mb-16">
-            <h2 id="projects-heading" className="text-3xl font-bold mb-3 text-gray-900 dark:text-white">프로젝트</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8">생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.</p>
+            <h2 id="projects-heading" className="text-3xl font-bold mb-3 text-gray-900 dark:text-white">{sections.projects}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8">{sections.projectsDescription}</p>
             <div className="grid md:grid-cols-3 gap-5">
               {projects.map((p) => {
                 const ProjectIcon = p.icon
@@ -254,7 +320,7 @@ export default function App() {
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{p.category}</p>
                     <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">{p.name}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{p.description}</p>
-                    <ul aria-label={`${p.name} 기술 및 분야`} className="flex flex-wrap gap-2 mt-auto mb-5">
+                    <ul aria-label={`${p.name} ${language === 'en' ? 'technologies and areas' : '기술 및 분야'}`} className="flex flex-wrap gap-2 mt-auto mb-5">
                       {p.tags.map((tag) => <li key={tag} className="text-xs text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1">{tag}</li>)}
                     </ul>
                     <div className="flex flex-wrap gap-2">
@@ -264,7 +330,7 @@ export default function App() {
                           href={link.url}
                           target="_blank"
                           rel="noreferrer"
-                          aria-label={`${p.name} ${link.label} (새 탭)`}
+                          aria-label={`${p.name} ${link.label} (${labels.newTab})`}
                           className="inline-flex items-center gap-1 text-xs font-semibold min-h-11 px-3 py-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900 border border-gray-300 dark:border-gray-700 hover:border-blue-500 transition-colors"
                         >
                           {link.label}
@@ -280,9 +346,9 @@ export default function App() {
 
           {/* Tech Stack */}
           <section id="stack" className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">기술 스택</h2>
+            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">{sections.stack}</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {skillCategories.map((cat) => (
+              {skills.map((cat) => (
                 <div key={cat.name}>
                   <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">{cat.name}</h3>
                   <div className="flex flex-wrap gap-3">
@@ -300,54 +366,54 @@ export default function App() {
           {/* Awards */}
           <section id="awards" aria-labelledby="awards-heading" className="mb-16">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-              <h2 id="awards-heading" className="text-3xl font-bold text-gray-900 dark:text-white">대회 · 자격</h2>
+              <h2 id="awards-heading" className="text-3xl font-bold text-gray-900 dark:text-white">{sections.awards}</h2>
               <button
                 type="button"
                 aria-expanded={showMoreAwards}
                 aria-controls="more-awards"
-                aria-label={showMoreAwards ? '추가 대회·수상 기록 접기' : `추가 대회·수상 기록 ${moreAwards.length}개 더 보기`}
+                aria-label={showMoreAwards ? labels.collapse : `${labels.moreAwards} ${moreAwards.length}`}
                 onClick={() => setShowMoreAwards((current) => !current)}
                 className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {showMoreAwards ? <ChevronUp size={18} aria-hidden="true" /> : <Ellipsis size={18} aria-hidden="true" />}
-                {showMoreAwards ? '접기' : '더 보기'}
+                {showMoreAwards ? labels.collapse : labels.more}
                 <span className="rounded-md bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 text-xs">{moreAwards.length}</span>
               </button>
             </div>
-            <RecordList items={awards} highlightFirst />
+            <RecordList items={awards} highlightFirst unknownDateLabel={labels.unknownDate} />
             <div id="more-awards" role="region" aria-labelledby="more-awards-heading" hidden={!showMoreAwards} className="mt-6">
-              <h3 id="more-awards-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">더 많은 대회·수상 기록</h3>
-              <RecordList items={moreAwards} />
+              <h3 id="more-awards-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">{labels.moreAwards}</h3>
+              <RecordList items={moreAwards} unknownDateLabel={labels.unknownDate} />
             </div>
           </section>
 
           {/* Activities */}
           <section id="activities" aria-labelledby="activities-heading" className="mb-16">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-              <h2 id="activities-heading" className="text-3xl font-bold text-gray-900 dark:text-white">활동</h2>
+              <h2 id="activities-heading" className="text-3xl font-bold text-gray-900 dark:text-white">{sections.activities}</h2>
               <button
                 type="button"
                 aria-expanded={showMoreActivities}
                 aria-controls="more-activities"
-                aria-label={showMoreActivities ? '추가 활동 기록 접기' : `추가 활동 기록 ${moreActivities.length}개 더 보기`}
+                aria-label={showMoreActivities ? labels.collapse : `${labels.moreActivities} ${moreActivities.length}`}
                 onClick={() => setShowMoreActivities((current) => !current)}
                 className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {showMoreActivities ? <ChevronUp size={18} aria-hidden="true" /> : <Ellipsis size={18} aria-hidden="true" />}
-                {showMoreActivities ? '접기' : '더 보기'}
+                {showMoreActivities ? labels.collapse : labels.more}
                 <span className="rounded-md bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 text-xs">{moreActivities.length}</span>
               </button>
             </div>
-            <RecordList items={activities} tone="purple" />
+            <RecordList items={activities} tone="purple" unknownDateLabel={labels.unknownDate} />
             <div id="more-activities" role="region" aria-labelledby="more-activities-heading" hidden={!showMoreActivities} className="mt-6">
-              <h3 id="more-activities-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">더 많은 활동·경험 기록</h3>
-              <RecordList items={moreActivities} tone="purple" />
+              <h3 id="more-activities-heading" className="mb-3 text-sm font-semibold text-gray-600 dark:text-gray-400">{labels.moreActivities}</h3>
+              <RecordList items={moreActivities} tone="purple" unknownDateLabel={labels.unknownDate} />
             </div>
           </section>
 
           {/* Blog */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">배우고 기록하기</h2>
+            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">{sections.blog}</h2>
             <a
               href={profile.velog}
               target="_blank"
@@ -356,8 +422,8 @@ export default function App() {
             >
               <span className="text-4xl flex-shrink-0">📝</span>
               <div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-1">Velog 기술 블로그</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">개발, 보안, AI 관련 기술 글</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-1">{sections.blogTitle}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{sections.blogDescription}</p>
               </div>
             </a>
           </section>
