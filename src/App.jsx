@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, ShieldCheck, Smartphone, Sun, Terminal } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, Smartphone, Sun, Terminal } from 'lucide-react'
 import MacTerminal from './MacTerminal.jsx'
 import ProjectShowcase from './ProjectShowcase.jsx'
 import './Portfolio.css'
@@ -38,7 +38,6 @@ const translations = {
     projects: [
       { id: 'ghas', name: 'GHAS 알리미', description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.', category: '학교생활 · 모바일 앱', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
       { id: 'lhlinux', name: 'lhLinux', description: 'Ubuntu 24.04 LTS 기반의 오픈소스 WSL2 CLI 배포판으로, 누구나 설치하고 개선할 수 있는 개발 환경 프로젝트입니다.', category: 'Linux · CLI · Ubuntu', icon: Terminal, color: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
-      { id: 'waf', name: 'WAF Guard', description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.', category: '웹 보안 · 확장 프로그램', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
       { id: 'gcpt', name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
@@ -94,7 +93,6 @@ const translations = {
     projects: [
       { id: 'ghas', name: 'GHAS Alimi', description: 'A daily-life support app for students at Gyeonggi Automotive Science High School, bringing school meals and schedules together.', category: 'Student life · Mobile app', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
       { id: 'lhlinux', name: 'lhLinux', description: 'An open-source WSL2 CLI distribution based on Ubuntu 24.04 LTS, designed as a development environment anyone can install and improve.', category: 'Linux · CLI · Ubuntu', icon: Terminal, color: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
-      { id: 'waf', name: 'WAF Guard', description: 'A project that connects a FastAPI analysis server with a Chrome extension to detect web threats in real time.', category: 'Web security · Extension', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
       { id: 'gcpt', name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [

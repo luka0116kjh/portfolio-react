@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDown, ShieldCheck } from 'lucide-react'
+import { ArrowUpRight, ArrowDown } from 'lucide-react'
 import timetableImage from './assets/projects/ghas-timetable.jpg'
 import scheduleImage from './assets/projects/ghas-schedule.jpg'
 import lhlinuxLogo from './assets/projects/lhlinux-logo.png'
@@ -25,8 +25,8 @@ function ProjectDetails({ project, number, language = 'ko' }) {
 
 function ProjectVisual({ id, language = 'ko' }) {
   const copy = language === 'en'
-      ? { app: 'GHAS Alimi', tagline: 'School life in one place.', timetable: "Today's timetable", schedule: 'This month\'s schedule', linux: 'Open-source WSL2 CLI environment based on Ubuntu', web: 'Real-time web threat detection', gcptBar: 'GCPT / project flow', discussion: 'A discussion from different perspectives', result: 'Reasoning flow analysis', resultDetail: 'Visualizing how ideas develop', gcptCaption: 'Connecting and exploring answers from multiple AIs.' }
-    : { app: 'GHAS 알리미', tagline: '학교생활을 한곳에.', timetable: '오늘의 시간표', schedule: '이번 달 일정', linux: 'Ubuntu 기반 오픈소스 WSL2 CLI 환경', web: '웹 위험을 실시간으로 감지', gcptBar: 'GCPT / 프로젝트 흐름', discussion: '서로 다른 관점의 토론', result: '추론 흐름 분석', resultDetail: '생각이 발전하는 과정을 시각화', gcptCaption: '여러 AI의 답변을 연결하고 탐구합니다.' }
+      ? { app: 'GHAS Alimi', tagline: 'School life in one place.', timetable: "Today's timetable", schedule: 'This month\'s schedule', linux: 'Open-source WSL2 CLI environment based on Ubuntu', gcptBar: 'GCPT / project flow', discussion: 'A discussion from different perspectives', result: 'Reasoning flow analysis', resultDetail: 'Visualizing how ideas develop', gcptCaption: 'Connecting and exploring answers from multiple AIs.' }
+    : { app: 'GHAS 알리미', tagline: '학교생활을 한곳에.', timetable: '오늘의 시간표', schedule: '이번 달 일정', linux: 'Ubuntu 기반 오픈소스 WSL2 CLI 환경', gcptBar: 'GCPT / 프로젝트 흐름', discussion: '서로 다른 관점의 토론', result: '추론 흐름 분석', resultDetail: '생각이 발전하는 과정을 시각화', gcptCaption: '여러 AI의 답변을 연결하고 탐구합니다.' }
   if (id === 'ghas') {
     return (
       <div className="project-visual ghas-visual">
@@ -50,15 +50,6 @@ function ProjectVisual({ id, language = 'ko' }) {
       <figure className="project-visual lhlinux-visual">
         <img src={lhlinuxLogo} alt="lhlinux 로고" width={2172} height={724} loading="lazy" decoding="async" />
         <figcaption>{copy.linux}</figcaption>
-      </figure>
-    )
-  }
-
-  if (id === 'waf') {
-    return (
-      <figure className="project-visual lhlinux-visual waf-visual">
-        <ShieldCheck size={72} strokeWidth={1.2} aria-hidden="true" />
-        <figcaption>{copy.web}</figcaption>
       </figure>
     )
   }
