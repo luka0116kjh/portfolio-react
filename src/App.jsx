@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
-import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, ShieldCheck, Smartphone, Sun } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, BrainCircuit, ChevronUp, Ellipsis, Moon, ShieldCheck, Smartphone, Sun, Terminal } from 'lucide-react'
+import MacTerminal from './MacTerminal.jsx'
+import ProjectShowcase from './ProjectShowcase.jsx'
+import './Portfolio.css'
 
 const translations = {
   ko: {
@@ -10,6 +13,7 @@ const translations = {
     nav: { projects: '프로젝트', awards: '대회·자격', activities: '활동' },
     profile: {
       name: 'Luka', koreanName: '김진형',
+      role: 'Programmer & Builder & Hacker',
       github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
       bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
       subtitle: '소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자',
@@ -19,7 +23,7 @@ const translations = {
       githubLabel: 'GitHub', emailLabel: '이메일',
     },
     sections: {
-      projects: '프로젝트', projectsDescription: '생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.',
+      projects: '프로젝트', projectsDescription: '생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.', showcaseTitle: '직접 만들고, 함께 만든 것들', githubMore: 'GitHub에서 더 보기',
       stack: '기술 스택', awards: '대회 · 자격', activities: '활동', blog: '배우고 기록하기',
       blogTitle: 'Velog 기술 블로그', blogDescription: '개발, 보안, AI 관련 기술 글',
     },
@@ -32,9 +36,10 @@ const translations = {
       { name: '개발 도구', items: ['Docker', 'GitHub'] },
     ],
     projects: [
-      { name: 'GHAS 알리미', description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.', category: '학교생활 · 모바일 앱', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
-      { name: 'WAF Guard', description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.', category: '웹 보안 · 확장 프로그램', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
-      { name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
+      { id: 'ghas', name: 'GHAS 알리미', description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.', category: '학교생활 · 모바일 앱', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
+      { id: 'lhlinux', name: 'lhLinux', description: 'Ubuntu 24.04 LTS 기반의 오픈소스 WSL2 CLI 배포판으로, 누구나 설치하고 개선할 수 있는 개발 환경 프로젝트입니다.', category: 'Linux · CLI · Ubuntu', icon: Terminal, color: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
+      { id: 'waf', name: 'WAF Guard', description: 'FastAPI 분석 서버와 Chrome 확장 프로그램을 연결해 웹 위험을 실시간으로 감지하는 프로젝트입니다.', category: '웹 보안 · 확장 프로그램', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
+      { id: 'gcpt', name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
       { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
@@ -67,6 +72,7 @@ const translations = {
     nav: { projects: 'Projects', awards: 'Awards & Certifications', activities: 'Activities' },
     profile: {
       name: 'Luka', koreanName: 'Jinhyeong Kim',
+      role: 'Programmer & Builder & Hacker',
       github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
       bio: 'Hi, I’m Jinhyeong Kim. I grow by building, breaking, and learning again. I turn my curiosity about the web, AI, robotics, and security into hands-on projects.',
       subtitle: 'Student developer exploring software, AI, and cybersecurity',
@@ -76,7 +82,7 @@ const translations = {
       githubLabel: 'GitHub', emailLabel: 'Email',
     },
     sections: {
-      projects: 'Projects', projectsDescription: 'A selection of things I have built or contributed to—from apps that solve everyday problems to web security and AI experiments.',
+      projects: 'Projects', projectsDescription: 'A selection of things I have built or contributed to—from apps that solve everyday problems to web security and AI experiments.', showcaseTitle: 'Things I have built and contributed to', githubMore: 'More on GitHub',
       stack: 'Tech Stack', awards: 'Awards & Certifications', activities: 'Activities', blog: 'Learn & Share',
       blogTitle: 'Velog Tech Blog', blogDescription: 'Technical writing on development, security, and AI',
     },
@@ -86,9 +92,10 @@ const translations = {
       { name: 'Security & AI', items: ['Ghidra', 'AI & ML', 'Robotics'] }, { name: 'Developer Tools', items: ['Docker', 'GitHub'] },
     ],
     projects: [
-      { name: 'GHAS Alimi', description: 'A daily-life support app for students at Gyeonggi Automotive Science High School, bringing school meals and schedules together.', category: 'Student life · Mobile app', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
-      { name: 'WAF Guard', description: 'A project that connects a FastAPI analysis server with a Chrome extension to detect web threats in real time.', category: 'Web security · Extension', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
-      { name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
+      { id: 'ghas', name: 'GHAS Alimi', description: 'A daily-life support app for students at Gyeonggi Automotive Science High School, bringing school meals and schedules together.', category: 'Student life · Mobile app', icon: Smartphone, color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
+      { id: 'lhlinux', name: 'lhLinux', description: 'An open-source WSL2 CLI distribution based on Ubuntu 24.04 LTS, designed as a development environment anyone can install and improve.', category: 'Linux · CLI · Ubuntu', icon: Terminal, color: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
+      { id: 'waf', name: 'WAF Guard', description: 'A project that connects a FastAPI analysis server with a Chrome extension to detect web threats in real time.', category: 'Web security · Extension', icon: ShieldCheck, color: 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300', tags: ['FastAPI', 'Chrome Extension'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/waf' }] },
+      { id: 'gcpt', name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', icon: BrainCircuit, color: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
       { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' }, { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
@@ -197,7 +204,7 @@ export default function App() {
   }, [language])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
+    <div className="portfolio-page min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-white transition-colors">
       <a className="skip-link" href="#main">{t.skipLink}</a>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
@@ -304,45 +311,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* Projects */}
-          <section id="projects" aria-labelledby="projects-heading" className="mb-16">
-            <h2 id="projects-heading" className="text-3xl font-bold mb-3 text-gray-900 dark:text-white">{sections.projects}</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8">{sections.projectsDescription}</p>
-            <div className="grid md:grid-cols-3 gap-5">
-              {projects.map((p) => {
-                const ProjectIcon = p.icon
-                return (
-                <article key={p.name} className="flex flex-col bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-blue-500 transition-colors">
-                  <div aria-hidden="true" className={`h-28 flex items-center justify-center ${p.color}`}>
-                    <ProjectIcon size={40} strokeWidth={1.5} />
-                  </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{p.category}</p>
-                    <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">{p.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{p.description}</p>
-                    <ul aria-label={`${p.name} ${language === 'en' ? 'technologies and areas' : '기술 및 분야'}`} className="flex flex-wrap gap-2 mt-auto mb-5">
-                      {p.tags.map((tag) => <li key={tag} className="text-xs text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1">{tag}</li>)}
-                    </ul>
-                    <div className="flex flex-wrap gap-2">
-                      {p.links.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`${p.name} ${link.label} (${labels.newTab})`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold min-h-11 px-3 py-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900 border border-gray-300 dark:border-gray-700 hover:border-blue-500 transition-colors"
-                        >
-                          {link.label}
-                          <ArrowUpRight size={14} aria-hidden="true" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              )})}
-            </div>
-          </section>
+          <div className="mb-16">
+            <MacTerminal profile={profile} skillCategories={skills} />
+          </div>
+
+          <ProjectShowcase projects={projects} github={profile.github} labels={sections} language={language} />
 
           {/* Tech Stack */}
           <section id="stack" className="mb-16">
