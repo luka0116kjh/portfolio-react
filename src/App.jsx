@@ -59,10 +59,10 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.lang = language
-    document.title = language === 'en' ? 'Jinhyeong Kim · Luka | Developer Portfolio' : '김진형 · Luka | 개발 포트폴리오'
+    document.title = language === 'en' ? 'Jinhyeong Kim · Rem | Developer Portfolio' : '김진형 · Rem | 개발 포트폴리오'
     document.querySelector('meta[name="description"]')?.setAttribute('content', language === 'en'
-      ? 'Jinhyeong Kim (Luka)\'s developer portfolio featuring projects in software, AI, web security, and robotics.'
-      : '김진형(Luka)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다.')
+      ? 'Jinhyeong Kim (Rem)\'s developer portfolio featuring projects in software, AI, web security, and robotics.'
+      : '김진형(Rem)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다.')
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', language === 'en'
       ? 'A student developer turning curiosity into projects across software, AI, and cybersecurity.'
@@ -77,7 +77,7 @@ export default function App() {
       <a className="skip-link" href="#main">{t.skipLink}</a>
       <header className="site-header">
         <div className="portfolio-container header-inner">
-          <a href="#top" className="site-logo" aria-label="Luka 홈"><span aria-hidden="true">◆</span> luka</a>
+          <a href="#top" className="site-logo" aria-label="Rem 홈"><span aria-hidden="true">◆</span> Rem</a>
           <nav aria-label={t.navLabel}>
             <a href="#about">{en ? 'About' : '소개'}</a><a href="#stack">{en ? 'Stack' : '기술'}</a><a href="#projects">{t.nav.projects}</a><a href="#contact">{en ? 'Contact' : '연락처'}</a>
           </nav>
@@ -91,7 +91,7 @@ export default function App() {
       <main id="main" tabIndex={-1} className="portfolio-container">
         <section id="top" className="portfolio-hero" aria-labelledby="hero-heading">
           <p className="hero-kicker">{en ? 'Hi there, I’m' : '안녕하세요, 저는'}</p>
-          <h1 id="hero-heading">Luka<span>{en ? '.' : '예요.'}</span></h1>
+          <h1 id="hero-heading">Rem<span>{en ? '.' : '예요.'}</span></h1>
           <p className="hero-tagline">{en ? 'Build, explore, learn' : '만들고, 탐구하고, 배웁니다'}<span className="hero-period">.</span></p>
           <p className="hero-description">{en ? <>I’m Jinhyeong Kim, a student developer solving everyday problems with code. I build <strong>useful tools</strong>, explore <strong>web security and AI</strong>, and share what I learn through projects and writing.</> : <>생활 속 작은 불편을 코드로 해결하는 학생 개발자 김진형입니다.{' '}<br className="desktop-break" /><strong>직접 쓸 수 있는 도구</strong>를 만들고, <strong>웹 보안과 AI</strong>를 탐구하며<br className="desktop-break" /> 배운 것들을 프로젝트와 글로 남깁니다.</>}</p>
           <div className="hero-actions">
@@ -140,13 +140,13 @@ export default function App() {
           <p className="contact-copy">{en ? <>Have a project in mind?<br />Let’s talk about building something, or just say hello.</> : <>함께 만들고 싶은 프로젝트가 있나요?<br />개발 이야기부터 가벼운 인사까지, 편하게 연락해 주세요.</>}</p>
           <a className="outline-link contact-cta" href={`mailto:${profile.email}`}>{en ? 'Say hello' : '인사 보내기'} <span aria-hidden="true">→</span></a>
           <ul className="social-links">
-            <li><a href={profile.github} target="_blank" rel="noreferrer"><span>GitHub</span><span>@luka0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+            <li><a href={profile.github} target="_blank" rel="noreferrer"><span>GitHub</span><span>@rem0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
             <li><a href={`mailto:${profile.email}`}><span>Email</span><span>{profile.email}</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
             <li><a href={profile.velog} target="_blank" rel="noreferrer"><span>Velog</span><span>@luka0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
           </ul>
         </section>
       </main>
-      <footer className="site-footer"><div className="portfolio-container"><p>© {new Date().getFullYear()} Luka</p><p>Made with curiosity. Always learning.</p><a href="#top">{en ? 'Back to top ↑' : '맨 위로 ↑'}</a></div></footer>
+      <footer className="site-footer"><div className="portfolio-container"><p>© {new Date().getFullYear()} Rem</p><p>Made with curiosity. Always learning.</p><a href="#top">{en ? 'Back to top ↑' : '맨 위로 ↑'}</a></div></footer>
     </div>
   )
 }

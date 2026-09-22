@@ -68,13 +68,13 @@ export default function MacTerminal({ profile, skillCategories }) {
   }
 
   return (
-    <section className="mac-desktop" aria-label="터미널로 만나는 Luka">
+    <section className="mac-desktop" aria-label="터미널로 만나는 Rem">
       <div className="mac-window mac-terminal">
-        <WindowBar title="luka — zsh" icon={Terminal} />
+        <WindowBar title="Rem — zsh" icon={Terminal} />
         <div ref={logRef} className="terminal-log" role="log" aria-label="터미널 출력" tabIndex={0}>
           {history.map((entry) => (
             <div key={entry.id} className="terminal-entry">
-              <p><span className="terminal-prompt">luka@macbook</span> <span className="terminal-path">~ %</span> {entry.command}</p>
+              <p><span className="terminal-prompt">Rem@macbook</span> <span className="terminal-path">~ %</span> {entry.command}</p>
               <p className="terminal-output">{entry.output}</p>
             </div>
           ))}

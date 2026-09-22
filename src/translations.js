@@ -6,9 +6,9 @@ const translations = {
     navLabel: '주요 메뉴',
     nav: { projects: '프로젝트', awards: '대회·자격', activities: '활동' },
     profile: {
-      name: 'Luka', koreanName: '김진형',
+      name: 'Rem', koreanName: '김진형',
       role: 'Programmer & Builder & Hacker',
-      github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
+      github: 'https://github.com/rem0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
       bio: '안녕하세요. 만들고, 부수고, 다시 배우며 성장하는 김진형입니다. 웹부터 AI, 로봇, 보안까지 궁금한 것을 직접 프로젝트로 만들어 봅니다.',
       subtitle: '소프트웨어 개발 · AI · 보안을 공부하는 학생 개발자',
       schoolLabel: '학교', school: '경기자동차과학고등학교 3학년',
@@ -31,7 +31,7 @@ const translations = {
     ],
     projects: [
       { id: 'ghas', name: 'GHAS 알리미', description: '경기자동차과학고 학생들을 위한 생활 지원 앱입니다. 급식과 시간표를 한곳에서 확인할 수 있습니다.', category: '학교생활 · 모바일 앱', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
-      { id: 'lhlinux', name: 'lhLinux', description: 'Ubuntu 24.04 LTS 기반의 오픈소스 WSL2 CLI 배포판으로, 누구나 설치하고 개선할 수 있는 개발 환경 프로젝트입니다.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
+      { id: 'lhlinux', name: 'lhLinux', description: 'Ubuntu 24.04 LTS 기반의 오픈소스 WSL2 CLI 배포판으로, 누구나 설치하고 개선할 수 있는 개발 환경 프로젝트입니다.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/lhlinux' }] },
       { id: 'gcpt', name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
@@ -64,9 +64,9 @@ const translations = {
     navLabel: 'Primary navigation',
     nav: { projects: 'Projects', awards: 'Awards & Certifications', activities: 'Activities' },
     profile: {
-      name: 'Luka', koreanName: 'Jinhyeong Kim',
+      name: 'Rem', koreanName: 'Jinhyeong Kim',
       role: 'Programmer & Builder & Hacker',
-      github: 'https://github.com/luka0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
+      github: 'https://github.com/rem0116kjh', velog: 'https://velog.io/@luka0116kjh/posts', email: 'kjh08116@naver.com',
       bio: 'Hi, I’m Jinhyeong Kim. I grow by building, breaking, and learning again. I turn my curiosity about the web, AI, robotics, and security into hands-on projects.',
       subtitle: 'Student developer exploring software, AI, and cybersecurity',
       schoolLabel: 'School', school: 'Gyeonggi Automotive Science High School · Senior',
@@ -86,7 +86,7 @@ const translations = {
     ],
     projects: [
       { id: 'ghas', name: 'GHAS Alimi', description: 'A daily-life support app for students at Gyeonggi Automotive Science High School, bringing school meals and schedules together.', category: 'Student life · Mobile app', tags: ['Android', 'iOS', 'NEIS API'], links: [{ label: 'Play Store', url: 'https://play.google.com/store/apps/details?id=kr.hs.ghas.ghason' }, { label: 'App Store', url: 'https://apps.apple.com/kr/app/ghas%EC%95%8C%EB%A6%AC%EB%AF%B8/id6779186783' }] },
-      { id: 'lhlinux', name: 'lhLinux', description: 'An open-source WSL2 CLI distribution based on Ubuntu 24.04 LTS, designed as a development environment anyone can install and improve.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/luka0116kjh/lhlinux' }] },
+      { id: 'lhlinux', name: 'lhLinux', description: 'An open-source WSL2 CLI distribution based on Ubuntu 24.04 LTS, designed as a development environment anyone can install and improve.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/lhlinux' }] },
       { id: 'gcpt', name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
